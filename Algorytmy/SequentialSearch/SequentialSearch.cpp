@@ -43,6 +43,7 @@ int main()
     int Szukana;
     std::cin >> Szukana;
     std::cout << "Czy w tabeli jest szukana liczba? " << Search(Table, Rozmiar, Szukana);
+    delete[] Table;
     return 0;
     
 }
