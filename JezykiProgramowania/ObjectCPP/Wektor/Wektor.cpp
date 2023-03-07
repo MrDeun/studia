@@ -1,4 +1,4 @@
-// Wektor.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+
 //Oznaczenia 
 #include<stdio.h>
 #include<fstream>
@@ -93,7 +93,7 @@ Vector* ReadIn2(const char* file_in)
 
 }
 
-int main()
+int main(const char* filevec1, const char* filevec2)
 {
     Vector v1; Vector v2;
     const int n1 = 5; const int n2 = 10;
@@ -101,29 +101,12 @@ int main()
     for (int i = 0; i < n1; i++) v1.Val[i] = (2 * i + 1);
     for (int i = 0; i < n2; i++) v2.Val[i] = (2 * i);
     Show(&v1); Show(&v2);
-    Write1(&v1, "vector1.txt");
-    Write2(&v2, "vector2.txt");
-    Destroy(&v1);
-    Destroy(&v2);
-    Show(&v1);
-    Show(&v2);
-    Vector* w1 = ReadIn1("vector1.txt");
-    Vector* w2 = ReadIn2("vector2.txt");
+    Write1(&v1, filevec1); Write2(&v2, filevec2);
+    Destroy(&v1);Destroy(&v2);
+    Show(&v1);Show(&v2);
+    Vector* w1 = ReadIn1(filevec1);Vector* w2 = ReadIn2(filevec2);
     Show(w1); Show(w2);
     Destroy(w1); Destroy(w2);
     Show(w1); Show(w2);
-
-
     return 0;
 }
-
-// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
-// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
-
-// Porady dotyczące rozpoczynania pracy:
-//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
-//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
-//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
-//   4. Użyj okna Lista błędów, aby zobaczyć błędy
-//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
-//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
