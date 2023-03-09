@@ -16,11 +16,9 @@ public:
     Vector(const char *File_Name)
     {
         std::ifstream File(File_Name);
-
         File >> VectorCount;
         VectorValue = new float[VectorCount];
-        int LoopCounter;
-        for(;LoopCounter<VectorCount;LoopCounter++)
+        for( int LoopCounter{};LoopCounter<VectorCount;LoopCounter++)
             File>>VectorValue[LoopCounter];
     }
     ~Vector()
