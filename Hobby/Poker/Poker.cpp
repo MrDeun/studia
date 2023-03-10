@@ -13,6 +13,7 @@ struct Karta
         case 1:return "Wino";
         case 2:return "Zoladz";
         case 3:return "Diament";
+        default:return "ERROR";
         }
     }
 
@@ -26,6 +27,7 @@ struct Karta
         case 3:return "Q";
         case 4:return "K";
         case 5:return "A";
+        default:return "ERROR";
         }
     }
 
