@@ -64,49 +64,50 @@ Vector* ReadIn1(const char* file_in)
     return temp;
 }
 
-void Write2(Vector* vec_in, const char* file_out)
-{
-    FILE* File = fopen(file_out, "w");
-    fprintf(File, "%i\n", vec_in->nVal);
-    for (int i = 0; i < vec_in->nVal; i++)
-    {
-        if (i != vec_in->nVal - 1)
-            fprintf(File, "%f ", vec_in->Val[i]);
-        else
-            fprintf(File, "%f\n", vec_in->Val[i]);
-    }
-    fclose(File);
+// void Write2(Vector* vec_in, const char* file_out)
+// {
+//     FILE* File = fopen(file_out, "w");
+//     fprintf(File, "%i\n", vec_in->nVal);
+//     for (int i = 0; i < vec_in->nVal; i++)
+//     {
+//         if (i != vec_in->nVal - 1)
+//             fprintf(File, "%f ", vec_in->Val[i]);
+//         else
+//             fprintf(File, "%f\n", vec_in->Val[i]);
+//     }
+//     fclose(File);
 
-}
+// }
 
-Vector* ReadIn2(const char* file_in)
-{
-    FILE* File = fopen(file_in, "r");
-    int nVal_in;
-    fscanf(File, "%i\n", &nVal_in);
-    Vector* temp = new Vector;
-    Create(temp, nVal_in);
-    for (int i = 0; i < nVal_in; i++)
-        fscanf(File, "%f", &temp->Val[i]);
-    fclose(File);
-    return temp;
+// Vector* ReadIn2(const char* file_in)
+// {
+//     FILE* File = fopen(file_in, "r");
+//     int nVal_in;
+//     fscanf(File, "%i\n", &nVal_in);
+//     Vector* temp = new Vector;
+//     Create(temp, nVal_in);
+//     for (int i = 0; i < nVal_in; i++)
+//         fscanf(File, "%f", &temp->Val[i]);
+//     fclose(File);
+//     return temp;
 
-}
+// }
 
-int main(const char* filevec1, const char* filevec2)
+int main(const char* filevec1)
 {
     Vector v1; Vector v2;
     const int n1 = 5; const int n2 = 10;
     Create(&v1, n1); Create(&v2, n2);
     for (int i = 0; i < n1; i++) v1.Val[i] = (2 * i + 1);
     for (int i = 0; i < n2; i++) v2.Val[i] = (2 * i);
-    Show(&v1); Show(&v2);
-    Write1(&v1, filevec1); Write2(&v2, filevec2);
-    Destroy(&v1);Destroy(&v2);
-    Show(&v1);Show(&v2);
-    Vector* w1 = ReadIn1(filevec1);Vector* w2 = ReadIn2(filevec2);
-    Show(w1); Show(w2);
-    Destroy(w1); Destroy(w2);
-    Show(w1); Show(w2);
+    Show(&v1); 
+    Write1(&v1, filevec1); 
+    Destroy(&v1);
+    Show(&v1);
+    Vector* w1 = ReadIn1(filevec1);
+    Show(w1); 
+    Destroy(w1); 
+    Show(w1);
+    delete w1; 
     return 0;
 }

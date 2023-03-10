@@ -81,28 +81,24 @@ void Vector::ReadFromFile(const char *File_Name)
 }
 int main()
 {
-    // Vector Vector1(5);
-    // for (int LoopCounter = 0; LoopCounter < 5; LoopCounter++)
-    // {
-    //     Vector1.Set(LoopCounter, LoopCounter * 2.5);
-    // }
-    // Vector1.Show();
-    // Vector *Vector2 = new Vector(3);
-    // for (int i = 0; i < 3; i++)
-    // {
-    //     float Wartosc;
-    //     std::cin >> Wartosc;
-    //     Vector2->Set(i, Wartosc);
-    // }
-    // Vector2->Show();
-    // Vector1.WriteToFile("w1.txt");
-    // Vector2->ReadFromFile("w5.txt");
-    // Vector2->Show();
+    Vector Vector1(5);
+    for (int LoopCounter = 0; LoopCounter < 5; LoopCounter++)
+    {
+        Vector1.Set(LoopCounter, LoopCounter * 2.5);
+    }
+    Vector1.Show();
+    Vector *Vector2 = new Vector(3);
+    for (int i = 0; i < 3; i++)
+    {
+        float Wartosc;
+        std::cin >> Wartosc;
+        Vector2->Set(i, Wartosc);
+    }
+    Vector2->Show();
+    Vector1.WriteToFile("w1.txt");
+    Vector2->ReadFromFile("w1.txt");
+    Vector2->Show();
 
-    Vector v("w1.txt");
-    v.Show();
-
-    // std::cout << Vector1.Get(-2);
-    // delete Vector2;
+    delete Vector2;
     return 0;
 }
