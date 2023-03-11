@@ -18,6 +18,7 @@ struct Karta
         case 1:return "Wino";
         case 2:return "Zoladz";
         case 3:return "Diament";
+        default:return "Error";
         }
     }
 
@@ -31,28 +32,42 @@ struct Karta
         case 3:return "Q";
         case 4:return "K";
         case 5:return "A";
+        default:return "Error";
         }
+    }
+
+    void Generate(int Rozmiar, Karta* Deck)
+    {
+        for (int Licznik = 0; Licznik < 4; Licznik++)
+        {
+            for (int LicznikDrugi = 0; LicznikDrugi < 6; LicznikDrugi++)
+             Deck[LicznikDrugi + (6 * Licznik)].Kolor = Licznik % 4;
+        }
+
+        for (int Licznik = 0; Licznik < Rozmiar; Licznik++)
+            Deck[Licznik].Wartosc = Licznik % 6;
+        return;
     }
 
 };
 
-void Generate(int Rozmiar, Karta* Deck)
+class Player
 {
-    for (int Licznik = 0; Licznik < 4; Licznik++)
-    {
-        for (int LicznikDrugi = 0; LicznikDrugi < 6; LicznikDrugi++)
-            Deck[LicznikDrugi + (6 * Licznik)].Kolor = Licznik % 4;
-    }
+    public:
+    Karta *Hand;
 
-    for (int Licznik = 0; Licznik < 24; Licznik++)
-        Deck[Licznik].Wartosc = Licznik % 6;
-    return;
-
-
-}
-
-
-
+    void Dobierz(Karta *Hand, Karta *Deck)
+    {  
+        int i=0,j=0;
+        while(Deck[i].Wyciagnieta)
+            i++;
+        while(!Hand[j].Wyciagnieta)
+            j++;
+        Deck[i].Wyciagnieta=true;
+        Hand[j]=Deck[j];        
+        return;
+    }     
+};
 
 
 void Show(Karta* Deck, int Rozmiar)
@@ -75,7 +90,7 @@ int main()
 {
     const int Rozmiar = 24;
     Karta *Deck = new Karta[Rozmiar];
-    Generate(Rozmiar, Deck);
+    Deck->Generate(Rozmiar, Deck);
     Show(Deck, Rozmiar);
     std::cout << "Hello World!\n";
 }
