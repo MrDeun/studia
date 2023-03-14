@@ -53,18 +53,29 @@ class Person
             PESEL=0ll;
         }
 
-    int GetYear(const long long PESEL_in)
+    int GetYear()
     {
-        int year=(PESEL_in/1000000000ll)+1900;
+        int year=(PESEL/1000000000ll)+1900;
         int century=((PESEL/10000000ll)%100ll)/20;
         if(century==4) year-=100;
         if(century<=3) year+=100*century;
         return year;
     }
 
-    int GetMonth(const long long PESEL_in)
+    int GetMonth()
     {
         return ((PESEL/10000000ll)%100ll)%20;
+    }
+
+    int GetDay()
+    {
+        return ((PESEL/100000ll)%1000);
+    }
+
+    bool IsMale()
+    {
+        if(((PESEL/10ll)%10000000000ll)%2) return true;
+        else return false; 
     }
 
 
