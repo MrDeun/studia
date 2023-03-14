@@ -1,26 +1,26 @@
 #include <iostream>
+#include <fstream>
+#include <time.h>
+
 
 float *RandomTable(int Rozmiar)
 {
     float *RandomTable = new float[Rozmiar];
-    int Potencjalna;
     for (int i = 0; i < Rozmiar; i++)
     {
         RandomTable[i]=rand();
     }
     return RandomTable;
 }
-
-bool Search(float *Table, int Rozmiar, int Szukana)
+int SequentialSearch(float *Table, int Rozmiar, int Szukana)
 {
     for (int i = 0; i < Rozmiar; i++)
     {
         if (Table[i] == Szukana)
-            return true;
+            return i;
     }
-    return false;
+    return -1;
 }
-
 void Show(float* Table, int Rozmiar)
 {
     for (int i = 0; i < Rozmiar; i++)
@@ -32,18 +32,44 @@ void Show(float* Table, int Rozmiar)
     std::cout << std::endl;
     return;
 }
+int LosujIndex(int Rozmiar)
+{
+    int Random;
+    do
+    {
+       Random=rand();
+    } while (Random>=Rozmiar);
+    return Random;
+    
+}
+float SequentialSearchStatistics(int max, int Rozmiar)
+{
+    int Suma=0;
+    for(int i=0;i<max;i++)
+    {
+        float* Table = RandomTable(Rozmiar);
+        int Index=LosujIndex(Rozmiar);
+        Suma+=SequentialSearch(Table, Rozmiar, Table[Index]);
+        delete[] Table;
+    }
+    return Suma/Rozmiar;
+}
+void TestSearch()
+{
+    std::ofstream File("wyszukiwanie.dat");
+    for(int i=10;i<1001;i+=10)
+    {
+        float Medium=SequentialSearchStatistics(100,i);
+        File << i << "\t"<<Medium<<"\n" ;
+    }
+    File << "\n................................................";
+    File.close();
+}
 
 int main()
 {
     srand(time(NULL));
-    int Rozmiar;
-    std::cin >> Rozmiar;
-    float *Table = RandomTable(Rozmiar);
-    Show(Table, Rozmiar);
-    int Szukana;
-    std::cin >> Szukana;
-    std::cout << "Czy w tabeli jest szukana liczba? " << Search(Table, Rozmiar, Szukana);
-    delete[] Table;
+    TestSearch();
     return 0;
     
 }

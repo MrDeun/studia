@@ -34,6 +34,39 @@ class Person
             return;
         }
 
+        Person()
+        {
+            name=0; SetName("");
+            surname=0; SetSurname("");
+            SetPESEL(0);
+        }
+        Person(const char* name_in, const char* surname_in, const long long PESEL_in)
+        {
+            name=0; SetName(name_in);
+            surname=0; SetSurname(surname_in);
+            SetPESEL(PESEL_in);
+        }
+        ~Person()
+        {
+            delete[] name;
+            delete[] surname;
+            PESEL=0ll;
+        }
+
+    int GetYear(const long long PESEL_in)
+    {
+        int year=(PESEL_in/1000000000ll)+1900;
+        int century=((PESEL/10000000ll)%100ll)/20;
+        if(century==4) year-=100;
+        if(century<=3) year+=100*century;
+        return year;
+    }
+
+    int GetMonth(const long long PESEL_in)
+    {
+        return ((PESEL/10000000ll)%100ll)%20;
+    }
+
 
 
 };
@@ -42,7 +75,6 @@ class Person
 
 int main()
 {
-
-
+    cout<<"PROGRAM OK";
     return 0;
 }
