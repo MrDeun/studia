@@ -1,6 +1,6 @@
 #include <fstream>
 #include <iostream>
-
+#include <cmath>
 class Vector
 {
 private:
@@ -13,14 +13,14 @@ public:
         VectorCount = VectorCount_in;
         VectorValue = new float[VectorCount_in];
     }
-    Vector(const char *File_Name)
-    {
-        std::ifstream File(File_Name);
-        File >> VectorCount;
-        VectorValue = new float[VectorCount];
-        for( int LoopCounter{};LoopCounter<VectorCount;LoopCounter++)
-            File>>VectorValue[LoopCounter];
-    }
+    // Vector(const char *File_Name)
+    // {
+    //     std::ifstream File(File_Name);
+    //     File >> VectorCount;
+    //     VectorValue = new float[VectorCount];
+    //     for( int LoopCounter{};LoopCounter<VectorCount;LoopCounter++)
+    //         File>>VectorValue[LoopCounter];
+    // }
     ~Vector()
     {
         VectorCount = 0;
@@ -84,15 +84,22 @@ int main()
     Vector Vector1(5);
     for (int LoopCounter = 0; LoopCounter < 5; LoopCounter++)
     {
-        Vector1.Set(LoopCounter, LoopCounter * 2.5);
+        Vector1.Set(LoopCounter, 13*(LoopCounter*LoopCounter)+(LoopCounter * 2.5)+6);
     }
     Vector1.Show();
     Vector *Vector2 = new Vector(3);
     for (int i = 0; i < 3; i++)
     {
-        float Wartosc;
-        std::cin >> Wartosc;
-        Vector2->Set(i, Wartosc);
+        switch(Vector2->Set(i, 3*sin(i)+4.))
+        {
+            case true:
+                std::cout<<"Wartosc zapisana prawidlowo\n";
+                break;
+            default:
+                std::cout<<"UWAGA! Wartosc nieprawidlowa\n";
+                break;
+        }
+
     }
     Vector2->Show();
     Vector1.WriteToFile("w1.txt");
