@@ -60,7 +60,7 @@ void TestSearch()
     for(int i=10;i<1001;i+=10)
     {
         float Medium=SequentialSearchStatistics(100,i);
-        File << i << "\t"<<Medium<<"\n" ;
+        File << i << "\t" << Medium << "\n" ;
     }
     File << "\n................................................";
     File.close();
