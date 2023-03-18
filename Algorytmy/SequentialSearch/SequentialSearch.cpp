@@ -1,75 +1,83 @@
-#include <iostream>
-#include <fstream>
-#include <time.h>
-
-
-float *RandomTable(int Rozmiar)
+#include<iostream>
+#include<cstdlib>
+#include<fstream>
+int *RandomTable(int TableLength)
 {
-    float *RandomTable = new float[Rozmiar];
-    for (int i = 0; i < Rozmiar; i++)
+    int *Table = new int[TableLength];
+    for (int i = 0; i < TableLength; i++)
     {
-        RandomTable[i]=rand();
+        Table[i]=rand();
     }
-    return RandomTable;
+    return Table;
 }
-int SequentialSearch(float *Table, int Rozmiar, int Szukana)
+
+int SequentialSearch(int *Table, int TableLength, int SearchItem)
 {
-    for (int i = 0; i < Rozmiar; i++)
+    for(int i=0;i<TableLength;i++)
     {
-        if (Table[i] == Szukana)
+        if(SearchItem==Table[i])
             return i;
     }
     return -1;
 }
-void Show(float* Table, int Rozmiar)
+
+void ShowTable(int *Table, int TableLength)
 {
-    for (int i = 0; i < Rozmiar; i++)
+    system("CLS");
+    for(int i=0;i<TableLength;i++)
     {
-        std::cout << Table[i] << ", ";
-        if (i % 10 == 9)
-            std::cout << std::endl;
+        std::cout<<Table[i]<<" ";
+        if(i%10==9)
+            std::cout<<"\n";
     }
-    std::cout << std::endl;
-    return;
+    system("PAUSE");
 }
-int LosujIndex(int Rozmiar)
+
+int RandomIndex(int TableLength)
 {
-    int Random;
+    int Random{};
     do
     {
-       Random=rand();
-    } while (Random>=Rozmiar);
-    return Random;
-    
+        Random=rand();
+    } while(Random>=TableLength);
+    return Random;    
 }
-float SequentialSearchStatistics(int max, int Rozmiar)
+
+double SequentialSearchStatistics(int Max,int TableLength)
 {
-    int Suma=0;
-    for(int i=0;i<max;i++)
+    int Suma=0,Index{};
+    int *Table;
+    for(int i=0;i<Max;i++)
     {
-        float* Table = RandomTable(Rozmiar);
-        int Index=LosujIndex(Rozmiar);
-        Suma+=SequentialSearch(Table, Rozmiar, Table[Index]);
-        delete[] Table;
+        Table=RandomTable(TableLength);
+        Index=RandomIndex(TableLength);
+        Suma+=SequentialSearch(Table,TableLength,Table[Index]);
     }
-    return Suma/Rozmiar;
+    double Result{}; 
+    Result=(Suma/100.00);
+    return Result;
 }
+
 void TestSearch()
 {
     std::ofstream File("wyszukiwanie.dat");
-    for(int i=10;i<1001;i+=10)
+    double SequentialResult{};
+    int TableLength=0;
+    for(int i=0;i<100;i++)
     {
-        float Medium=SequentialSearchStatistics(100,i);
-        File << i << "\t" << Medium << "\n" ;
+        TableLength+=10;
+        SequentialResult=SequentialSearchStatistics(100,TableLength);
+        File<<TableLength<<"\t\t"<<SequentialResult<<"\n";
     }
-    File << "\n................................................";
     File.close();
+    return;
 }
+
+
 
 int main()
 {
     srand(time(NULL));
     TestSearch();
     return 0;
-    
 }
