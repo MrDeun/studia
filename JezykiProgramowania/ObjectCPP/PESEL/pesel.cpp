@@ -69,17 +69,61 @@ class Person
 
     int GetDay()
     {
-        return ((PESEL/100000ll)%10000);
+        return ((PESEL/100000ll)%10000ll);
     }
 
+    bool IsMale()
+    {
+        if(((PESEL/10ll)%1000000000ll)%2==1)
+            return true;
+        else
+            return false;
+    }
+
+    static int GetControlValue(long long PESEL_in);
+    bool IsCorrect()
+    {
+       if(GetControlValue(PESEL)==(PESEL%10)) return true;
+       return false; 
+    }
+    void ShowAll();
 
 
 };
 
+int Person::GetControlValue(long long PESEL_in)
+{
+    int Summary{};
+    PESEL_in/=10;
+    Summary+=3*(PESEL_in%10);PESEL_in/=10;
+    Summary+=1*(PESEL_in%10);PESEL_in/=10;
+    for (int i = 0; i < 2; i++)
+    {
+    Summary+=9*(PESEL_in%10);PESEL_in/=10;
+    Summary+=7*(PESEL_in%10);PESEL_in/=10;
+    Summary+=3*(PESEL_in%10);PESEL_in/=10;
+    Summary+=1*(PESEL_in%10);PESEL_in/=10;
+    }
 
+    int ControlValue{};
+    ControlValue=(10-Summary%10)%10;
+    return ControlValue;
+}
+
+void Person::ShowAll()
+{
+    cout<<"Name&Surname: "<<name<<" "<<surname<<endl;
+    cout<<"PESEL: "<<PESEL<<" "<<(IsCorrect()?"Valid":"Invalid")<<endl;
+    cout<<"Gender: "<<(IsMale()?"Male":"Female")<<endl;
+    cout<<"Birthday(DD-MM-YYYY): "<<GetDay()<<"."<<GetMonth()<<"."<<GetYear()<<endl;
+    return;
+}
 
 int main()
 {
-    cout<<"PROGRAM OK";
+    cout<<"Number of bits in int: "<<8*sizeof(int)-1<<endl;
+    cout<<"Number of bits in long: "<<8*sizeof(long)-1<<endl;
+    cout<<"Number of bits in long long: "<<8*sizeof(long long)-1;
+    cout<<"Number of bits needed: "<<log(1.e11-1)/log(2);
     return 0;
 }
