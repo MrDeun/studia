@@ -2,6 +2,7 @@
 #include<fstream>
 #include<cstring>
 #include<cmath>
+#include<iomanip>
 
 using namespace std;
 
@@ -69,6 +70,7 @@ class Person
 
     int GetDay()
     {
+        if(PESEL/10000000000==0);
         return ((PESEL/100000ll)%10000ll);
     }
 
@@ -113,7 +115,9 @@ int Person::GetControlValue(long long PESEL_in)
 void Person::ShowAll()
 {
     cout<<"Name&Surname: "<<name<<" "<<surname<<endl;
-    cout<<"PESEL: "<<PESEL<<" "<<(IsCorrect()?"Valid":"Invalid")<<endl;
+    cout<<"PESEL: ";
+    if(PESEL<10000000000) cout<<"0"<<PESEL<<" "<<(IsCorrect()?"Valid":"Invalid")<<endl;
+    else cout<<PESEL<<" "<<(IsCorrect()?"Valid":"Invalid")<<endl;
     cout<<"Gender: "<<(IsMale()?"Male":"Female")<<endl;
     cout<<"Birthday(DD-MM-YYYY): "<<GetDay()<<"."<<GetMonth()<<"."<<GetYear()<<endl;
     return;
@@ -123,7 +127,39 @@ int main()
 {
     cout<<"Number of bits in int: "<<8*sizeof(int)-1<<endl;
     cout<<"Number of bits in long: "<<8*sizeof(long)-1<<endl;
-    cout<<"Number of bits in long long: "<<8*sizeof(long long)-1;
-    cout<<"Number of bits needed: "<<log(1.e11-1)/log(2);
+    cout<<"Number of bits in long long: "<<8*sizeof(long long)-1<<endl;
+    cout<<"Number of bits needed: "<<log(1.e11-1)/log(2)<<endl;
+
+    Person Os1=Person("Jan","Kowalski",44051401359ll);
+    Os1.ShowAll();
+    Person *Os2 = new Person();
+    
+    for(int i=0;i<3;i++)
+    {
+        char Temp[256];
+        long long PeselTemp;
+        switch(i%3)
+        {
+            case 0:
+             cout<<"Input your name: ";
+             cin>>Temp;
+             Os2->SetName(Temp);
+             break;
+            case 1:
+             cout<<"Input your surname: ";
+             cin>>Temp;
+             Os2->SetSurname(Temp);
+             break;
+            case 2:
+             cout<<"Input your PESEL: ";
+             cin>>PeselTemp;
+             Os2->SetPESEL(PeselTemp);
+             break;
+
+        }
+    }
+    Os2->ShowAll();
+
+
     return 0;
 }
