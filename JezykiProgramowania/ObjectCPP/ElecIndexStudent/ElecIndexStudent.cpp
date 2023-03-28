@@ -39,6 +39,8 @@ class Index
 {
     int NoteCount;
     Note *NoteTable = new Note[NoteCount];
+
+    public:
         Index(int n_notes_in):NoteCount(n_notes_in)
         {
             NoteTable = new Note[NoteCount];
