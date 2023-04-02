@@ -1,13 +1,6 @@
 #include<iostream>
+#include<cstdlib>
 using namespace std;
-
-void Swap(int* Table, int FirstElement, int SecondElement)
-{
-    int Temp=Table[FirstElement];
-    Table[FirstElement]=Table[SecondElement];
-    Table[SecondElement]=Temp;
-    return;
-}
 
 int *RandomTable(int TableLength)
 {
@@ -19,65 +12,53 @@ int *RandomTable(int TableLength)
     return Table;
 }
 
-void BubbleSort1(int TableLength, int* Table, int* Comparisions, int* Swaps)
+void ShowTable(int *Table, int TableLength)
 {
-    bool powtorka = false;
-        do
+    system("CLS");
+    for(int i=0;i<TableLength;i++)
     {
-        powtorka=true;
-        for (int y = 0; y < TableLength-1; y++)
-        {
-            if (Table[y] > Table[y + 1])
-            {
-                Swap(Table,y,y+1);
-                *Swaps++;
-            }
-            *Comparisions++;
-        }
-    } while (powtorka == true);
+        std::cout<<Table[i]<<" ";
+        if(i%10==9)
+            std::cout<<"\n";
+    }
+    system("PAUSE");
 }
 
-void BubbleSort2(int TableLength, int* Table, int* Comparisions, int* Swaps)
+
+void Swap(int *First, int *Second)
 {
-    bool powtorka = false;
-        do
+    int Temp=*Second;
+    *Second=*First;
+    *First=Temp;
+    return;
+
+}
+
+void BubbleSort1(int *Tab, int TabSize)
+{
+    bool Repeat=false;
+    do
     {
-        powtorka=true;
-        for (int y = 0; y < TableLength-1; y++)
+    
+        for(int i=0;i<TabSize-1;i++)
         {
-            if (Table[y] > Table[y + 1])
+            if(Tab[i]>Tab[i+1])
             {
-                Swap(Table,y,y+1);
-                *Swaps++;
+                swap(Tab[i],Tab[i+1]);
+                Repeat=true;
             }
-            *Comparisions++;
         }
-        TableLength--;
-    } while (powtorka == true);
+
+    }while(Repeat);
+    return;
 }
 
 int main()
 {
-    int CompValue=0,SortValue=0;
-    int *Table=RandomTable(100);
-    int* Comparsions=&CompValue;
-    int* Sorts=&SortValue;
-
-    BubbleSort1(100,Table,Comparsions,Sorts);
-    cout<<"Statystyki dla pierwszego sortowania:\n"
-        <<"Liczba porownan: "<<CompValue<<endl
-        <<"Liczba Przestawien"<<SortValue<<endl;
-
-    CompValue=0;
-    SortValue=0;
-    delete[] Table;
-    Table=RandomTable(100);
-
-    BubbleSort2(100,Table,Comparsions,Sorts);
-    cout<<"Statystyki dla pierwszego sortowania:\n"
-        <<"Liczba porownan: "<<CompValue<<endl
-        <<"Liczba Przestawien"<<SortValue<<endl;
-    
-
+    int TabSize=10;
+    int *Table=RandomTable(10);
+    ShowTable(Table,TabSize);
+    BubbleSort1(Table,TabSize);
+    ShowTable(Table,TabSize);
     return 0;
 }
