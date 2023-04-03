@@ -7,7 +7,7 @@ int *RandomTable(int TableLength)
     int *Table = new int[TableLength];
     for (int i = 0; i < TableLength; i++)
     {
-        Table[i]=rand();
+        Table[i]=rand()%25;
     }
     return Table;
 }
@@ -25,26 +25,26 @@ void ShowTable(int *Table, int TableLength)
 }
 
 
-void Swap(int *First, int *Second)
-{
-    int Temp=*Second;
-    *Second=*First;
-    *First=Temp;
-    return;
 
+void Swap(int *Table, int i)
+{
+    int Temp=Table[i];
+    Table[i]=Table[i+1];
+    Table[i+1]=Temp;
+    return;
 }
 
-void BubbleSort1(int *Tab, int TabSize)
+void BubbleSort1(int *Table, int TableSize)
 {
     bool Repeat=false;
     do
     {
-    
-        for(int i=0;i<TabSize-1;i++)
+        Repeat=false;
+        for(int i=0;i<TableSize-1;i++)
         {
-            if(Tab[i]>Tab[i+1])
+            if(Table[i]>Table[i+1])
             {
-                swap(Tab[i],Tab[i+1]);
+                Swap(Table,i);
                 Repeat=true;
             }
         }
