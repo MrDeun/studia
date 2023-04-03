@@ -19,7 +19,7 @@ void ShowTable(int *Table, int TableLength)
     {
         std::cout<<Table[i]<<" ";
         if(i%10==9)
-            std::cout<<"\n";
+            std::cout<<endl;
     }
     system("PAUSE");
 }
@@ -53,12 +53,41 @@ void BubbleSort1(int *Table, int TableSize)
     return;
 }
 
+void BubbleSort2(int *Table, int TableSize)
+{
+    bool Repeat=false;
+    int MaxTableLoop=TableSize-1;
+    do
+    {
+        Repeat=false;
+        for(int i=0;i<MaxTableLoop;i++)
+        {
+            if(Table[i]>Table[i+1])
+            {
+                Swap(Table,i);
+                Repeat=true;
+            }
+        }
+    MaxTableLoop--;
+    }while(Repeat);
+    return;
+}
+
 int main()
 {
     int TabSize=10;
-    int *Table=RandomTable(10);
+    srand(time(NULL));
+
+    int *Table=RandomTable(TabSize);
     ShowTable(Table,TabSize);
     BubbleSort1(Table,TabSize);
     ShowTable(Table,TabSize);
+    cout<<endl;
+
+
+    int *Table2=RandomTable(TabSize);
+    ShowTable(Table2,TabSize);
+    BubbleSort2(Table2,TabSize);
+    ShowTable(Table2,TabSize);
     return 0;
 }
