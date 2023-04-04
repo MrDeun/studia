@@ -1,93 +1,116 @@
 #include<iostream>
 #include<cstdlib>
-using namespace std;
+#include<fstream>
 
-int *RandomTable(int TableLength)
+int *RandomArray(int ArrayLength)
 {
-    int *Table = new int[TableLength];
-    for (int i = 0; i < TableLength; i++)
+    int *Array = new int[ArrayLength];
+    for (int i = 0; i < ArrayLength; i++)
     {
-        Table[i]=rand()%25;
+        Array[i]=rand();
     }
-    return Table;
+    return Array;
 }
 
-void ShowTable(int *Table, int TableLength)
+void ShowArray(int *Array, int ArrayLength)
 {
     system("CLS");
-    for(int i=0;i<TableLength;i++)
+    for(int i=0;i<ArrayLength;i++)
     {
-        std::cout<<Table[i]<<" ";
+        std::cout<<Array[i]<<" ";
         if(i%10==9)
-            std::cout<<endl;
+            std::cout<<std::endl;
     }
     system("PAUSE");
 }
 
 
 
-void Swap(int *Table, int i)
+void Swap(int *Array, int FirstPostion, int SecondPosition)
 {
-    int Temp=Table[i];
-    Table[i]=Table[i+1];
-    Table[i+1]=Temp;
+    int Temp=Array[FirstPostion];
+    Array[FirstPostion]=Array[SecondPosition];
+    Array[FirstPostion]=Temp;
     return;
 }
 
-void BubbleSort1(int *Table, int TableSize)
+double BubbleSort1(int *Array, int ArraySize)
 {
+    double Comparision=0;
     bool Repeat=false;
     do
     {
         Repeat=false;
-        for(int i=0;i<TableSize-1;i++)
+        for(int i=0;i<ArraySize-1;i++)
         {
-            if(Table[i]>Table[i+1])
+            if(Array[i]>Array[i+1])
             {
-                Swap(Table,i);
+                Swap(Array,i,i+1);
                 Repeat=true;
             }
+            Comparision++;
         }
 
-    }while(Repeat);
-    return;
+    }while(Repeat==true);
+    return Comparision;
 }
 
-void BubbleSort2(int *Table, int TableSize)
+double BubbleSort1Statistics(int Max,int ArrayLength)
 {
-    bool Repeat=false;
-    int MaxTableLoop=TableSize-1;
-    do
+    double Sum{};
+    for (int i = 0; i < Max; i++)
     {
-        Repeat=false;
-        for(int i=0;i<MaxTableLoop;i++)
-        {
-            if(Table[i]>Table[i+1])
-            {
-                Swap(Table,i);
-                Repeat=true;
-            }
-        }
-    MaxTableLoop--;
-    }while(Repeat);
+        int *Array=RandomArray(ArrayLength);
+        Sum+=BubbleSort1(Array,ArrayLength);
+        delete[] Array;
+    }
+
+    return (Sum/(double)Max);
+    
+}
+
+void TestBubbleSort1()
+{
+    std::ofstream File("BubbleSort1.dat");
+    double BubbleSortResult{};
+    int ArrayLength=0;
+    for(int i=0;i<10;i++)
+    {
+        ArrayLength+=10;
+        BubbleSortResult=BubbleSort1Statistics(100,ArrayLength);
+        File<<ArrayLength<<"\t\t"<<BubbleSortResult<<"\n";
+    }
+    File.close();
     return;
 }
+// void BubbleSort2(int *Array, int ArraySize)
+// {
+//     bool Repeat=false;
+//     int MaxArrayLoop=ArraySize-1;
+//     do
+//     {
+//         Repeat=false;
+//         for(int i=0;i<MaxArrayLoop;i++)
+//         {
+//             if(Array[i]>Array[i+1])
+//             {
+//                 Swap(Array,i);
+//                 Repeat=true;
+//             }
+//         }
+//     MaxArrayLoop=MaxArrayLoop-1;
+//     }while(Repeat);
+//     return;
+// }
 
 int main()
 {
-    int TabSize=10;
     srand(time(NULL));
 
-    int *Table=RandomTable(TabSize);
-    ShowTable(Table,TabSize);
-    BubbleSort1(Table,TabSize);
-    ShowTable(Table,TabSize);
-    cout<<endl;
+    // ShowArray(Array,TabSize);
+    TestBubbleSort1();
+    // ShowArray(Array,TabSize);
+    std::cout<<"Skonczona generacja danych"<<std::endl;
 
-
-    int *Table2=RandomTable(TabSize);
-    ShowTable(Table2,TabSize);
-    BubbleSort2(Table2,TabSize);
-    ShowTable(Table2,TabSize);
     return 0;
 }

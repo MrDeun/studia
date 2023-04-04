@@ -33,28 +33,39 @@ class Note
         {
             return note;
         }
+        
+        void Show()
+        {
+            cout<<subject<<" "<<note<<endl;
+            return;
+        }
 };
 
 class Index
 {
     int NoteCount;
-    Note *NoteTable = new Note[NoteCount];
+    Note *NoteArray = new Note[NoteCount];
 
     public:
         Index(int n_notes_in):NoteCount(n_notes_in)
         {
-            NoteTable = new Note[NoteCount];
+            NoteArray = new Note[NoteCount];
         };
         ~Index()
         {
-            delete[] NoteTable;
+            delete[] NoteArray;
         }
         void Set(int NoteIndex, string subject_in, float note_in)
         {
             if(NoteIndex>=0&&NoteIndex<NoteCount)
             {
-                NoteTable[NoteIndex].SetNote(note_in);
-                NoteTable[NoteIndex].SetSubject(subject_in);
+                NoteArray[NoteIndex].SetNote(note_in);
+                NoteArray[NoteIndex].SetSubject(subject_in);
+                return;
+            }
+            else
+            {
+
             }
         }
 
@@ -62,9 +73,9 @@ class Index
         {
             for(int i=0;i<NoteCount;i++)
             {
-                if(NoteTable[i].GetSubject()==subject_in)
+                if(NoteArray[i].GetSubject()==subject_in)
                 {
-                    NoteTable[i].SetNote(note_in);
+                    NoteArray[i].SetNote(note_in);
                     break;
                 }
             }
@@ -80,16 +91,105 @@ class Index
             float sum{0.0};
             for(int i=0;i<NoteCount;i++)
             {
-                sum+=NoteTable[i].note;
+                sum+=NoteArray[i].note;
             }
             return (sum/NoteCount);
         }
+        void Show()
+        {
+            cout<<"~~~~~~Index~~~~~~"<<endl;
+            for(int i=0;i<NoteCount;i++)
+            {
+                cout<<i+1<<". ";
+                NoteArray[i].Show();
+                cout<<endl;
+            }
+            cout<<"AVERAGE: "<<Average()<<endl;
+            cout<<"~~~~~~~~~~~~~~~~~"<<endl;
+        }
+
+        void Add(string subject_in, float note_in);
+        void Remove(string subject_in);
+        friend float FindNote(string subject_in, Index *Index_in);
 
 
 };
 
+void Index::Add(string subject_in, float note_in)
+{
+    Note *NewNotesArray= new Note[NoteCount+1];
+    for(int i = 0; i < NoteCount; i++)
+    {
+        NewNotesArray[i]=NoteArray[i];
+    }
+    delete[] NoteArray;
+    NoteArray=NewNotesArray;
+    NoteCount++;
+
+    NoteArray[NoteCount-1].subject=subject_in;
+    NoteArray[NoteCount-1].SetNote(note_in);
+    return;
+    
+}
+
+void Index::Remove(string subject_in)
+{
+    int Index=-1;
+
+    for(int i=0;i<NoteCount;i++)
+    {
+        if(NoteArray[i].GetSubject()==subject_in)
+        {
+            Index=i;
+            break;
+        }
+        if(Index<0)
+        return;
+
+        Note *NewNoteArray= new Note[NoteCount-1];
+        for(int i=0;i<Index;i++)
+        {
+            NewNoteArray[i]=NoteArray[i];
+        }
+
+        for(int i=Index+1;i<NoteCount;i++)
+        {
+            NewNoteArray[i-1]=NoteArray[i];
+        }
+        delete[] NoteArray;
+        NoteArray=NewNoteArray;
+        NoteCount--;
+
+        return;
+    }
+}
+
+float FindNote(string subject_in, Index *index_in)
+{
+    for(int i=0;i<index_in->NoteCount;i++)
+    {
+        if(subject_in==index_in->NoteArray[i].GetSubject())
+            return index_in->NoteArray[i].GetNote();
+
+    }
+    return 0.0;
+}
+
 int main()
 {
-    cout<<"PROGRAM OK";
+    Index ind(3);
+    ind.Set(0,"Analysis",3);
+    ind.Set(1,"Algebra",4);
+    ind.Set(2,"Physics",4);
+    ind.Show();
+
+    cout<<"Note from Algerbra: "<<FindNote("Algebra",&ind)<<endl;
+    ind.Change(3,"Algebra");
+    ind.Show();
+    ind.Add("C++ Programming",5);
+    ind.Show();
+    ind.Remove("Physics");
+    ind.Show();
+    
     return 0;
 }
