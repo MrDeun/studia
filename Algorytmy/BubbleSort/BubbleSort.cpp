@@ -1,5 +1,4 @@
 #include<iostream>
-#include<cstdlib>
 #include<fstream>
 
 int *RandomArray(int ArrayLength)
@@ -7,110 +6,138 @@ int *RandomArray(int ArrayLength)
     int *Array = new int[ArrayLength];
     for (int i = 0; i < ArrayLength; i++)
     {
-        Array[i]=rand();
+        Array[i]=rand()%1000;
     }
     return Array;
 }
 
+void Swap(int *Array, int First, int Second)
+{
+    int Temp=Array[First];
+    Array[First]=Array[Second];
+    Array[Second]=Temp;
+    return;
+}
+
 void ShowArray(int *Array, int ArrayLength)
 {
-    system("CLS");
     for(int i=0;i<ArrayLength;i++)
     {
         std::cout<<Array[i]<<" ";
         if(i%10==9)
             std::cout<<std::endl;
     }
-    system("PAUSE");
-}
-
-
-
-void Swap(int *Array, int FirstPostion, int SecondPosition)
-{
-    int Temp=Array[FirstPostion];
-    Array[FirstPostion]=Array[SecondPosition];
-    Array[FirstPostion]=Temp;
+    std::cout<<"\n\n\n";
     return;
 }
 
-double BubbleSort1(int *Array, int ArraySize)
+long double BubbleSort1(int *Array, int ArrayLength)
 {
-    double Comparision=0;
+    int Comparision=0;
     bool Repeat=false;
     do
     {
         Repeat=false;
-        for(int i=0;i<ArraySize-1;i++)
+        for(int i=0;i<ArrayLength-1;i++)
         {
             if(Array[i]>Array[i+1])
             {
-                Swap(Array,i,i+1);
                 Repeat=true;
+                Swap(Array,i,i+1);
             }
-            Comparision++;
+            Comparision++;   
         }
-
     }while(Repeat==true);
-    return Comparision;
+    return Comparision;    
 }
 
-double BubbleSort1Statistics(int Max,int ArrayLength)
+long double BubbleSort2(int *Array, int ArrayLength)
 {
-    double Sum{};
-    for (int i = 0; i < Max; i++)
+    int Comparision=0;
+    bool Repeat=false;
+    int MaxLength=ArrayLength-1;
+    do
+    {
+        Repeat=false;
+        for(int i=0;i<MaxLength;i++)
+        {
+            if(Array[i]>Array[i+1])
+            {
+                Repeat=true;
+                Swap(Array,i,i+1);
+            }
+            Comparision++;   
+        }
+        MaxLength=MaxLength-1;
+    }while(Repeat==true);
+    return Comparision;    
+}
+
+long double BubbleSort1Statistics(int ArrayLength, int MaxRepeat)
+{
+    long double Summary=0.0;
+    for (int i = 0; i < MaxRepeat; i++)
     {
         int *Array=RandomArray(ArrayLength);
-        Sum+=BubbleSort1(Array,ArrayLength);
+        Summary+=BubbleSort1(Array,ArrayLength);
         delete[] Array;
     }
 
-    return (Sum/(double)Max);
+    return (Summary/MaxRepeat);
+    
+}
+
+long double BubbleSort2Statistics(int ArrayLength, int MaxRepeat)
+{
+    long double Summary=0.0;
+    for (int i = 0; i < MaxRepeat; i++)
+    {
+        int *Array=RandomArray(ArrayLength);
+        Summary+=BubbleSort2(Array,ArrayLength);
+        delete[] Array;
+    }
+
+    return (Summary/MaxRepeat);
     
 }
 
 void TestBubbleSort1()
 {
     std::ofstream File("BubbleSort1.dat");
-    double BubbleSortResult{};
     int ArrayLength=0;
-    for(int i=0;i<10;i++)
+    for(int i=0;i<100;i++)
     {
         ArrayLength+=10;
-        BubbleSortResult=BubbleSort1Statistics(100,ArrayLength);
-        File<<ArrayLength<<"\t\t"<<BubbleSortResult<<"\n";
+        long double Result=BubbleSort1Statistics(ArrayLength,100);
+        File<<ArrayLength<<"\t\t\t"<<Result<<std::endl;
     }
+    File<<"\n\n=========================================";
     File.close();
     return;
+
 }
-// void BubbleSort2(int *Array, int ArraySize)
-// {
-//     bool Repeat=false;
-//     int MaxArrayLoop=ArraySize-1;
-//     do
-//     {
-//         Repeat=false;
-//         for(int i=0;i<MaxArrayLoop;i++)
-//         {
-//             if(Array[i]>Array[i+1])
-//             {
-//                 Swap(Array,i);
-//                 Repeat=true;
-//             }
-//         }
-//     MaxArrayLoop=MaxArrayLoop-1;
-//     }while(Repeat);
-//     return;
-// }
+
+void TestBubbleSort2()
+{
+    std::ofstream File("BubbleSort2.dat");
+    int ArrayLength=0;
+    for(int i=0;i<100;i++)
+    {
+        ArrayLength+=10;
+        long double Result=BubbleSort2Statistics(ArrayLength,100);
+        File<<ArrayLength<<"\t\t\t"<<Result<<std::endl;
+    }
+    File<<"\n\n=========================================";
+    File.close();
+    return;
+
+}
 
 int main()
 {
-    srand(time(NULL));
-
-    // ShowArray(Array,TabSize);
     TestBubbleSort1();
-    // ShowArray(Array,TabSize);
-    std::cout<<"Skonczona generacja danych"<<std::endl;
+    TestBubbleSort2();
+
 
     return 0;
 }
