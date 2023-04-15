@@ -23,12 +23,47 @@ void ShowArray(int *Array, int ArrayLength)
     return;
 }
 
-double QuickSort(int *Array, int Begin, int End)
+void Swap(int *Array, int First, int Second)
 {
-    int Position=0;
-    if (Array[Begin]<Array[End])
+    int Temp=Array[First];
+    Array[First]=Array[Second];
+    Array[Second]=Temp;
+    return;
+}
+
+void QuickSort(int *Array, int Left, int Right)
+{
+    int Pivot{},i{};
+    if (Left<Right)
     {
-        Position=Array[Left];
+        Pivot=Left;
+        int i=Left+1;
+    }
+
+    else
+        return;
+
+    while (true)
+    {
+
+    
+    if(i>Right)
+        {
+            Swap(Array,Pivot,Left);
+            QuickSort(Array,Left,Pivot-1);
+            QuickSort(Array,Pivot+1,Right);
+            return;
+        }
+
+    else
+        {
+            if (Array[i]<Array[Left])
+            {
+                Pivot++;
+                Swap(Array,Pivot,i);
+            }
+            i++;
+        }
     }
     
 }
@@ -36,7 +71,10 @@ double QuickSort(int *Array, int Begin, int End)
 int main()
 {
 
-
+    int *Array=RandomArray(20);
+    ShowArray(Array,20);
+    QuickSort(Array,0,20);
+    ShowArray(Array,20);
 
     return 0;
 }
