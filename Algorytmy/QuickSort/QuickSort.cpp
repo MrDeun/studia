@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 
+
 int *RandomArray(int ArrayLength)
 {
     int *Array = new int[ArrayLength];
@@ -31,11 +32,11 @@ void Swap(int *Array, int First, int Second)
     return;
 }
 
-double QuickSort(int* Array, int Left, int Right)
+void QuickSort(int* Array, int Left, int Right, int &Compares)
  {
 
     int pos{};
-    double Result{0};
+    Compares++;
     if (Left < Right) 
     {
         pos = Left;
@@ -46,27 +47,54 @@ double QuickSort(int* Array, int Left, int Right)
                 pos++;
                 Swap(Array, pos, i);
             }
-            Result++;
+            Compares++;
   
         }
         Swap(Array, pos, Left);
-        QuickSort(Array, Left, pos - 1);
-        QuickSort(Array, pos + 1, Right);
+        QuickSort(Array, Left, pos - 1,Compares);
+        QuickSort(Array, pos + 1, Right,Compares);
 
     }
 
+    return;
+
+}
+
+double QuickSortStatictics(double Max, int Length)
+{
+    int Summary{};
+    int Compares=0;
+    for(int i=0;i<Max;i++)
+    {
+        Compares=0;
+        int *Array=RandomArray(Length);
+        QuickSort(Array,0,Length-1, Compares);
+        Summary+=Compares;
+        delete[] Array;
+    }
+    
+    double Result= Summary/Max;
     return Result;
 
 }
   
-
+void TestQuickSort()
+{
+    std::ofstream MyFile("quicksort.dat");
+    int Length{0};
+    for (int i = 0; i < 100; i++)
+    {
+        Length+=10;
+        double Result=QuickSortStatictics(100,Length);
+        MyFile<<Length<<"\t"<<Result<<std::endl;
+    }
+    MyFile<<".......................................";
+    MyFile.close();
+}
 
 int main()
 {
-    int *Array=RandomArray(20);
-    ShowArray(Array,20);
-    std::cout<<std::endl<<"Ilosc porownan: "<<QuickSort(Array,0,20)<<std::endl;
-    ShowArray(Array,20);
-
+    TestQuickSort();
+    srand(time(NULL));
     return 0;
 }
