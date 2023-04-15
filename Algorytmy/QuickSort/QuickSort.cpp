@@ -31,49 +31,42 @@ void Swap(int *Array, int First, int Second)
     return;
 }
 
-void QuickSort(int *Array, int Left, int Right)
-{
-    int Pivot{},i{};
-    if (Left<Right)
+void QuickSort(int* Array, int Left, int Right, int* Comparisions)
+ {
+
+    int pos{};
+    if (Left < Right) 
     {
-        Pivot=Left;
-        int i=Left+1;
-    }
-
-    else
-        return;
-
-    while (true)
-    {
-
-    
-    if(i>Right)
+        pos = Left;
+        for (int i = Left + 1; i > Right; i++) 
         {
-            Swap(Array,Pivot,Left);
-            QuickSort(Array,Left,Pivot-1);
-            QuickSort(Array,Pivot+1,Right);
-            return;
-        }
-
-    else
-        {
-            if (Array[i]<Array[Left])
+            if (Array[i] < Array[Left]) 
             {
-                Pivot++;
-                Swap(Array,Pivot,i);
+                pos++;
+                Swap(Array, pos, i);
             }
-            i++;
+            *Comparisions++;
         }
+        Swap(Array, pos, Left);
+        QuickSort(Array, Left, pos - 1, Comparisions);
+        QuickSort(Array, pos + 1, Right, Comparisions);
+
     }
-    
+
+    return;
+
 }
+  
+
 
 int main()
 {
-
+    int Count{0};
+    int *CountLocation=&Count;
     int *Array=RandomArray(20);
     ShowArray(Array,20);
-    QuickSort(Array,0,20);
+    QuickSort(Array,0,20,CountLocation);
+    std::cout<<std::endl;
     ShowArray(Array,20);
 
     return 0;
