@@ -31,29 +31,31 @@ void Swap(int *Array, int First, int Second)
     return;
 }
 
-void QuickSort(int* Array, int Left, int Right, int* Comparisions)
+double QuickSort(int* Array, int Left, int Right)
  {
 
     int pos{};
+    double Result{0};
     if (Left < Right) 
     {
         pos = Left;
-        for (int i = Left + 1; i > Right; i++) 
+        for (int i = Left + 1; i <= Right; i++) 
         {
             if (Array[i] < Array[Left]) 
             {
                 pos++;
                 Swap(Array, pos, i);
             }
-            *Comparisions++;
+            Result++;
+  
         }
         Swap(Array, pos, Left);
-        QuickSort(Array, Left, pos - 1, Comparisions);
-        QuickSort(Array, pos + 1, Right, Comparisions);
+        QuickSort(Array, Left, pos - 1);
+        QuickSort(Array, pos + 1, Right);
 
     }
 
-    return;
+    return Result;
 
 }
   
@@ -61,12 +63,9 @@ void QuickSort(int* Array, int Left, int Right, int* Comparisions)
 
 int main()
 {
-    int Count{0};
-    int *CountLocation=&Count;
     int *Array=RandomArray(20);
     ShowArray(Array,20);
-    QuickSort(Array,0,20,CountLocation);
-    std::cout<<std::endl;
+    std::cout<<std::endl<<"Ilosc porownan: "<<QuickSort(Array,0,20)<<std::endl;
     ShowArray(Array,20);
 
     return 0;
