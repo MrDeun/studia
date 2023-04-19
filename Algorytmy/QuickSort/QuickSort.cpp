@@ -32,33 +32,7 @@ void Swap(int *Array, int First, int Second)
     return;
 }
 
-void QuickSort(int* Array, int Left, int Right, int &Compares)
- {
 
-    int pos{};
-    Compares++;
-    if (Left < Right) 
-    {
-        pos = Left;
-        for (int i = Left + 1; i <= Right; i++) 
-        {
-            if (Array[i] < Array[Left]) 
-            {
-                pos++;
-                Swap(Array, pos, i);
-            }
-            Compares++;
-  
-        }
-        Swap(Array, pos, Left);
-        QuickSort(Array, Left, pos - 1,Compares);
-        QuickSort(Array, pos + 1, Right,Compares);
-
-    }
-
-    return;
-
-}
 
 double QuickSortStatictics(double Max, int Length)
 {

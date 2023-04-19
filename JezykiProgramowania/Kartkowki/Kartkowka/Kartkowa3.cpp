@@ -4,7 +4,7 @@ class A
 {
     friend class B;
     private:
-    int i;
+    int i=20;
 };
 
 class B
