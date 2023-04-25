@@ -4,7 +4,9 @@
 class Stuff
 {
     float Price;
-    std::string StuffName; 
+    std::string StuffName;
+
+    public: 
     Stuff(std::string StuffName_in="Unspecified", float Price_in=0.0):StuffName(StuffName_in),Price(Price_in){};
 
     void SetPrice(float Price_in)
@@ -28,21 +30,17 @@ class Stuff
         return *this;
     }
 
-    friend std::ostream& operator<<(std::ostream& Os_in, Stuff& Stuff_in)
-    {
-
-    }
+    friend std::ostream& operator<<(std::ostream& Os_in, Stuff& Stuff_in);
 
     bool operator>(Stuff& stuff_in)
     {
         return (this->Price>stuff_in.Price);
     }
-
 };
 
     std::ostream& operator<<(std::ostream& Os_in, Stuff& Stuff_in)
     {
-        out<<Stuff_in.StuffName<<": "<<Stuff_in.Price;
+        std::oct<<Stuff_in.StuffName<<": "<<Stuff_in.Price;
         return Os_in;
     }
 
