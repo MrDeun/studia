@@ -1,23 +1,22 @@
 #include<iostream>
+#include<fstream>
 
-int BinarySearch(int* Array,int ArrayLength,int Search)
+int BinarySearch(int* Array,int ArrayLength, int Search,double &CompareCount)
 {
-    int Left=0,Right=ArrayLength-1,Mid{};
-    while(Left<=Right)
+    int Left=0,Right=ArrayLength-1;
+    while (Left<=Right)
     {
-        Mid=(Left+Right)/2;
-        if(Array[Mid]==Search)
-            return Search;
-        
-        if(Array[Mid]<Search)
-            Left=Mid+1;
+        int Middle=(Left+Right)/2;
+        if(Array[Middle]==Search)
+            {CompareCount++;return Search;}
+        if(Array[Middle]<Search)
+            {CompareCount++;Left=Middle+1;}
         else
-            Right=Mid+1;
-            
+            {CompareCount++;Right=Middle-1;}
     }
     return -1;
+    
 }
-
 int RandomIndex(int ArrayLength)
 {
     int Random{};
@@ -66,43 +65,37 @@ void BubbleSort2(int *Array, int ArrayLength)
     return;    
 }
 
-void QuickSort(int* Array, int Left, int Right)
- {
-
-    int pos{};
-    if (Left < Right) 
+double BinarySearchStatictics(int ArrayLength,int Max)
+{
+    double Summary{},Count{};
+    for(int i=0;i<Max;i++)
     {
-        pos = Left;
-        for (int i = Left + 1; i <= Right; i++) 
-        {
-            if (Array[i] < Array[Left]) 
-            {
-                pos++;
-                Swap(Array, pos, i);
-            }
+        Count=0;
+        int *Array=RandomArray(ArrayLength);
+        BubbleSort2(Array,ArrayLength);
+        BinarySearch(Array,ArrayLength,Array[RandomIndex(ArrayLength)],Count);
+        Summary+=Count;
+    }
+    return (Summary/Max);
+}
 
-  
-        }
-        Swap(Array, pos, Left);
-        QuickSort(Array, Left, pos - 1);
-        QuickSort(Array, pos + 1, Right);
-
+void TestBinarySearch()
+{
+    std::ofstream MyFile("binary_search.dat");
+    int ArrayLength=0;
+    for(int i=0;i<100;i++)
+    {
+        ArrayLength+=10;
+        MyFile<<ArrayLength<<"\t"<<BinarySearchStatictics(ArrayLength,100)<<std::endl;
     }
 
     return;
-
 }
+
 
 int main()
 {
     srand(time(NULL));
-    int ArrayLength=1000;
-    // for (int i = 0; i < 100; i++)
-    // {
-    int *Array=RandomArray(ArrayLength);
-    BubbleSort2(Array,ArrayLength);
-    std::cout<<BinarySearch(Array,ArrayLength,Array[RandomIndex(ArrayLength)]);
-    delete[] Array;
-    //}
+    TestBinarySearch();
     return 0;
 }

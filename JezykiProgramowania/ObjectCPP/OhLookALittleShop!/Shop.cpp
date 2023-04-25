@@ -40,7 +40,7 @@ class Stuff
 
     std::ostream& operator<<(std::ostream& Os_in, Stuff& Stuff_in)
     {
-        std::oct<<Stuff_in.StuffName<<": "<<Stuff_in.Price;
+        Os_in<<Stuff_in.StuffName<<": "<<Stuff_in.Price;
         return Os_in;
     }
 
@@ -57,5 +57,18 @@ class Stuff
 
 int main()
 {
-    
+    Stuff Potato("Potato",10.5);
+    std::cout<<Potato<<std::endl;
+    Potato+=3.0;
+    std::cout<<Potato<<std::endl;
+    Potato-=5.0;
+    std::cout<<Potato<<std::endl;
+    Stuff Kiwi("Kiwi",11.0);
+    if(Potato>Kiwi)
+        std::cout<<"Potato is more expensive than Kiwi";
+    if(Potato<Kiwi)
+        std::cout<<"Potato is less expensive than Kiwi";
+    return 0;
+
+
 }
