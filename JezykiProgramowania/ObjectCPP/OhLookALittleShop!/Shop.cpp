@@ -55,6 +55,41 @@ class Stuff
         return(stuff_in1.GetPrice()<stuff_in2.GetPrice());
     }
 
+    void Store()
+    {
+        int productCount{};
+        std::cout<<"Number of products: ";
+        std::cin>> productCount;
+        Stuff *Products=new Stuff[productCount];
+        for (int i = 0; i < productCount; i++)
+        {
+            std::string StuffName_in;
+            float Price;
+            std::cout<<"Name of the "<<i+1<<". product: ";
+            std::cin>>StuffName_in;
+            std::cout<<"Price of the "<<i+1<<". product: ";
+            std::cin>>Price;
+            Products[i].SetName(StuffName_in);
+            Products[i].SetPrice(Price);
+        }
+        std::cout<<"~~~~Biedronka~~~~"<<std::endl;
+        for (int i = 0; i < productCount; i++)
+        {
+            std::cout<<i+1<<": "<<Products[i]<<std::endl;
+        }
+        std::cout<<"~~~~~~~~~~~~~~~~~"<<std::endl;
+
+        std::ofstream  storeData("store.txt");
+        storeData<<productCount;
+        for (int i = 0; i < productCount; i++)
+        {
+            storeData<<Products[i]<<std::endl;
+        }
+        storeData.close();
+        
+        
+    }
+
 int main()
 {
     Stuff Potato("Potato",10.5);
@@ -65,9 +100,10 @@ int main()
     std::cout<<Potato<<std::endl;
     Stuff Kiwi("Kiwi",11.0);
     if(Potato>Kiwi)
-        std::cout<<"Potato is more expensive than Kiwi";
+        std::cout<<"Potato is more expensive than Kiwi"<<std::endl;
     if(Potato<Kiwi)
-        std::cout<<"Potato is less expensive than Kiwi";
+        std::cout<<"Potato is less expensive than Kiwi"<<std::endl;
+    Store();
     return 0;
 
 
