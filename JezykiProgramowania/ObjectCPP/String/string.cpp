@@ -36,8 +36,43 @@ class myString()
         return size+1;
     }
 
+    friend ostream& operator<<(ostream& os_in,myString& mystr_in);
+    char &operator[](int Index){return chars[Index];}
+    myString &operator=(mystring& mystr_in);
+    myString &operator+=(mystring& mystr_in);
+    myString &operator+(mystring& mystr_in);
+
 };
 
+myString& myString::operator=(myString& mystr_in)
+{
+    if(this==&mystr_in)return (*this);
+    Set(mystr_in.chars);
+    size=mystr_in.size;
+    return(*this);
+}
+
+myString& myString::operator+=(myString& mystr_in)
+{
+    char *Chars_Temp=new char[size+mystr_in.size+1]
+    for(int i=0;i<size;i++)
+        Chars_Temp[i]=chars[i];
+    for(int i=0;i<mystr_in;i++)
+        Chars_Temp[i+size]=mystr_in.chars[i];
+
+    delete[] chars;
+    chars=Chars_Temp;
+    size+=mystr_in.size;
+
+    return (*this);
+}
+
+mystring& myString::operator+(myString& mystr_in)
+{
+    myString *mystr_tmp=myString[chars];
+    *mystr_tmp+=mystr_in;
+    return(*mystr_tmp);
+}
 
 int main()
 {
