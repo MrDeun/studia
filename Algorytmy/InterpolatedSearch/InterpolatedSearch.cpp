@@ -1,9 +1,9 @@
 #include<iostream>
 #include<fstream>
 
-long long RandomIndex(long long ArrayLength)
+int RandomIndex(int ArrayLength)
 {
-    long long Random{};
+    int Random{};
     do
     {
         Random=rand();
@@ -11,32 +11,32 @@ long long RandomIndex(long long ArrayLength)
     return Random;    
 }
 
-long long *RandomArray(long long ArrayLength)
+int *RandomArray(int ArrayLength)
 {
-    long long *Array = new long long[ArrayLength];
-    for (long long i = 0; i < ArrayLength; i++)
+    int *Array = new int[ArrayLength];
+    for (int i = 0; i < ArrayLength; i++)
     {
         Array[i]=rand()%1000;
     }
     return Array;
 }
 
-void Swap(long long *Array, long long First, long long Second)
+void Swap(int *Array, int First, int Second)
 {
-    long long Temp=Array[First];
+    int Temp=Array[First];
     Array[First]=Array[Second];
     Array[Second]=Temp;
     return;
 }
 
-void BubbleSort2(long long *Array, long long ArrayLength)
+void BubbleSort2(int *Array, int ArrayLength)
 {
     bool Repeat=false;
-    long long MaxLength=ArrayLength-1;
+    int MaxLength=ArrayLength-1;
     do
     {
         Repeat=false;
-        for(long long i=0;i<MaxLength;i++)
+        for(int i=0;i<MaxLength;i++)
         {
             if(Array[i]>Array[i+1])
             {
@@ -49,16 +49,16 @@ void BubbleSort2(long long *Array, long long ArrayLength)
     return;    
 }
 
-long long Interpolation(long long* Array,long long Left, long long Right, long long Search)
+int Interpolation(int* Array,int Left, int Right, int Search)
 {
-    long long Estimate=Left+(((Search-Array[Left])*(Right-Left))/(Array[Right]-Array[Left]));
+    int Estimate = Left + ((Search - Array[Left]) * (Right - Left) / (Array[Right] - Array[Left]));
     return Estimate;
 }
 
-long long InterpolatedSearch(long long *Array,long long ArrayLength, long long Search, double &CompareCount)
+int InterpolatedSearch(int *Array,int ArrayLength, int Search, double &CompareCount)
 {
-    long long Left=0,Right=ArrayLength-1,Middle;
-    while(Left<=Right)
+    int Left=0,Right=ArrayLength-1,Middle;
+    while ((Array[Right] != Array[Left]) && (Search >= Array[Left]) && (Search <= Array[Right]))
     {
         Middle=Interpolation(Array,Left,Right,Search);
         if(Middle==Search)
@@ -71,13 +71,13 @@ long long InterpolatedSearch(long long *Array,long long ArrayLength, long long S
     return -1;
 }
 
-double InterpolatedSearchStatictics(long long ArrayLength,long long Max)
+double InterpolatedSearchStatictics(int ArrayLength,int Max)
 {
     double Summary{},Count{};
-    for(long long i=0;i<Max;i++)
+    for(int i=0;i<Max;i++)
     {
         Count=0;
-        long long *Array=RandomArray(ArrayLength);
+        int *Array=RandomArray(ArrayLength);
         BubbleSort2(Array,ArrayLength);
         InterpolatedSearch(Array,ArrayLength,Array[RandomIndex(ArrayLength)],Count);
         Summary+=Count;
@@ -88,8 +88,8 @@ double InterpolatedSearchStatictics(long long ArrayLength,long long Max)
 void TestInterpolatedSearch()
 {
     std::ofstream MyFile("Interpolated_search.dat");
-    long long ArrayLength=0;
-    for(long long i=0;i<100;i++)
+    int ArrayLength=0;
+    for(int i=0;i<100;i++)
     {
         ArrayLength+=10;
         MyFile<<ArrayLength<<"\t"<<InterpolatedSearchStatictics(ArrayLength,100)<<std::endl;
@@ -103,6 +103,10 @@ void TestInterpolatedSearch()
 int main()
 {
     srand(time(NULL));
-    TestInterpolatedSearch();
+    double Count{};
+    //TestInterpolatedSearch();
+    int *SingleArray = RandomArray(50);
+    BubbleSort2(SingleArray,50);
+    std::cout<<InterpolatedSearch(SingleArray,50,SingleArray[RandomIndex(30)],Count);
     return 0;
 }
