@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ -f "$1" ]
+then
+	echo -e "Plik $1 istnieje \n Czy edytowac? (Y/N) "
+	read answer
+	if [ "$answer" = "Y"]
+	then
+		gedit $1&
+	else
+		 cat $1
+	fi
+else
+	echo "Brak pliku"
+fi

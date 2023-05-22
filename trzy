@@ -1,0 +1,17 @@
+#!/bin/bash
+if [ "$1" = "--help" ]
+then
+	echo "Program do zmiany uprawnien pliku. Argumenty: nazwa pliku, kod uprawnienia"
+else
+	if [ -f "$1" -a -n "$2" ]
+	then
+		echo "Plik przed zmiana"
+		ls -l "$1"
+		chmod "$2" "$1"
+		echo "Nastapila zmiana uprawnien"
+		ls -l "$1"
+	else
+		echo "Argumenty sa nieprawidlowe"
+	fi
+fi
+

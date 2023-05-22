@@ -1,0 +1,11 @@
+#!/bin/bash
+echo "$HOSTNAME"
+echo '$HOSTNAME'
+echo "$USER"
+echo '$USER'
+
+
+echo "Liczba argumentow to: $#"
+echo "Te argumenty to: $*"
+
+echo "Nazwa skrytptu: $0 Numer procesu: $$"

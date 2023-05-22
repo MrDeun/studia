@@ -1,0 +1,10 @@
+#!/bin/bash
+x=1
+while [ -n $1 ]
+	do
+	echo "Argument $x: $1"
+	x=$(($x + 1))
+	shift
+	done
+exit 
+

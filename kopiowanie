@@ -1,0 +1,13 @@
+#!/bin/bash
+if ( "$1" == "")
+	then
+	echo "Incorrect Argument"
+	else
+		if ( -d "$HOME/rash$DATE" )
+			echo "Usunieto juz istniejacy folder"
+			rmdir -p $HOME/rash$DATE"
+			cs $1 $HOME/rash$DASH
+		else
+			cs $1 $HOME/rash$DATE
+
+

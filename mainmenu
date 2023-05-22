@@ -1,0 +1,23 @@
+#!/bin/bash
+znak=t
+until [ "$znak"="t"  ] ; do
+	clear
+	echo "Wybierz opcje"
+	echo "1. Informacje o systemie"
+	echo "2. Folder Domowy"
+	echo "3. Uprawnienia do pliku"
+	echo "4. Zawartosc pliku"
+	echo "5. Zawartosc katalogu"
+	echo "6. Zakoczenie skryptu"
+	read d
+	case "$d" in
+		"1") uname -a;; 
+		"2") echo "$HOME";;
+		"3") ls -l $1;;
+		"4") cat $1;;
+		"5") ls -l $1;;
+		"6") znak=n;;
+	esac 
+done
+
+
