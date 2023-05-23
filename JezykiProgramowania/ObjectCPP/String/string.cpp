@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string.h>
 
-class myString()
+class myString
 {
     private:
         char *chars;
@@ -25,26 +25,26 @@ class myString()
         myString()
     {
         chars=0;
-        string=0;
+        size=0;
     }
     myString(myString &str_in);
-    ~myString(){}
-        if(chars) delete[] chars;
+    ~myString()
+        {if(chars) delete[] chars;}
 
     int GetSize()
     {
         return size+1;
     }
 
-    friend ostream& operator<<(ostream& os_in,myString& mystr_in);
+    friend std::ostream& operator<<(std::ostream& os_in,myString& mystr_in);
     char &operator[](int Index){return chars[Index];}
-    myString &operator=(mystring& mystr_in);
-    myString &operator+=(mystring& mystr_in);
-    myString &operator+(mystring& mystr_in);
+    myString &operator=(myString& mystr_in);
+    myString &operator+=(myString& mystr_in);
+    myString &operator+(myString& mystr_in);
 
 };
 
-myString& myString::operator=(myString& mystr_in)
+myString& operator=(myString& mystr_in)
 {
     if(this==&mystr_in)return (*this);
     Set(mystr_in.chars);
@@ -54,10 +54,10 @@ myString& myString::operator=(myString& mystr_in)
 
 myString& myString::operator+=(myString& mystr_in)
 {
-    char *Chars_Temp=new char[size+mystr_in.size+1]
+    char *Chars_Temp=new char[size+mystr_in.size+1];
     for(int i=0;i<size;i++)
         Chars_Temp[i]=chars[i];
-    for(int i=0;i<mystr_in;i++)
+    for(int i=0;i<mystr_in.size;i++)
         Chars_Temp[i+size]=mystr_in.chars[i];
 
     delete[] chars;
@@ -69,18 +69,18 @@ myString& myString::operator+=(myString& mystr_in)
 
 myString& myString::operator+(myString& mystr_in)
 {
-    myString *mystr_tmp=new myString[chars];
+    myString *mystr_tmp=new myString[size];
     *mystr_tmp+=mystr_in;
     return(*mystr_tmp);
 }
 
-ostream &operator<<(ostream& os_in, myString& mystr_in)
+std::ostream &operator<<(std::ostream& os_in, myString& mystr_in)
 {
     os_in<<mystr_in.chars;
     return *os_in;
 }
 
-istream &operator>>(istream& is_in, myString& mystr_in)
+std::istream &operator>>(std::istream& is_in, myString& mystr_in)
 {
     char StaticArray[256];
     is_in.getline(StaticArray,256);
@@ -94,12 +94,12 @@ myString::myString(myString& str_in)
     Set(str_in.chars);
 }
 
-int count_ch(mystring mstr_in, char char_in)
+int count_ch(myString mstr_in, char char_in)
 {
     int n=0;
     for(int i=0;i<mstr_in.GetSize();i++)
     {
-        if(ch_in==mstr_in[i])
+        if(char_in==mstr_in[i])
             n++;
     }
     return n;
