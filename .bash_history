@@ -121,3 +121,47 @@ rmdir
 rmdir --help
 nano kopiowanie 
 exit
+cd $HOME
+cd home/mrdeun
+ls -l
+chmod 777 kopiowanie
+git init
+git add .
+git commit -m 'Bash Files finally backed up'
+git config --global user.email "pmichalak16@gmail.com"
+git commit -m 'Bash Files finally backed up'
+git config --global user.name "mrdeun"
+git commit -m 'Bash Files finally backed up'
+git log
+vim
+git push
+git remote add MrDeun https://github.com/MrDeun/studia
+git push 
+git push MrDeun master
+git remove delete MrDeun
+git remote delete MrDeun
+git remote
+git remote studia https://github.com/MrDeun/studia
+git remote add  studia https://github.com/MrDeun/studia
+git push studia
+
+
+git push studia
+cd ./home/mrdeun
+cd home/mrdeun
+cd ..
+cd /
+cd home/mrdeun
+ls
+ls -l
+chmod 754 .
+ls -l
+chmod 754 d
+chmod 754 dwa
+chmod 754 kopiowanie
+chmod 754 mainmenu
+chmod 754 pierwszyskrypt
+chmod 754 shifter
+chmod 754 trzy
+ls -l
+exit

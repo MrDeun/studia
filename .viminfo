@@ -11,6 +11,8 @@
 # hlsearch on (H) or off (h):
 ~h
 # Command Line History (newest to oldest):
+:qa
+|2,0,1684771721,,"qa"
 :quit
 |2,0,1684147235,,"quit"
 :guit
