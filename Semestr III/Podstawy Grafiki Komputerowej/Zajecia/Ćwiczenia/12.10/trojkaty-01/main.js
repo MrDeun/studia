@@ -19,7 +19,11 @@ const loader = new GLTFLoader();
 
 
 // Material
-const material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: false } );
+const redMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: false } );
+const blueMaterial = new THREE.MeshBasicMaterial({color:0x0000ff, wireframe: false});
+const greenMaterial = new THREE.MeshBasicMaterial({color:0x00ff00, wireframe: false})
+
+const arrayMaterial = [redMaterial,greenMaterial,blueMaterial]
 //material.side = THREE.DoubleSide;
 
 // BufferGeometry
@@ -81,6 +85,7 @@ const vertices = new Float32Array( [
 
 // itemSize = 3 because there are 3 values (components) per vertex
 geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+geometry.setAttribute('color', )
 geometry.computeBoundingSphere();
 
 const mesh = new THREE.Mesh( geometry, material );
