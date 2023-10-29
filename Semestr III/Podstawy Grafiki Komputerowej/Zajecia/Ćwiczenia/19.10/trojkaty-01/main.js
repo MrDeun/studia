@@ -133,7 +133,7 @@ scene.add(screwGroup2)
 
 // An axis object to visualize the 3 axes in a simple way.
 // The X axis is red. The Y axis is green. The Z axis is blue.
-const axesHelper = new THREE.AxesHelper( 5 );
+const axesHelper = new THREE.AxesHelper( 20 );
 scene.add( axesHelper );
 
 // render created scene
