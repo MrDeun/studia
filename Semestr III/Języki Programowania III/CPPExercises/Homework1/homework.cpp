@@ -1,28 +1,31 @@
+export module dlib;
+
 #include <iostream>
 #include <numeric>
-
-int GreatestCommonDivisor(int firstNumber, int secondNumber)
+export namespace dlib
 {
-    int Temporary;
-    while(secondNumber)
+     int gcd(int firstNumber, int secondNumber)
     {
-        Temporary = secondNumber;
-        secondNumber = firstNumber % secondNumber;
-        firstNumber = Temporary;
+        int Temporary;
+        while(secondNumber)
+        {
+            Temporary = secondNumber;
+            secondNumber = firstNumber % secondNumber;
+            firstNumber = Temporary;
+        }
+        return firstNumber;
+}
+
+     int lcm(int firstNumber, int secondNumber)
+    {
+        return (firstNumber*secondNumber)/gcd(firstNumber,secondNumber);
     }
-    return firstNumber;
 }
-
-int LeastCommonMultipication(int firstNumber, int secondNumber)
-{
-    return (firstNumber*secondNumber)/GreatestCommonDivisor(firstNumber,secondNumber);
-}
-
 
 int main()
 {
-    bool firstResult=GreatestCommonDivisor(5,6)==std::gcd(5,6);
-    bool secondResult=LeastCommonMultipication(5,6)==std::lcm(5,6);
+    bool firstResult=dlib::gcd(5,6)==std::gcd(5,6);
+    bool secondResult=dlib::lcm(5,6)==std::lcm(5,6);
 
     std::cout<<firstResult<<"\n"<<secondResult;
 

@@ -28,4 +28,4 @@ print(namesetA.difference(namesetB))
 
 #Krotka to najzwyklejsza tablica ktorych danych nie mozna modyfikowac
 tupleExample = (1,2,3,4,5,6,'a','b','c','d','e','f')
-#tupleExample[2] = 3 #Python wykryje w tym momencie wykryje blad gdyz krotka(tuple) nie ma metody modyfikakcji elemntow.
+#tupleExample[2] = 3 #Python wykryje w tym momencie wykryje blad gdyz krotka(tuple) nie ma metody modyfikakcji elementow.
