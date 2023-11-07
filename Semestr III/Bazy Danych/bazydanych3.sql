@@ -34,3 +34,4 @@ select id_osoby,max(pensja),avg(pensja) from pensje group by id_osoby order by i
 --13) id_osob wraz ze srednia pensja dla aktualnie wyplacanych pensji, pogrupowane wh sredniej jedynie dla osob zarabiajacych srednio > 2000
 select id_osoby,avg(pensja) from pensje where do>=sysdate or do is not null group by id_osoby having avg(pensja)>2000;
 --DOM) Dla kazdej osoby podac kiedy miala 18 lat.
+select imie1,nazwisko, data_ur+(18*365) as 'data pelnoletnosci' from osoby
