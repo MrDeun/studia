@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+//require("./prefabs/road/crossroad.js");
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(90,window.innerWidth/window.innerHeight,0.1,1000);
@@ -23,6 +24,9 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
 
+
+
+//scene.add(createCrossroad());
 
 
 const animate = function () {
