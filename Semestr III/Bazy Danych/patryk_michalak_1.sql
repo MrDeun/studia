@@ -1,2 +1,2 @@
-select char(ascii(imie1)),length(imie1),char(ascii(nazwisko)),length(nazwisko) from osoby
-select replace(plec,'K','Kobieta') as plec || replace(plec,'M','Mezczyzna') as plec from osoby
+select substr(imie1,1,1),length(imie1),substr(nazwisko,1,1),length(nazwisko) from osoby;
+select imie1, replace(replace(plec, 'M', 'Mezczyzna'), 'K', 'Kobieta') as plec from osoby;
