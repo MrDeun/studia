@@ -45,5 +45,5 @@ max(case
         when z.do is null then ((sysdate - z.od)/365)
     end)
     from osoby o, zatrudnienia z, pensje p
-    where o.id=z.id_osoby and p.pensja is not null
+    where o.id=z.id_osoby and (p.pensja is not null or p.do>sysdate) and o.id=p.id_osoby
     group by o.plec;
