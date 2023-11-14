@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 
-const groundGeometry = new THREE.PlaneGeometry(50.0,50.0,1,1);
+const groundGeometry = new THREE.PlaneGeometry(100.0,100.0,1,1);
 const groundMaterial = new THREE.MeshBasicMaterial({color:0x005500});
 
-const roadGeometry = new THREE.PlaneGeometry(10.0,50.0,1,1);
+const roadGeometry = new THREE.PlaneGeometry(10.0,100.0,1,1);
 const roadMaterial = new THREE.MeshBasicMaterial({color:0x666666});
 
 export function createCrossroad()
@@ -13,12 +13,14 @@ export function createCrossroad()
 
         const verticalRoadMesh = new THREE.Mesh(roadGeometry,roadMaterial);
         const horizontalRoadMesh = new THREE.Mesh(roadGeometry,roadMaterial);
-        horizontalRoadMesh.rotation.x += Math.PI/2;
+        horizontalRoadMesh.rotation.z += Math.PI/2;
 
         const crossroadGroup = new THREE.Group();
         crossroadGroup.add(verticalRoadMesh);
         crossroadGroup.add(horizontalRoadMesh);
         crossroadGroup.add(groundMesh);
+
+        crossroadGroup.rotation.x -= Math.PI/2;
 
         return crossroadGroup;
     }
