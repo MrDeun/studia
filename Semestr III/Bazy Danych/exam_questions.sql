@@ -4,8 +4,12 @@ create table *NAZWA TABELI*
     *NAZWA DANYCH* *TYP DANYCH*
 )
 -- 2) Zmienic jej nazwe
+alter table old_name rename to new_name
 -- 3) Wypisac jej atrybuty
+select * from table_name
 -- 4) Wpisac wiersze do tablicy (roznymi sposobami)
+insert into nazwa_tabeli (kolumna1, kolumna2, ...)
+values (wartosc1, wartosc2, ...)
 -- 5) Wypisac kolumny (roznymi sposobami)
 -- 6) Usunac obiekty
 -- 7) Dodanie kolumny do istniejacej tabeli
@@ -62,12 +66,39 @@ create table *NAZWA TABELI*
 -- 52) wybrać dane szefów
 -- 53)Wyświetlić wszystkie dane osób, które posiadają najkrótsze nazwisko .
 -- 54) wydział o nazwie maksymalnej dlugości I wypisać zatrudnione tam osoby
+WITH najdluzsza_nazwa AS (
+    SELECT *
+    FROM WYDZIALY w, ZATRUDNIENIA z
+    WHERE w.id = z.ID_WYDZIALY
+    AND LENGTH(w.nazwa) = (SELECT MAX(LENGTH(w1.nazwa)) FROM WYDZIALY w1)
+)
+SELECT *
+FROM osoby o, ZATRUDNIENIA z
+WHERE o.id = najdluzsza_nazwa.ID_OSOBY;
 -- 55) Wybrać najmłodszą osobę już niepracującą
+with niepracujace as
+(
+ select o.* from osoby o, ZATRUDNIENIA z
+    where z.id_osoby = o.id
+    and z.do < sysdate     
+)
+
+select o1.* from osoby o1, niepracujace
+where o1.DATA_UR = (select min(DATA_UR) from niepracujace)
 -- 56) dane najstarszego szefa
+
 -- 57) Wyznaczyć wydział, na którym suma pensji jest największa
 -- 58) wyświetlić największą pensje aktualnie wypłacaną
 -- 59) Na którym wydziale pracuje aktualnie najwięcej osób
 -- 60) Wybrać osoby, które nie otrzymały jeszcze podwyżki
 -- 61) Wybrać wydział, który ma najstarszego szefa aktualnie pracującego
 -- 62) wyświetlić dane wydziałów posiadających więcej jak 2 pracowników
+
 -- 63) najstarsze osoby z każdej płci
+select * from osoby
+    where plec = 'K'
+    and data_ur = (select min(data_ur) from osoby where plec = 'K')
+UNION ALL
+select * from osoby
+    where plec = 'M'
+    and data_ur = (select min(data_ur) from osoby where plec = 'M')
