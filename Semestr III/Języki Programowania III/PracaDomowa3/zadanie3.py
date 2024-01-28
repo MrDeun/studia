@@ -1,5 +1,17 @@
 #Funkcja sprawdzajace polozenie punktu wzgledem trojkata (?????)
 
+# Mozemy wyliczyc polozenie punktu wzgledem trojkata po przez wyliczenie
+# czy suma pol powierzchni trojkatow utworzonych z podanego punktu 
+# i dwoch wierzcholkow trojkata jest rowna polu powierzchni calego trojkata
+#
+# Jesli ktores z pomniejszych pol jest rowne zero to znaczy ze punkt znajduje
+# sie na jednej z odcinkow tworzacych trojkat 
+#
+# Jesli pole trojkata jest rowne sumie pomniejszych trojkatow, 
+# to znaczy ze punkt jest w trojkacie, wliczajac w tym krawedzie trojkata
+#
+# Jesli pole trojkata jest rozne od sumy pomniejszych trojkatow, 
+# punkt jest poza trojkatem 
 class Point(object):
     def __init__(self, x:float, y:float):
         self.X = x

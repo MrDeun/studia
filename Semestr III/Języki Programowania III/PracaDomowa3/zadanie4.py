@@ -2,6 +2,7 @@ import matplotlib.pyplot as plot
 import numpy
 import math
 
+# matplotlib mozna wyswietlic wykresy danych
 
 functionNames = ["str()","type()","range()","input()","len()","print()"]
 functionStats = [math.log( (6-i) * 5 ) for i in range (6)]

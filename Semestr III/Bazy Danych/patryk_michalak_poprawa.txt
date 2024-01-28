@@ -1,0 +1,146 @@
+--zadanie 1 - dane osobowe osób aktualnie pracujacych na wydziale fizyki i uporzadkowac wedlug plci
+
+select o.* from osoby o, zatrudnienia z, wydzialy w
+    where
+        o.id = z.ID_OSOBY
+        and z.ID_WYDZIALY = w.ID
+        and w.nazwa like 'fiz%'
+    order by o.plec
+
+-- zadanie 2 - sredni wiek mezczyzn zatrudnionych na wydziale matematyki
+
+with mat_male AS
+(
+    select o.* from osoby o, ZATRUDNIENIA z, wydzialy w
+    where
+        o.id = z.ID_OSOBY
+        and w.id = z.ID_WYDZIALY
+        and w.nazwa like 'mat%'
+        and o.plec = 'M'
+)
+
+    select avg( floor((sysdate - data_ur) /365)) as sredni_wiek from mat_male
+
+-- zadanie 3 - wyswietlic srednia pensje kobiet urodzonych po 10.10.1970
+
+with kobieta_po as
+(
+    select o.* from osoby o
+    where o.data_ur > to_date('10-10-1970','DD-MM-YYYY')
+    and o.plec = 'K'   
+)
+
+select avg(p.pensja) as srednia_pensja from pensje p, kobieta_po o
+    where p.ID_OSOBY = o.id
+-- zadanie 4 - wyswietlic dane wydzialu posiadajacego najwiecej pracownikow
+
+with liczba_pracownikow as 
+(
+    select w.id,count(*) as pracownicy
+        from wydzialy w, osoby o, ZATRUDNIENIA z
+        where 
+            z.ID_WYDZIALY = w.id
+            and o.id = z.ID_OSOBY
+        group by w.id
+)
+
+select w.* from WYDZIALY w, liczba_pracownikow prac
+    where w.id = prac.id
+    and prac.pracownicy = 
+        (
+            select max(pracownicy) from liczba_pracownikow
+        )
+
+-- zadanie 5 - wyswietlic dane najstarszego mezczyzny na wydziale biologii
+
+with male_bio AS
+(
+    select o.* from osoby o, ZATRUDNIENIA z, WYDZIALY w
+    where
+        o.id = z.ID_OSOBY
+        and w.id = z.id_wydzialy
+        and w.nazwa like 'bio%'
+        and o.plec = 'M'
+)
+
+select o.* from male_bio o
+    where
+        o.data_ur = (select max(data_ur) from male_bio)
+
+-- zadanie 6 - wyswietlic dane osoby ktora nie otrzymala jeszcze podwyzki
+
+
+with ilosc_pensji as (
+select id_osoby,count(*) as ilosc from PENSJE
+    group by id_osoby
+)
+
+select o.* from osoby o, ilosc_pensji p
+    where p.id_osoby = o.ID
+    and p.ilosc = 1
+
+-- zadanie 7 - wybrac dane 5 najstarszych osob
+
+select * from OSOBY
+    order by data_ur
+    fetch first 5 rows only;
+
+-- zadanie 9 - wybrac na ktorym wydziale pracuje aktualnie najwiecej kobiet
+
+with liczba_kobiet as 
+(
+    select w.id,count(*) as pracownicy
+        from wydzialy w, osoby o, ZATRUDNIENIA z
+        where 
+            z.ID_WYDZIALY = w.id
+            and o.id = z.ID_OSOBY
+            and o.plec = 'K'
+        group by w.id
+        order by count(*)
+)
+
+select w.nazwa from wydzialy w, liczba_kobiet data
+    where w.id = data.id 
+    and data.pracownicy = (
+        select max(pracownicy) from liczba_kobiet
+    )
+
+-- zadanie 10 - o ile dana osoba pracuje krocej od osoby najdluzej pracujacej na aktualnym zatrudnieniu
+
+with aktualne_zatrudnienia as
+ (
+     select * from ZATRUDNIENIA 
+        where do is null 
+         or sysdate < do
+ )
+
+select ( (max(od) - min(od)) / 365 ) as roznica_w_latach from aktualne_zatrudnienia
+
+-- zadanie 11 - wybrac dane osob ktore zostaly zatrudnione po urodzinach najmlodszego z szefow
+
+with szefowie AS
+(
+    select o.* from osoby o, wydzialy w
+        where w.SZEF = o.id
+)
+
+select o.* from osoby o, szefowie s
+    where
+        s.data_ur = 
+        (
+            select min(data_ur) from szefowie
+        )
+
+        and to_char(s.data_ur, 'DDD') < to_char(o.data_ur, 'DDD')
+
+--zadanie 12 - w ktorym miesiacu zatrudniono najwiecej osob
+
+with month_stat as (
+select count(*) as ilosc,to_char(od,'MM') as miesiac from ZATRUDNIENIA
+    group by (to_char(od,'MM'))
+)
+
+select miesiac from month_stat
+where ilosc = (select max(ilosc) from month_stat)
+fetch first 1 rows only
+    
