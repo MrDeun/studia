@@ -1,4 +1,5 @@
 #Funkcja liczaca wartosc podanonego elementu z ciagu Fibonacciego
+
 def value_of_fib(number):
     if number == 0: return 0
     if number == 1: return 1

@@ -1,5 +1,5 @@
 #Funkcja sprawdzajace polozenie punktu wzgledem trojkata (?????)
-
+#Utworzylem klasy punktu i trojkata dla wlasnej wygody rozwiazywania
 class Point(object):
     def __init__(self, x:float, y:float):
         self.X = x
