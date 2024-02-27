@@ -1,0 +1,56 @@
+# Algorytmy i Struktury Danych 2
+
+# 27/02/2024 - Pierwszy wykład
+### Wykładowca: Tomasz Gwizdałła
+
+### Prawdopodobny plan wykładu:
+* Grafy i algorytmy grafowe
+* Algorytmy geometryczne
+* Wyszukiwanie wzorca
+* Algorytmy arytmetyczne (Różne algorytmy co nie pasują nigdzie indziej)
+
+### Literatura:
+* *"Algorytmy i struktury danych"* L. Banachowski
+*
+
+### Egzamin:
+* 90 minut
+* Materiał z treści II i IV semestru
+* Żeby podejść do egzaminu, potrzeba zaliczenia z ćwiczeń
+* 40 punktów max, 20 minimum do zaliczenia przedmiotu
+
+
+### Zaliczenie ćwiczeń:
+* 7 projektów: skala 0-5 punktów i oddawane w terminie
+* Ewentualnie projekt ratunkowy z 3 punkty.
+* Pisane wyłącznie w C++
+
+## GRAFY:
+
+### Co jest graf?
+
+Graf jest to struktura G = (V,E) składająca się z węzłów (V) połączonych ze sobą za pomocą krawędzi (E)
+
+### Typy grafów:
+* Graf nieskierowany - łączy wierzchołki w obu kierunkach
+* Graf skierowany (digraf) - krawędzię łączą wierzchołki ze sobą tylko w jednym kierunku
+
+### Własności grafów:
+- Rząd grafu - liczba wierzchołków grafu
+- Rozmiar grafu - liczba krawędzi grafu
+- Wierzchołki są **incydentne** jeśli są połączone ze sobą krawędzią
+- Sąsiad - wierzchołki pomiędzy którymi istnieje krawędź
+- Pętla własna - krawędź łącząca wiechołek z samą sobą
+- Stopień wierzchołka: 
+- 1. Graf nieskierowany - liczba jego sąsiadów
+- 2. Graf skierowany - osobnie zlicza się stopnie wejściowe i wyjściowe
+- Podgraf grafu G - graf, ktorego wierzchołki są zawarte w zbiorze wierzchołków G a krawędzie są incydetne do wierzchołków podgrafu.
+- Graf pełny - każdy wierzchołek jest ze sobą połączony
+- Klika - Podgraf pełny
+- Acentryczność wierzchołka - maksymalna z odległosci tego wierzchołka do innych wierzchołka
+- Promień grafu - najmniejsza acentryczność wierzchołka w całym grafie
+- Średnica grafu - największa acentryczność wierzchołka w całym grafie
+- Ścieżka - historia przechodzenia pomiędzy wierzchołkami
+- Ścieżka prosta - żadny wierzchołek się nie powtarza
+- Graf jest spójny gdy z każdego wierzchołka istnieje ścieżka to innego wierzchołka
+- Cykl jest zapętląjącą się ścieżką
