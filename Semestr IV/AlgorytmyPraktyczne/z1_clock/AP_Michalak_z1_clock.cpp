@@ -12,41 +12,11 @@ struct Clock{
     long long totalTimes_miliSec;
 }; 
 
-void fillClock(long* clock_buffer, Clock& clock)
-{
-    clock.hour = clock_buffer[0];
-    clock.minutes = clock_buffer[1];
-    clock.seconds = clock_buffer[2];
-    clock.miliseconds = clock_buffer[3];
-
-    clock.totalTimes_miliSec = clock.hour * 60 * 60 * 100;
-    clock.totalTimes_miliSec += clock.minutes * 60 * 100;
-    clock.totalTimes_miliSec += clock.seconds * 100;
-    clock.totalTimes_miliSec += clock.miliseconds;
-
-    return;
-}
-
 void collectData(Clock& clockOne,Clock& clockTwo,float& radius)
 {
-    long clock_buffer[4];
-    
-    for(long i=0;i< 4;i++)
-    {
-        std::cin >> clock_buffer[i];
-    }
-
-    fillClock(clock_buffer,clockOne);
-
-    for(long i=0;i< 4;i++)
-    {
-        std::cin >> clock_buffer[i];
-    }
-
-    fillClock(clock_buffer,clockTwo);
-
+    std::cin >> clockOne.hour >> clockOne.minutes >> clockOne.seconds >> clockOne.miliseconds;
+    std::cin >> clockTwo.hour >> clockTwo.minutes >> clockTwo.seconds >> clockTwo.miliseconds;
     std::cin >> radius;
-    
     return;
 }
 

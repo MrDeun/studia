@@ -1,0 +1,35 @@
+# Inżynieria OPROGRAMOWANIA
+## Wykładowca: Tomasz M. Gwizdałła
+
+## Prawdopodobny plan wykładu:
+- Modele tworzenia oprogramowania
+- Faza Strategiczna
+- Inżynieria wymagań
+- Modelowanie
+- UML
+- Projektowanie
+- Implementacja
+- Testowanie, walidacja i weryfikacja. Automazycja procesu testowania
+- Utrzymanie
+- Metodyki zwinne - uwagi wstępne
+
+## Literatura:
+* *"Inżyniera oprogramowania"* I.Sommerville
+- *"Podstawy inżynierii oprogramowania"* W. Dąbrowski
+
+## Zaliczenie:
+- Projekt 1: zespołowy, wszytkie fazy tworzenia w miarę skomplikowanie projektu
+- Projekt 2: indywidualny, tylko wybrane fazy - poprawka do ocent
+
+## Egzamin:
+- Nie ma wymogu zaliczenia z ćwiczeń
+- Ważność uzyskanej oceny pozytywnej
+
+# Wprowadzenie
+## Prawo 2/3
+	Dany projekt ma powyższe trzy cechy:
+	- tani
+	- szybki
+	- dobrze
+	Często można maksymalnie dwie cechy.
+	

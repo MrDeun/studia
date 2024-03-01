@@ -54,3 +54,4 @@ Graf jest to struktura G = (V,E) składająca się z węzłów (V) połączonych
 - Ścieżka prosta - żadny wierzchołek się nie powtarza
 - Graf jest spójny gdy z każdego wierzchołka istnieje ścieżka to innego wierzchołka
 - Cykl jest zapętląjącą się ścieżką
+- Drzewo - spójny graf acykliczny
