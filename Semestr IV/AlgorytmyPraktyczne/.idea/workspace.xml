@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3aeb2475-aed7-437b-96b9-59d1b9e1567b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/tasks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_clock/AP_Michalak_z1_clock.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/z1_clock/AP_Michalak_z1_clock.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_clock/clock.out" beforeDir="false" afterPath="$PROJECT_DIR$/z1_clock/clock.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_helix/AP_Michalak_z1_helix.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/z1_helix/AP_Michalak_z1_helix.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_helix/AP_Michalak_z1_helix.exe" beforeDir="false" afterPath="$PROJECT_DIR$/z1_helix/AP_Michalak_z1_helix.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_helix/helix.in" beforeDir="false" afterPath="$PROJECT_DIR$/z1_helix/helix.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_helix/helix.out" beforeDir="false" afterPath="$PROJECT_DIR$/z1_helix/helix.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_penalty/AP_Michalak_z1_penalty.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/z1_penalty/AP_Michalak_z1_penalty.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_penalty/AP_Michalak_z1_penalty.exe" beforeDir="false" afterPath="$PROJECT_DIR$/z1_penalty/AP_Michalak_z1_penalty.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_penalty/wakawaka.in" beforeDir="false" afterPath="$PROJECT_DIR$/z1_penalty/wakawaka.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/z1_penalty/wakawaka.out" beforeDir="false" afterPath="$PROJECT_DIR$/z1_penalty/wakawaka.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programowanie Zaawasowane I/.vscode/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../Programowanie Zaawasowane I/.vscode/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programowanie Zaawasowane I/Polimorphism/cinemas.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../Programowanie Zaawasowane I/Polimorphism/cinemas.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programowanie Zaawasowane I/Polimorphism/cinemas.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../Programowanie Zaawasowane I/Polimorphism/cinemas.exe" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="GitLabMergeRequestsSettings"><![CDATA[{}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2dMLezbhj0zOBoHoroxFkMYQzFv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3aeb2475-aed7-437b-96b9-59d1b9e1567b" name="Changes" comment="" />
+      <created>1709813102250</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1709813102250</updated>
+      <workItem from="1709813102987" duration="29000" />
+    </task>
+    <servers />
+  </component>
+</project>

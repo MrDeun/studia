@@ -1,84 +1,91 @@
-#include <cassert>
+#include <cmath>
 #include <iostream>
-#include <cstdint>
-struct Data {
-    int32_t groups;
-    int32_t teams_per_group;
-    int32_t advancees;
-    int32_t direct;
+
+struct FifaData {
+    long long groups;
+    long long teams_per_group;
+    long long advancees;
+    long long direct;
 };
 
-bool is_power_of_two(long long x) {
-    return !(x == 0) && !(x & (x - 1));
-}
-
-int mylog2 (unsigned int val) {
-    if (val == 0) return UINT_MAX;
-    if (val == 1) return 0;
-    unsigned int ret = 0;
-    while (val > 1) {
-        val >>= 1;
-        ret++;
-    }
-    return ret;
-}
-
-
-void collectData(Data& our_data)
+long long factorial(long long value)
 {
-    std::cin >> our_data.groups >> our_data.teams_per_group >> our_data.advancees >> our_data.direct;
+    if(value == 0)
+        return 0;
+    if(value == 1)
+        return 1;
+    return value * factorial(value - 1);
+}
+
+void collectData(FifaData& data)
+{
+    std::cin >> data.groups;
+    std::cin >> data.teams_per_group;
+    std::cin >> data.advancees;
+    std::cin >> data.direct;
     return;
 }
 
-
-long long new_teams(const Data& our_data)
+bool is_power_of_two(long long value)
 {
-    long long _new_teams = 0;
-    while (!is_power_of_two((our_data.groups * our_data.advancees) + our_data.direct + _new_teams)) {
-        _new_teams++;
+    if (value == 0)
+        return false;
+    return ceil(log2(value)) == floor(log2(value));
+}
+
+long long new_teams(const FifaData& data)
+{
+    long long teams_from_data = (data.advancees * data.groups) + data.direct;
+    long long new_teams = 0;
+    while (!is_power_of_two(teams_from_data + new_teams))
+    {
+        new_teams++;
     }
 
-    return _new_teams;
-}
-long long matches_in_knockout(long long power_of_two)
-{
-    if(power_of_two == 2)
-        {
-            return 1;
-        }
-    else
-        return mylog2(power_of_two) + matches_in_knockout(power_of_two/2);
+    return new_teams;
 }
 
-long long total_matches(const Data& our_data, const long long& new_teams)
+long long matches_from_finals(long long teams_in_finals)
 {
-    assert(is_power_of_two((our_data.advancees * our_data.groups) + new_teams + our_data.direct));
-    long long _matches_in_knockout = matches_in_knockout((our_data.advancees * our_data.groups) + new_teams + our_data.direct);
-    return _matches_in_knockout;
+    long long result = 0;
+    while (teams_in_finals != 2)
+    {
+        teams_in_finals = teams_in_finals/2;
+        result += teams_in_finals;
+    }
+    return ++result;
+}
+
+long long total_matches(const FifaData& data, const long long new_teams)
+{
+    long long matches_from_quali = data.groups * factorial(data.teams_per_group - 1);
+    long long teams_in_finals = (data.groups * data.advancees) + new_teams + data.direct;
+    long long _matches_from_finals = matches_from_finals(teams_in_finals);
+    return _matches_from_finals + matches_from_quali;
 }
 
 int main()
 {
-    Data our_data;
-    while(true)
+    FifaData data;
+    while (true)
     {
-        collectData(our_data);
+        collectData(data);
         if (
-            our_data.groups == -1 &&
-            our_data.teams_per_group == -1 &&
-            our_data.advancees == -1 &&
-            our_data.direct == -1
-        )  return 0;
+            data.groups == -1 &&
+            data.teams_per_group == -1 &&
+            data.advancees == -1 &&
+            data.direct == -1 
+        )   return 0;
 
-        long long _new_teams = new_teams(our_data);
-        long long _total_matches = total_matches(our_data, _new_teams);
-
-        std::cout << our_data.groups 
-                  << "*" << our_data.advancees 
-                  << "/" << our_data.teams_per_group 
-                  << "+" << our_data.direct 
-                  << "=" << _total_matches
-                  << "+" << _new_teams;
+        long long _new_teams = new_teams(data);
+        long long _total_matches = total_matches(data, _new_teams);
+        
+        std::cout << data.groups 
+                  << '*' << data.advancees
+                  << '/' << data.teams_per_group
+                  << '+' << data.direct
+                  << '=' << _total_matches
+                  << '+' << _new_teams << std::endl;
     }
-    
+       
 }
