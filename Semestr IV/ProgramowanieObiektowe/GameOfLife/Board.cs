@@ -1,18 +1,15 @@
 class Board{
     private Cell[,] board;
-    private uint width;
-    private uint height;
-    public Board(uint witdh, uint height){
-        this.width = witdh;
-        this.height = height;
-        this.board = new Cell[this.width,this.height];
+    private int width,height;
+    public Board(int width_in, int height_in){
+        width = width_in;
+        height = height_in;
+        board = new Cell[width,height];
     }
 
-    public void init(string filename){
+    public void init_board(string filename){
+        // TO DO: initializing board with a file;
     }
 
-    public Cell get_cell(uint x, uint y){
-        return board[x,y];
-    }
 
 };

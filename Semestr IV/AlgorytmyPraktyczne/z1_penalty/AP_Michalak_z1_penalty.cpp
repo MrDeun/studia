@@ -1,78 +1,85 @@
-#include <cstdint>
 #include <iostream>
 #include <cstdint>
-struct FifaData {
+struct InputData{
     int64_t groups;
     int64_t teams_per_group;
     int64_t advancees;
     int64_t direct;
 };
 
-FifaData collectData() {
-    FifaData new_data;
-    std::cin>>new_data.groups;
-    std::cin>>new_data.teams_per_group;
-    std::cin>>new_data.advancees;
-    std::cin>>new_data.direct;
+InputData collectData(){
+    InputData new_data;
+    std::cin >> new_data.groups 
+             >> new_data.teams_per_group 
+             >> new_data.advancees 
+             >> new_data.direct;
     return new_data;
 }
 
-bool is_power_of_two(int64_t amount) {
-    while(amount%2 == 0) {
-        amount = amount / 2;
+int64_t two_check(int64_t testee){
+    while(testee%2 == 0){
+        testee = testee / 2;
     }
-    return amount;
+    return testee;
 }
 
-
-int64_t new_teams(FifaData data) {
-    int64_t current_teams = (data.groups * data.advancees) + data.direct;
-    int64_t new_teams = 0;
-    while(!is_power_of_two(current_teams + new_teams)) {
-        ++new_teams;
+int64_t checkKnockout(int64_t knockout_teams){
+    int64_t check = two_check(knockout_teams);
+    if(check != 1){
+        int64_t temp = 1;
+        while(temp < knockout_teams){
+            temp = temp*2;
+        }
+        return temp;
     }
-    return new_teams;
+    return knockout_teams;
 }
 
-int64_t matches_in_knockout(int64_t teams) {
-    if (teams <= 2)
-    {
-        return 1;
+    
+int64_t newTeams(int64_t finals_check, int64_t knockout_teams){
+    if (finals_check == 0){
+        return 0;
+    } else {
+        int64_t new_teams = finals_check - knockout_teams;
+        return new_teams;
     }
-    return matches_in_knockout(teams/2) + teams/2;
 }
 
-int64_t total_matches(FifaData data, int64_t new_matches) {
-    int64_t matches_in_quali = data.groups * ((data.teams_per_group * (data.teams_per_group-1))/2);
-    int64_t _matches_in_knockout = 
-        matches_in_knockout(new_matches + (data.groups * data.advancees) + data.direct);
-    return matches_in_quali + _matches_in_knockout; 
+int64_t finalMatches(int64_t knockout_check){
+    int64_t matches_count = 0;
+    while(knockout_check>1){
+        matches_count += knockout_check/2;
+        knockout_check = knockout_check/2;
+    }
+    return matches_count;
 }
 
-void output_values(const FifaData& data, const int64_t& _new_teams, const int64_t& _total_matches) {
+void print_result(InputData data, int64_t new_teams, int64_t total_matches){
     std::cout << data.groups
               << '*' <<data.advancees
               << '/' <<data.teams_per_group
               << '+' <<data.direct
-              << '=' <<_total_matches
-              << '+' <<_new_teams << std::endl;
-
+              << '=' <<total_matches
+              << '+' <<new_teams << std::endl;
 }
 
 int main(){
-    while(true) {
-        FifaData data = collectData();
-        if (
-            data.groups == -1 &&
-            data.teams_per_group == -1 &&
-            data.advancees == -1 &&
-            data.direct == -1
-        ) return 0;
+    while (true){
+        InputData data = collectData();
+        if (data.groups == -1 && 
+            data.teams_per_group == -1 && 
+            data.advancees == -1 && 
+            data.direct == -1) return 0;
+        
+        int64_t matches_in_group = (data.teams_per_group * ((data.teams_per_group -1)))/2;
+        int64_t matches_in_quali = matches_in_group * data.groups;
+        int64_t knockout_teams = data.groups * data.advancees + data.direct;
+        
+        int64_t finals_check = checkKnockout(knockout_teams);
+        int64_t new_teams = newTeams(finals_check,knockout_teams);
+        int64_t matches_in_finals = finalMatches(finals_check);
 
-        int64_t _new_teams = new_teams(data);
-        int64_t _total_matches = total_matches(data,_new_teams);
-
-        output_values(data,_new_teams,_total_matches);
+        print_result(data,new_teams,matches_in_finals+matches_in_quali);
     }
-    return -1;
+    
 }

@@ -13,8 +13,7 @@ struct Clock{
     long long totalTimes_miliSec;
 }; 
 
-void collectData(Clock& clockOne,Clock& clockTwo,float& radius)
-{
+void collectData(Clock& clockOne,Clock& clockTwo,double& radius) {
     std::cin >> clockOne.hour >> clockOne.minutes >> clockOne.seconds >> clockOne.miliseconds;
     std::cin >> clockTwo.hour >> clockTwo.minutes >> clockTwo.seconds >> clockTwo.miliseconds;
     std::cin >> radius;
@@ -28,7 +27,7 @@ int main()
 {
 
     Clock clockOne, clockTwo;
-    float radius{};
+    double radius{};
     size_t count{};
 
     std::cin >> count;
