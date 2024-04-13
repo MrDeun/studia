@@ -10,7 +10,7 @@ class Game_Engine{
 
     }
 
-    virtual void Show(){}
+    public virtual void Show(){}
 
     void check_next_state(){
         for (int i = 0; i <front_board.height(); i++){
@@ -37,8 +37,8 @@ class Game_Engine{
         Random rng = new Random();
 
 
-        for(int i = 0; i < _width; i++){
-            for(int j = 0; j < _height; j++){
+        for(int i = 0; i < front_board.height(); i++){
+            for(int j = 0; j < front_board.width(); j++){
                 front_board.get_cell(i,j).set_state(determine_begin(rng.next(100)));
             }
         }

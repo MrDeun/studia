@@ -4,14 +4,13 @@ class Board{
     public Board(int width_in, int height_in){
         _width = width_in;
         _height = height_in;
-        board = new Cell[width,height];
+        board = new Cell[_width,_height];
     }
 
     public void init_board(){
         for(int i = 0; i < _height; i++){
             for(int j = 0; j < _width; j++){
-                front_board[i][j] = new Cell(i,j);
-                back_board[i][j] = new Cell(i,j);
+                board[i][j] = new Cell(i,j);
             }
         }
     }
@@ -30,9 +29,9 @@ class Board{
         return alive_neighbours;
     }
 
-    public get_cell(int id_x, int id_y){
-        if(id_x < 0 || id_x >= width) throw "error: tried to access element outside of board";
-        if(id_y < 0 || id_y >= height) throw "error: tried to access element outside of board";
+    public Cell get_cell(int id_x, int id_y){
+        if(id_x < 0 || id_x >= width()) throw "error: tried to access element outside of board";
+        if(id_y < 0 || id_y >= height()) throw "error: tried to access element outside of board";
 
         return board[id_x,id_y];
     }

@@ -4,7 +4,10 @@ project(GameOfLife VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-add_executable(GameOfLife src/main.cpp src/board.cpp src/cell.cpp)
+add_executable(GameOfLife
+        src/engine.cpp
+        src/engine.h
+        src/main.cpp)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

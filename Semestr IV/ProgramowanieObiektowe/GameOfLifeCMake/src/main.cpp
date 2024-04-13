@@ -1,7 +1,3 @@
-
-#include <iostream>
-#include <board.hpp>
-
-int main(int, char**){
-    std::cout << "Hello, from GameOfLife!\n";
-}
+//
+// Created by Patryk on 12-Apr-24.
+//
