@@ -7,7 +7,11 @@ enable_testing()
 add_executable(GameOfLife
         src/engine.cpp
         src/engine.h
-        src/main.cpp)
+        src/main.cpp
+        src/game.cpp
+        src/game.h
+        src/game_txt.cpp
+        src/game_txt.h)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
