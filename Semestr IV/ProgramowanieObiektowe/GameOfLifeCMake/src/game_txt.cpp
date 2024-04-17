@@ -12,7 +12,7 @@ void clear_screen(){
 
 void delay(){
     time_t begin = clock();
-    while(begin + 10 >= clock()){
+    while(begin + 100 >= clock()){
         continue;
     }
 }

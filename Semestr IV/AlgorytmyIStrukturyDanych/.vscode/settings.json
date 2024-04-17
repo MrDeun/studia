@@ -1,0 +1,4 @@
+{
+    "C_Cpp.clang_format_fallbackStyle": "LLVM",
+    "clang-format.executable": "C:\\Users\\Patryk\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\clang_format\\data\\bin"
+}
