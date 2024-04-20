@@ -10,9 +10,14 @@ class labyrinth {
     private:
         int size_x, size_y;
         Tile* tile_container;
+        bool finished = false;
     public:
         labyrinth(int in_x,int in_y):size_x(in_x),size_y(in_y){
             tile_container = new Tile[size_x * size_y];
+        }
+
+        bool is_finished(){
+            return finished;
         }
 };
 

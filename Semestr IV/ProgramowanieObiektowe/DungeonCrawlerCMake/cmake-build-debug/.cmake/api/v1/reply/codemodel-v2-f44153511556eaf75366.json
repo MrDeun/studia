@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "DungeonCrawlerCMake::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-DungeonCrawlerCMake-Debug-8fbf2efcd8d56083469c.json",
+					"jsonFile" : "target-DungeonCrawlerCMake-Debug-17c923702811182ca742.json",
 					"name" : "DungeonCrawlerCMake",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Patryk/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug",
-		"source" : "C:/Users/Patryk/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake"
+		"build" : "C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug",
+		"source" : "C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake"
 	},
 	"version" : 
 	{
