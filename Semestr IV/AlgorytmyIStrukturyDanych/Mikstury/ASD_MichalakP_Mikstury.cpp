@@ -1,86 +1,76 @@
-#include <cstddef>
-#include <iostream>
-#include <utility>
 #include <vector>
 #include <stack>
-#include <map>
+#include <iostream>
 
-using trans_map = std::map<size_t,std::vector<size_t>>;
+using map_edges = std::vector<std::vector<size_t>>;
 
-std::vector<int> create_mixtures(const size_t& mix_size){
-  std::vector<int> new_mix = {};
-  for (size_t i = 0; i < mix_size; i++) {
-    int temp;
-    std::cin >> temp;
-    new_mix.push_back(temp);
+std::vector<int> input_value(size_t graph_size){
+  std::vector<int> new_values;
+  for (size_t i  = 0;i<graph_size;i++) {
+    int temp_val;
+    std::cin >> temp_val;
+    new_values.push_back(temp_val);
   }
-  std::cout << "Mixtures created\n";
-  return new_mix;
+  return new_values;
 }
 
-trans_map init_map(const size_t& mix_size){
-  trans_map new_map = {};
-  for(size_t i=0; i<mix_size;i++){
-    std::vector<size_t> new_list = {};
-    new_map.insert(std::make_pair(i,new_list));
+std::vector<std::vector<size_t>> input_transmition(size_t transmute_size) {
+  std::vector<std::vector<size_t>> new_transmition;
+  for (size_t i=0; i < transmute_size; transmute_size++) {
+    size_t from,to;
+    std::cin >>from>>to;
+    std::vector<size_t> new_pair;
+    new_pair.push_back(from-1);
+    new_pair.push_back(to-1);
+    new_transmition.push_back(new_pair);
   }
-  return new_map;
+  return new_transmition;
 }
 
-trans_map create_adjacent(const size_t& tran_size,const size_t& mix_size){
-  std::map<size_t, std::vector<size_t>> fresh_map = init_map(mix_size);
-  for (size_t i=0; i < tran_size; i++) {
-    size_t from, to;
-    std::cin >> from >> to;
-    fresh_map.find(from)->second.push_back(to);
-  }
-  return fresh_map;
-}
-
-std::vector<bool> init_visited(size_t mix_size){
-  std::vector<bool> new_vec = {};
-  for (size_t i = 0; i < mix_size; i++) {
-    new_vec.push_back(false);
-  }
-  return new_vec;
-}
-
-void recur_topologic(size_t index,const std::vector<int>& mixtures, const trans_map& adj_list, std::stack<size_t>& ans_stack, std::vector<bool>& visited){
-  visited[index] = true;
-  for (auto& element : adj_list.find(index)->second) {
-    if(!visited[element])
-      recur_topologic(element,mixtures, adj_list, ans_stack, visited);
-  }
-  ans_stack.push(index);
-  return;
-}
-
-void topologic_sort(std::vector<int> mixtures, trans_map adj_list){
-  std::stack<size_t> ans_stack{};
-  std::vector<bool> visited = init_visited(mixtures.size());
-
-  for (size_t i = 0;i<mixtures.size();i++) {
+void topologicalSort_recur(size_t current_index,
+                          map_edges& adj_list,
+                          std::vector<bool> visited,
+                          std::stack<size_t> stack_index){
+  visited[current_index] = true;
+  for (auto i : adj_list[current_index]) {
     if (!visited[i]) {
-      recur_topologic(i,mixtures,adj_list,ans_stack,visited);
+      topologicalSort_recur(i, adj_list, visited,stack_index);
     }
   }
+  stack_index.push(current_index);
+}
 
-  while (!ans_stack.empty()) {
-    std::cout << mixtures[ans_stack.top()] << " <- ";
-    ans_stack.pop();
+std::stack<size_t> topologicalSort(map_edges& adj_list,size_t graph_size){
+  std::stack<size_t> stack_index;
+  std::vector<bool> visited(graph_size,false);
+
+  for (size_t i = 0;i<graph_size;i++) {
+    if(!visited[i]){
+      topologicalSort_recur(i,adj_list,visited,stack_index);
+    }
   }
+  return stack_index;
 }
 
 int main(){
   size_t test_cases;
   std::cin >> test_cases;
-  while (--test_cases) {
-    std::cout << "CASE 0" << test_cases;
-    size_t mix_size, tran_size;
-    std::cin >> mix_size >> tran_size;
-    std::vector<int> mixtures = create_mixtures(mix_size);
-    trans_map adjacent_list = create_adjacent(tran_size,mix_size);
-    topologic_sort(mixtures,adjacent_list);
+  for (size_t i = 0;i<test_cases;i++) {
+    size_t graph_size,transmute_size;
+    std::cin >> graph_size >> transmute_size;
+
+    std::vector<int> values = input_value(graph_size);
+    std::vector<std::vector<size_t>> edges = input_transmition(transmute_size);
+    std::vector<std::vector<size_t>> adj_list(graph_size);
+
+    for (auto j : edges) {
+      adj_list[j[0]].push_back(j[1]);
+    }
+    std::stack<size_t> result = topologicalSort(adj_list,graph_size);
+    while (!result.empty()) {
+      std::cout << values[result.top()];
+      result.pop();
+    }
   }
   return 0;
 }
