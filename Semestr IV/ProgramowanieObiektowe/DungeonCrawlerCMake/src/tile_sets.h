@@ -10,21 +10,24 @@
 class player_tile: public Tile{
 public:
     player_tile(): Tile('P'){};
-    ~player_tile(){}
-    void event();
+    ~player_tile() = default
+    void event(int key_code);
+    enum direction{
+        forward,right,down,left
+    };
 };
 
 class wall_tile: public Tile{
 public:
     wall_tile(): Tile('#'){};
-    ~wall_tile(){}
+    ~wall_tile() = default;
     void event();
 };
 
 class floor_tile: public Tile{
 public:
     floor_tile():Tile('_'){}
-    ~floor_tile(){}
+    ~floor_tile() = default;
     void event();
 };
 

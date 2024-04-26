@@ -1,3 +1,0 @@
-C:\Users\pmich\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E rm -f CMakeFiles\DungeonCrawlerCMake.dir/objects.a
-C:\Users\pmich\AppData\Local\Programs\CLion\bin\mingw\bin\ar.exe qc CMakeFiles\DungeonCrawlerCMake.dir/objects.a @CMakeFiles\DungeonCrawlerCMake.dir\objects1.rsp
-C:\Users\pmich\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\DungeonCrawlerCMake.dir/objects.a -Wl,--no-whole-archive -o DungeonCrawlerCMake.exe -Wl,--out-implib,libDungeonCrawlerCMake.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\DungeonCrawlerCMake.dir\linkLibs.rsp

@@ -11,14 +11,21 @@ class labyrinth {
         int size_x, size_y;
         Tile* tile_container;
         bool finished = false;
+        Tile player_tile_x = 0, player_tile_y = 0;
     public:
         labyrinth(int in_x,int in_y):size_x(in_x),size_y(in_y){
             tile_container = new Tile[size_x * size_y];
         }
 
+        void construct(){
+
+        }
+
         bool is_finished(){
             return finished;
         }
+
+        void event(int key_code);
 };
 
 

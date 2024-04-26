@@ -7,13 +7,16 @@
 
 #include "labyrinth.h"
 #include <queue>
-
+#include <conio.h>
+#include <fstream>
+#include <memory>
 class engine {
     private:
-        std::queue<labyrinth> queue_stack;
+        std::queue<labyrinth> labyrinth_queue;
     public:
+        bool construct_labyrinths(const char* filename);
         bool next();
-        bool loop();
+        void loop();
         virtual void show_state();
 };
 

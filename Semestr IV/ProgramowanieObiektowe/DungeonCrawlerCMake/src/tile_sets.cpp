@@ -20,7 +20,7 @@ void player_tile::event() {
     throw "Player_Title event not implemented!";
 }
 
-void floor_tile::event() {
+void floor_tile::event(int key_code) {
     throw "Floor_Tile event not implemented!";
 }
 

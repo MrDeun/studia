@@ -3,3 +3,7 @@
 //
 
 #include "labyrinth.h"
+
+void labyrinth::event(int key_code) {
+
+}

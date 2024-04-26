@@ -1,0 +1,3 @@
+C:/Users/Patryk/Github/studia/Semestr IV/Programowanie Zaawasowane I/new_grib_decoder/cmake-build-debug/CMakeFiles/new_grib_decoder.dir
+C:/Users/Patryk/Github/studia/Semestr IV/Programowanie Zaawasowane I/new_grib_decoder/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Patryk/Github/studia/Semestr IV/Programowanie Zaawasowane I/new_grib_decoder/cmake-build-debug/CMakeFiles/rebuild_cache.dir

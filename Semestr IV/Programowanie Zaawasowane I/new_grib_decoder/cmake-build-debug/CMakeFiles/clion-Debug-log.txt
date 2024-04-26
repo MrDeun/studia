@@ -1,0 +1,4 @@
+C:\Users\Patryk\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/Patryk/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -G Ninja -S "C:\Users\Patryk\Github\studia\Semestr IV\Programowanie Zaawasowane I\new_grib_decoder" -B "C:\Users\Patryk\Github\studia\Semestr IV\Programowanie Zaawasowane I\new_grib_decoder\cmake-build-debug"
+-- Configuring done (0.1s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/Patryk/Github/studia/Semestr IV/Programowanie Zaawasowane I/new_grib_decoder/cmake-build-debug

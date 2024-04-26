@@ -12,7 +12,7 @@ class Tile {
     public:
         Tile() = default;
         ~Tile() = default;
-        Tile(char sym_in):symbol(sym_in){}
+        Tile(unsigned char sym_in):symbol(sym_in){}
         unsigned char get_symbol(){return symbol;}
         virtual void event();
 };
