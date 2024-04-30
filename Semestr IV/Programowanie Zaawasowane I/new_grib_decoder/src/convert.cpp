@@ -4,6 +4,10 @@
 
 #include "convert.h"
 
+uint8_t convert::to_byte(std::vector<uint8_t>::iterator  index){
+    return *index;
+}
+
 uint32_t convert::to_size(std::vector<uint8_t>::iterator index) {
     uint8_t bytes[] = {*index,*(index+1),*(index+2)};
     uint32_t size = 0;
@@ -11,10 +15,16 @@ uint32_t convert::to_size(std::vector<uint8_t>::iterator index) {
     return  size;
 }
 
+int16_t convert::to_short(std::vector<uint8_t>::iterator index) {
+    uint8_t bytes[] = {*(index),*(index+1)};
+    int16_t  result = bytes[1] << 8 | bytes[0];
+    return result;
+}
+
 float convert::to_float(std::vector<uint8_t>::iterator index){
-    uint8_t bytes[] = {*index,*(index+1)};
+    uint8_t bytes[] = {*index,*(index+1) ,*(index+2),*(index+3)};
     float result = 0;
-    result = bytes[1] << 8 | bytes[0];
+    result = bytes[3]<<24 | bytes[2]<<16|bytes[1] << 8 | bytes[0];
     return result;
 }
 

@@ -79,4 +79,34 @@ void grip_decoder::scan_PDS() {
     cursor += 5; // Year byte
     print_date(cursor);
     cursor += PDS_size - 12; // first byte of gds/bms/bds
+    return;
+}
+
+void grip_decoder::read_GDS(){
+    std::cout << "Size of GDS message: " <<convert::to_size(cursor) << '\n';
+    cursor += 6;
+    std::cout << "Count of points along latitude circle: "<<convert::to_short(cursor) <<'\n';
+    cursor += 2;
+    std::cout << "Count of points along longitude meridean: "<<convert::to_short(cursor) <<'\n';
+    cursor += 2;
+    std::cout << "Latitude 1: " << (float)convert::to_size(cursor)*1000;
+    cursor += 3;
+    std::cout << "Longitude 1: " << (float)convert::to_size(cursor)*1000;
+    cursor += 4;
+    std::cout << "Latitude 1: " << (float)convert::to_size(cursor)*1000;
+    cursor += 3;
+    std::cout << "Longitude 1: " << (float)convert::to_size(cursor)*1000;
+}
+//void grip_decoder::read_BDS(){}
+//void grip_decoder::read_BMS(){}
+
+void grip_decoder::scan_rest() {
+    // Cursor now is in first byte of GDS/BMS/BDS
+    if (GDS_exists){
+        read_GDS();
+    }
+    if (BMS_exists){
+        //read_BMS();
+    }
+    //read_BDS();
 }

@@ -21,11 +21,15 @@ class grip_decoder {
         uint32_t grip_size,PDS_size,GDS_size,BMS_size;
         bool GDS_exists, BMS_exists;
         void signal_flags(const uint8_t& data);
-        void print_date(byte_vector::iterator year_byte);
     public:
+        void print_date(byte_vector::iterator year_byte);
         grip_decoder(const char* filename);
         ~grip_decoder() = default;
         bool find_grip();
+        void scan_rest();
+        //void read_BMS();
+        void read_GDS();
+        //void read_BDS();
         void scan_PDS();
 };
 

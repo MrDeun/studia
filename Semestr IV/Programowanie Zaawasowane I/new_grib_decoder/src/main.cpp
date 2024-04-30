@@ -4,9 +4,10 @@ int main() {
     grip_decoder gripDecoder("grip_data.bin");
     if(gripDecoder.find_grip()){
         gripDecoder.scan_PDS();
-        if(getch()){
+        if(getch() == 'q'){
             return 0;
         }
+        gripDecoder.scan_rest();
     }
     std::cout << "Reached EOF" << std::endl;
     return 0;
