@@ -16,17 +16,17 @@ struct {
   }
 } mixture_compare;
 
-std::ostream &operator<<(std::ostream &output, std::vector<mixture> mix_in) {
-  output << "[ ";
-  for (auto mix : mix_in) {
-    output << " [ " << mix.index << " , " << mix.value << "], ";
-  }
-  output << "]";
-  return output;
-}
+// std::ostream &operator<<(std::ostream &output, std::vector<mixture> mix_in) {
+//   output << "[ ";
+//   for (auto mix : mix_in) {
+//     output << " [ " << mix.index << " , " << mix.value << "], ";
+//   }
+//   output << "]";
+//   return output;
+// }
 
 std::vector<mixture> input_value(size_t graph_size) {
-  std::cout << "Attempting to create input vector...\n";
+  // std::cout << "Attempting to create input vector...\n";
   std::vector<mixture> new_values;
   for (size_t i = 0; i < graph_size; i++) {
     int temp_val;
@@ -34,13 +34,13 @@ std::vector<mixture> input_value(size_t graph_size) {
     mixture new_mix(i, temp_val);
     new_values.push_back(new_mix);
   }
-  std::cout << "Input values DONE!\n";
+  // std::cout << "Input values DONE!\n";
   return new_values;
 }
 
 map_edges input_transmition(size_t transmute_size) {
   map_edges new_transmition;
-  std::cout << "Attempting to create tranmistions vector...\n";
+  // std::cout << "Attempting to create tranmistions vector...\n";
   for (size_t i = 0; i < transmute_size; i++) {
     size_t from, to;
     std::cin >> from >> to;
@@ -49,74 +49,60 @@ map_edges input_transmition(size_t transmute_size) {
     new_pair.push_back(to - 1);
     new_transmition.push_back(new_pair);
   }
-  std::cout << "Tranmistions vector DONE!\n";
+  // std::cout << "Tranmistions vector DONE!\n";
   return new_transmition;
 }
-
-void sort_by_value(std::vector<mixture> &mixtures) {
-  std::cout << "Sorting mixtures by values...\n";
-  std::cout << mixtures << '\n';
-  for (size_t i = 0; i < mixtures.size() - 1; i++) {
-    for (size_t j = 0; j < mixtures.size() - i - 1; j++) {
-      if (mixtures[j].value > mixtures[j + 1].value) {
-        std::swap(mixtures[j], mixtures[j + 1]);
-      }
-    }
+const mixture *find_mixture(size_t id_node,
+                            const std::vector<mixture> &mixtures) {
+  for (auto &mix : mixtures) {
+    if (mix.index == id_node)
+      return &mix;
   }
-
-  std::cout << "Finished sorting!\n";
-  std::cout << mixtures << '\n';
-  return;
+  return nullptr;
 }
 
-int recur_search(size_t this_index, const std::vector<mixture> &mixtures,
+int recur_search(size_t id_node, const std::vector<mixture> &mixtures,
                  const map_edges &edges, std::vector<bool> &visited) {
-  std::cout << "Recursive search started\n";
-  visited[mixtures[this_index].index] = true;
-  int this_value = mixtures[this_index].value;
-  int next_value = 0;
-  if (!edges[this_index].empty()) {
-    for (auto index : edges[mixtures[this_index].index]) {
-      if (!visited[index]) {
-        next_value =
-            std::max(next_value, recur_search(index, mixtures, edges, visited));
-      }
+  const mixture *this_mixture = find_mixture(id_node, mixtures);
+  int this_value = this_mixture->value;
+  int potential = 0;
+  visited[id_node] = true;
+  for (auto &i : edges[id_node]) {
+    if (!visited[i]) {
+      int result = recur_search(i, mixtures, edges, visited);
+      potential = std::max(result, potential);
     }
   }
-  std::cout << "Recursive search finished\n";
-  return std::max(this_value, next_value);
+  return std::max(potential, this_value);
 }
-
-int depth_search(size_t id_begin, const std::vector<mixture> &mixtures,
-                 const map_edges &edges) {
-  std::cout << "Started new depth search\n";
-  int begin_value = mixtures[id_begin].value;
+int depth_search(size_t vec_iter, const std::vector<mixture> &mixtures,
+                 const map_edges &edges, std::vector<bool> &visited) {
+  const mixture *begin_mixture = &mixtures[vec_iter];
+  int begin_value = begin_mixture->value;
   int end_value = begin_value;
-  std::vector<bool> visited(mixtures.size(), false);
-  visited[id_begin] = true;
-  if (!edges[id_begin].empty()) {
-    for (size_t index : edges[mixtures[id_begin].index]) {
-      if (!visited[index]) {
-        int recur_end = recur_search(index, mixtures, edges, visited);
-        end_value = std::max(end_value, recur_end);
-      }
+  visited[begin_mixture->index] = true;
+  for (auto &id_of_next : edges[begin_mixture->index]) {
+    if (!visited[id_of_next]) {
+      int potential = recur_search(id_of_next, mixtures, edges, visited);
+      end_value = std::max(end_value, potential);
     }
   }
-  std::cout << "Finished depth search!\n";
   return end_value - begin_value;
 }
+
 int find_max_profit(std::vector<mixture> &mixtures, const map_edges &edges) {
   int result = 0;
-  std::sort(mixtures.begin(),mixtures.end(),mixture_compare);
+  std::sort(mixtures.begin(), mixtures.end(), mixture_compare);
+  std::vector<bool> visited(mixtures.size(), false);
   for (size_t i = 0; i < mixtures.size(); i++) {
-    result = std::max(result, depth_search(i, mixtures, edges));
+    result = std::max(result, depth_search(i, mixtures, edges, visited));
   }
   return result;
 }
 
 int main() {
   size_t test_cases;
-  std::cout << "Input amount of test cases: ";
+  // std::cout << "Input amount of test cases: ";
   std::cin >> test_cases;
   for (size_t i = 0; i < test_cases; i++) {
     size_t mix_size, trans_size;
