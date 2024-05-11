@@ -10,11 +10,11 @@
 class player_tile: public Tile{
 public:
     player_tile(): Tile('P'){};
-    ~player_tile() = default
-    void event(int key_code);
+    ~player_tile() = default;
     enum direction{
         forward,right,down,left
     };
+    void event(direction key_code);
 };
 
 class wall_tile: public Tile{

@@ -28,12 +28,12 @@ bool engine::construct_labyrinths(const char *filename) {
     std::unique_ptr<std::ofstream> ptr_filestream
         = std::make_unique<std::ofstream>(filename);
     size_t laby_count;
-    file_stream >> laby_count;
+    ptr_filestream->getline();
     for (size_t i = 0;i<laby_count;i++){
         size_t size_x, size_y;
-        file_stream >> size_x >> size;
-        labyrinth new_labyrinth;
-        new_labyrinth.construct();
+        file_stream >> size_x >> size_y;
+        labyrinth new_labyrinth(size_x,size_x);
+        new_labyrinth.construct(ptr_filestream.get());
         labyrinth_queue.push(new_labyrinth);
     }
 

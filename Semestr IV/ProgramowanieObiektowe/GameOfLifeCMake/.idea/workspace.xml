@@ -49,65 +49,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a103a5c6-f14d-46b6-9ac8-d94db3f82d2c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/game.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game_txt.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game_txt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cache-v2-b524d60677f65759cde2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/cmakeFiles-v1-fd3a48bd46fc379472a4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-9cf1dcf12838fadc1d45.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2024-04-06T14-52-14-0596.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Continuous-Debug-01db1563c40472506b27.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousBuild-Debug-d7606d9e7fbab641a9cd.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousConfigure-Debug-ba2460eda3cf08f2fccc.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousCoverage-Debug-84a8ea19f77629aa8a4e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousMemCheck-Debug-62d4fe96dd1af9aba992.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousStart-Debug-c10c522d69ec494666f4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousSubmit-Debug-1a0e59cff1ab782344a4.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousTest-Debug-e8b9a5dfb40fdbc9883e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ContinuousUpdate-Debug-d0e5966096913316da8d.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Experimental-Debug-175decd81a8b61a73454.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalBuild-Debug-7c02b885add53731c2f1.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalConfigure-Debug-8e4686b6eab7a20e2101.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalCoverage-Debug-4afa05105ce77c16fb96.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalMemCheck-Debug-2a61949a7b9aa2f9138f.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalStart-Debug-88574b65fa57e0c2035c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalSubmit-Debug-53412292094d304ae85c.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalTest-Debug-dd564f0d03c34d794c35.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-ExperimentalUpdate-Debug-15a994b9cda2a964e4fb.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-GameOfLife-Debug-40e78dedee2e9933d005.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Nightly-Debug-76bb4f581d4d74b5c4a8.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyBuild-Debug-ac27744fbf274dfd0f83.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyConfigure-Debug-9773be0dcb206a3cd591.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyCoverage-Debug-6ffb3e9827ffdd707f90.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyMemCheck-Debug-591067441018a2a14a3d.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyMemoryCheck-Debug-9e4c26feec7689db19d6.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyStart-Debug-d756a5ec1446a6a389e8.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlySubmit-Debug-696492646a4b73d1e2d8.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyTest-Debug-9ee129d9ccc57b74245e.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-NightlyUpdate-Debug-a91b8790d47d096656c5.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeRCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdC/a.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.27.8/CompilerIdCXX/a.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CPackConfig.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CPackConfig.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CPackSourceConfig.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CPackSourceConfig.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -305,7 +247,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.Continuous" />
       <item itemvalue="CMake Application.ContinuousBuild" />
       <item itemvalue="CMake Application.ContinuousConfigure" />
       <item itemvalue="CMake Application.ContinuousCoverage" />
@@ -314,7 +255,7 @@
       <item itemvalue="CMake Application.ContinuousSubmit" />
       <item itemvalue="CMake Application.ContinuousTest" />
       <item itemvalue="CMake Application.ContinuousUpdate" />
-      <item itemvalue="CMake Application.Experimental" />
+      <item itemvalue="CMake Application.Continuous" />
       <item itemvalue="CMake Application.ExperimentalBuild" />
       <item itemvalue="CMake Application.ExperimentalConfigure" />
       <item itemvalue="CMake Application.ExperimentalCoverage" />
@@ -323,8 +264,8 @@
       <item itemvalue="CMake Application.ExperimentalSubmit" />
       <item itemvalue="CMake Application.ExperimentalTest" />
       <item itemvalue="CMake Application.ExperimentalUpdate" />
+      <item itemvalue="CMake Application.Experimental" />
       <item itemvalue="CMake Application.GameOfLife" />
-      <item itemvalue="CMake Application.Nightly" />
       <item itemvalue="CMake Application.NightlyBuild" />
       <item itemvalue="CMake Application.NightlyConfigure" />
       <item itemvalue="CMake Application.NightlyCoverage" />
@@ -334,6 +275,7 @@
       <item itemvalue="CMake Application.NightlySubmit" />
       <item itemvalue="CMake Application.NightlyTest" />
       <item itemvalue="CMake Application.NightlyUpdate" />
+      <item itemvalue="CMake Application.Nightly" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -352,6 +294,7 @@
       <workItem from="1713041614486" duration="335000" />
       <workItem from="1713041971525" duration="734000" />
       <workItem from="1713042794419" duration="361000" />
+      <workItem from="1715118106425" duration="72000" />
     </task>
     <servers />
   </component>

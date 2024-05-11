@@ -16,11 +16,11 @@ void treasure_tile::event(){
     throw "Treasure_Tile event not implemented!";
 }
 
-void player_tile::event() {
+void player_tile::event(direction key_code) {
     throw "Player_Title event not implemented!";
 }
 
-void floor_tile::event(int key_code) {
+void floor_tile::event() {
     throw "Floor_Tile event not implemented!";
 }
 

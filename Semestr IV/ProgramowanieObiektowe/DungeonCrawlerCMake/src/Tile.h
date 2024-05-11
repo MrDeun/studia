@@ -4,7 +4,8 @@
 
 #ifndef DUNGEONCRAWLER_TILE_H
 #define DUNGEONCRAWLER_TILE_H
-
+#include <iostream>
+#include <vector>
 
 class Tile {
     protected:

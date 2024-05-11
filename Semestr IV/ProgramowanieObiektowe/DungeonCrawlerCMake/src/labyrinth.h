@@ -16,16 +16,13 @@ class labyrinth {
         labyrinth(int in_x,int in_y):size_x(in_x),size_y(in_y){
             tile_container = new Tile[size_x * size_y];
         }
-
-        void construct(){
-
-        }
-
         bool is_finished(){
             return finished;
         }
 
-        void event(int key_code);
+        Tile put_tile(char symbol);
+        void construct(std::ifstream* ptr_filestream);
+        void event(directon key_code);
 };
 
 
