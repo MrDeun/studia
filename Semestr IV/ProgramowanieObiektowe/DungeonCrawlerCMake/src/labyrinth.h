@@ -11,7 +11,7 @@ class labyrinth {
         int size_x, size_y;
         Tile* tile_container;
         bool finished = false;
-        Tile player_tile_x = 0, player_tile_y = 0;
+        size_t player_tile_x = 0, player_tile_y = 0;
     public:
         labyrinth(int in_x,int in_y):size_x(in_x),size_y(in_y){
             tile_container = new Tile[size_x * size_y];
@@ -22,7 +22,7 @@ class labyrinth {
 
         Tile put_tile(char symbol);
         void construct(std::ifstream* ptr_filestream);
-        void event(directon key_code);
+        void event(player_tile::direction key_code);
 };
 
 
