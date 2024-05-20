@@ -1,6 +1,8 @@
-#include <iostream>
+//
+// Created by Patryk on 19-May-24.
+//
+#include "terminal_game.h"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+int main(){
     return 0;
 }

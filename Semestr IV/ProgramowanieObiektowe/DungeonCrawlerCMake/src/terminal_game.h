@@ -1,0 +1,14 @@
+//
+// Created by Patryk on 19-May-24.
+//
+
+#ifndef DUNGEONCRAWLERCMAKE_TERMINAL_GAME_H
+#define DUNGEONCRAWLERCMAKE_TERMINAL_GAME_H
+
+
+class terminal_game {
+
+};
+
+
+#endif //DUNGEONCRAWLERCMAKE_TERMINAL_GAME_H

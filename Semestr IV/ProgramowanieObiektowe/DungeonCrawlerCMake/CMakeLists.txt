@@ -3,12 +3,15 @@ project(DungeonCrawlerCMake)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(DungeonCrawlerCMake src/main.cpp
-        src/Tile.cpp
-        src/Tile.h
-        src/tile_sets.cpp
-        src/tile_sets.h
+add_executable(Dungeon
+        src/main.cpp
+        src/terminal_game.cpp
+        src/terminal_game.h
+        src/engine.cpp
+        src/engine.h
+        src/tile.cpp
+        src/tile.h
         src/labyrinth.cpp
         src/labyrinth.h
-        src/engine.cpp
-        src/engine.h)
+        src/read_file.cpp
+        src/read_file.h)

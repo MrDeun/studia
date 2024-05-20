@@ -38,9 +38,9 @@
 			[
 				{
 					"directoryIndex" : 0,
-					"id" : "DungeonCrawlerCMake::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-DungeonCrawlerCMake-Debug-f5e4284dcafe64d060b9.json",
-					"name" : "DungeonCrawlerCMake",
+					"id" : "Dungeon::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Dungeon-Debug-4bdb6771926b5ea50116.json",
+					"name" : "Dungeon",
 					"projectIndex" : 0
 				}
 			]

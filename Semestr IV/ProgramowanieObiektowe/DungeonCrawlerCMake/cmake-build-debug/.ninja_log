@@ -1,6 +1,10 @@
 # ninja log v5
-3	258	7354087905034770	build.ninja	5bd7c944b6a7bbe5
-1	666	7352214021960560	CMakeFiles/DungeonCrawlerCMake.dir/src/main.cpp.obj	bbe91add2738e8f6
+3	258	7378570250406001	build.ninja	5bd7c944b6a7bbe5
+43	848	7358264481455747	CMakeFiles/DungeonCrawlerCMake.dir/src/main.cpp.obj	bbe91add2738e8f6
 669	846	7352214023683147	DungeonCrawlerCMake.exe	ce5d907533c951e2
 4	430	7358264477273958	CMakeFiles/DungeonCrawlerCMake.dir/src/Tile.cpp.obj	dd22c891b91bda3f
-43	848	7358264481455747	CMakeFiles/DungeonCrawlerCMake.dir/src/main.cpp.obj	bbe91add2738e8f6
+1	380	7379005017711799	CMakeFiles/Dungeon.dir/src/main.cpp.obj	b192fe3cf0f8976e
+41	381	7379005017711799	CMakeFiles/Dungeon.dir/src/terminal_game.cpp.obj	d5952d3d84ccb7de
+46	382	7379005017711799	CMakeFiles/Dungeon.dir/src/engine.cpp.obj	be33aa6a973a1e4c
+63	931	7379005023236034	CMakeFiles/Dungeon.dir/src/read_file.cpp.obj	6e727d8e9a083718
+52	1025	7379005024167084	CMakeFiles/Dungeon.dir/src/tile.cpp.obj	253fca2f510c8207
