@@ -1,13 +1,18 @@
-#include "grip_decoder.h"
+#include "grib_decoder.h"
 #include <conio.h>
-int main() {
-    grip_decoder gripDecoder("grip_data.bin");
-    if(gripDecoder.find_grip()){
-        gripDecoder.scan_PDS();
+int main(int argc, char** argv) {
+//    if (argc < 2){
+//        std::cout << "No filename argument!\n";
+//        return -1;
+//    }
+    const char* filename = "msg.bin";
+    grib_decoder GRIBDecoder(filename);
+    if(GRIBDecoder.find_GRIB()){
+        GRIBDecoder.scan_PDS();
         if(getch() == 'q'){
             return 0;
         }
-        gripDecoder.scan_rest();
+        GRIBDecoder.scan_rest();
     }
     std::cout << "Reached EOF" << std::endl;
     return 0;

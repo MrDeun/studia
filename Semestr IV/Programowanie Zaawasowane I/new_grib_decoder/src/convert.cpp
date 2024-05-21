@@ -4,8 +4,10 @@
 
 #include "convert.h"
 
-uint8_t convert::to_byte(std::vector<uint8_t>::iterator  index){
-    return *index;
+uint16_t convert::to_byte(std::vector<uint8_t>::iterator index){
+    uint16_t half_two = 0;
+    half_two = 0x00 << 8 | (*index);
+    return half_two;
 }
 
 uint32_t convert::to_size(std::vector<uint8_t>::iterator index) {

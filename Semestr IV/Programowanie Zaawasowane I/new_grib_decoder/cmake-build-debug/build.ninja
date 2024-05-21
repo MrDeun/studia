@@ -61,8 +61,8 @@ build CMakeFiles/new_grib_decoder.dir/src/convert.cpp.obj: CXX_COMPILER__new_gri
   OBJECT_DIR = CMakeFiles\new_grib_decoder.dir
   OBJECT_FILE_DIR = CMakeFiles\new_grib_decoder.dir\src
 
-build CMakeFiles/new_grib_decoder.dir/src/grip_decoder.cpp.obj: CXX_COMPILER__new_grib_decoder_unscanned_Debug C$:/Users/Patryk/Github/studia/Semestr$ IV/Programowanie$ Zaawasowane$ I/new_grib_decoder/src/grip_decoder.cpp || cmake_object_order_depends_target_new_grib_decoder
-  DEP_FILE = CMakeFiles\new_grib_decoder.dir\src\grip_decoder.cpp.obj.d
+build CMakeFiles/new_grib_decoder.dir/src/grib_decoder.cpp.obj: CXX_COMPILER__new_grib_decoder_unscanned_Debug C$:/Users/Patryk/Github/studia/Semestr$ IV/Programowanie$ Zaawasowane$ I/new_grib_decoder/src/grib_decoder.cpp || cmake_object_order_depends_target_new_grib_decoder
+  DEP_FILE = CMakeFiles\new_grib_decoder.dir\src\grib_decoder.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\new_grib_decoder.dir
   OBJECT_FILE_DIR = CMakeFiles\new_grib_decoder.dir\src
@@ -75,7 +75,7 @@ build CMakeFiles/new_grib_decoder.dir/src/grip_decoder.cpp.obj: CXX_COMPILER__ne
 #############################################
 # Link the executable new_grib_decoder.exe
 
-build new_grib_decoder.exe: CXX_EXECUTABLE_LINKER__new_grib_decoder_Debug CMakeFiles/new_grib_decoder.dir/src/main.cpp.obj CMakeFiles/new_grib_decoder.dir/src/convert.cpp.obj CMakeFiles/new_grib_decoder.dir/src/grip_decoder.cpp.obj
+build new_grib_decoder.exe: CXX_EXECUTABLE_LINKER__new_grib_decoder_Debug CMakeFiles/new_grib_decoder.dir/src/main.cpp.obj CMakeFiles/new_grib_decoder.dir/src/convert.cpp.obj CMakeFiles/new_grib_decoder.dir/src/grib_decoder.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\new_grib_decoder.dir
