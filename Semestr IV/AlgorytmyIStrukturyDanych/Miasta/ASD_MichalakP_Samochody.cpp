@@ -42,11 +42,11 @@ std::vector<size_t> create_towns(size_t towns_count) {
 std::vector<road> create_roads(size_t road_count) {
   std::vector<road> new_roads;
   for (size_t i = 0; i < road_count; i++) {
-    size_t new_from, new_to; 
+    size_t new_from, new_to;
     int new_distance;
 
     std::cin >> new_from >> new_to >> new_distance;
-    road new_road(new_from,new_to,new_distance);
+    road new_road(new_from, new_to, new_distance);
     new_roads.push_back(new_road);
   }
   return new_roads;
@@ -56,7 +56,7 @@ int find_longest_road(const std::vector<size_t> &towns,
                       std::vector<road> &roads) {
   std::sort(roads.begin(), roads.end(), by_distance);
   int result = 0;
-  std::cout << roads << ' ';
+  std::cout << roads << '\n';
   return result;
 }
 
