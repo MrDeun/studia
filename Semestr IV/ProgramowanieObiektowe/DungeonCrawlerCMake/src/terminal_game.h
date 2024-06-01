@@ -1,14 +1,11 @@
-//
-// Created by Patryk on 19-May-24.
-//
+#ifndef CLASS_TERMINAL
+#define CLASS_TERMINAL
 
-#ifndef DUNGEONCRAWLERCMAKE_TERMINAL_GAME_H
-#define DUNGEONCRAWLERCMAKE_TERMINAL_GAME_H
-
-
-class terminal_game {
-
+class TerminalGame{
+  private:
+  public:
+  TerminalGame() = default;
+  ~TerminalGame() = default;
 };
 
-
-#endif //DUNGEONCRAWLERCMAKE_TERMINAL_GAME_H
+#endif

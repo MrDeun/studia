@@ -1,23 +1,25 @@
-//
-// Created by Patryk on 19-May-24.
-//
+#ifndef CLASS_LABYRINTH
+#define CLASS_LABYRINTH
 
-#ifndef DUNGEONCRAWLERCMAKE_LABYRINTH_H
-#define DUNGEONCRAWLERCMAKE_LABYRINTH_H
 #include "tile.h"
-#include "read_file.h"
-#include <vector>
 
-class labyrinth {
+class Labyrinth {
 private:
-    size_t width{},height{};
-    tile* layout = nullptr;
+  int score = 100;
+  size_t width, height;
+  size_t player_x, player_y;
+  Tile **map = nullptr;
+  bool finished = false;
+  enum direction { north, south, west, east };
+  void event(Tile &player, Tile &neighbour);
+
 public:
-    labyrinth() = default;
-    ~labyrinth(){delete layout;}
-    void construct();
-    static tile insert_tile(char buf);
+  ~Labyrinth() = default;
+  Labyrinth(size_t width, size_t height);
+  void event(direction direct);
+  void construct();
+  bool is_finished() { return finished; }
+  void finish() { finished = true; }
 };
 
-
-#endif //DUNGEONCRAWLERCMAKE_LABYRINTH_H
+#endif

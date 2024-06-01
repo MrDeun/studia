@@ -1,23 +1,19 @@
-//
-// Created by Patryk on 19-May-24.
-//
+#ifndef CLASS_TILE
+#define CLASS_TILE
 
-#ifndef DUNGEONCRAWLERCMAKE_TILE_H
-#define DUNGEONCRAWLERCMAKE_TILE_H
-#include <string>
 #include <map>
-#include <cstdint>
-class tile {
+#include <string>
+
+class Tile {
 private:
-    static std::map<std::string, unsigned char> type_to_symbol;
-    unsigned char symbol;
-    std::string type;
+  std::string type;
+  char symbol;
+  static std::map<std::string, char> trans_map;
+
 public:
-    tile(std::string type_in);
-    tile() = default;
-    void assign(std::string type_in);
-    ~tile() = default;
+  Tile(std::string in) : type(in) { symbol = trans_map[in]; }
+  char get_symbol() { return symbol; }
+  ~Tile() = default;
 };
 
-
-#endif //DUNGEONCRAWLERCMAKE_TILE_H
+#endif
