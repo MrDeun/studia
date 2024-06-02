@@ -11,13 +11,15 @@ private:
   Tile **map = nullptr;
   bool finished = false;
   enum direction { north, south, west, east };
-  void event(Tile &player, Tile &neighbour);
+  void event(Tile &player, Tile &neighbour,direction direct);
+  void update_location(direction direct);
 
 public:
-  ~Labyrinth() = default;
+  ~Labyrinth();
   Labyrinth(size_t width, size_t height);
+  Labyrinth() = default;
   void event(direction direct);
-  void construct();
+  void construct(std::string filename);
   bool is_finished() { return finished; }
   void finish() { finished = true; }
 };

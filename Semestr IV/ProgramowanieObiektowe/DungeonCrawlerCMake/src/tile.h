@@ -12,6 +12,8 @@ private:
 
 public:
   Tile(std::string in) : type(in) { symbol = trans_map[in]; }
+  Tile(char symbol_in):symbol(symbol_in){type = "IN PROGRESS";}
+  Tile() = default;
   char get_symbol() { return symbol; }
   ~Tile() = default;
 };
