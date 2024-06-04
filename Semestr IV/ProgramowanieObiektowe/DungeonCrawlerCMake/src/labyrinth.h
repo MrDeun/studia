@@ -2,6 +2,7 @@
 #define CLASS_LABYRINTH
 
 #include "tile.h"
+  enum direction { north, south, west, east };
 
 class Labyrinth {
 private:
@@ -10,8 +11,7 @@ private:
   size_t player_x, player_y;
   Tile **map = nullptr;
   bool finished = false;
-  enum direction { north, south, west, east };
-  void event(Tile &player, Tile &neighbour,direction direct);
+  void event(Tile &player, Tile &neighbour, direction direct);
   void update_location(direction direct);
 
 public:
@@ -21,6 +21,8 @@ public:
   void event(direction direct);
   void construct(std::string filename);
   bool is_finished() { return finished; }
+  size_t getWidth() { return width; }
+  size_t getHeight() { return height; }
   void finish() { finished = true; }
 };
 
