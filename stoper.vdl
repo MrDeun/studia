@@ -1,0 +1,167 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date:    16:07:06 05/21/2024 
+-- Design Name: 
+-- Module Name:    licznik - Behavioral 
+-- Project Name: 
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 
+--
+-- Revision: 
+-- Revision 0.01 - File Created
+-- Additional Comments: 
+--
+----------------------------------------------------------------------------------
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+use IEEE.std_logic_unsigned.all;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx primitives in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
+
+
+
+entity licznik is
+    Port ( clk100 : in  STD_LOGIC;
+           reset : in  STD_LOGIC;
+           start_stop : in  STD_LOGIC;
+			  which_seg : out std_logic_vector (7 downto 0);
+			  seg_display : out std_logic_vector (6 downto 0));
+end licznik;
+architecture Behavioral of licznik is
+	type vec_array is array(0 to 9) of std_logic_vector(6 downto 0);
+	constant CZESTLO: integer := 100000000;
+	constant MSEK_NA_SEK : integer := 1000;
+	signal count : integer range 0 to 86399999 := 0;
+	signal buffer_button: std_logic_vector(3 downto 0);
+	signal buffer_signal: std_logic;
+	signal running : boolean := false;
+	signal msec0,msec1,sec0,sec1,min0,min1,hr0,hr1: integer range 0 to 9;
+	signal refresh_counter: integer range 0 to 7 := 0;
+	constant seg_pattern: vec_array := (
+		"0000001", 
+		"1001111", 
+		"0010010", 
+		"0000110", 
+		"1001100", 
+		"0100100", 
+		"0100000", 
+		"0001111", 
+		"0000000", 
+		"0000100" 
+	);
+begin
+	process(clk100,reset)
+		variable clk_div : integer := 0;
+	begin
+		if (reset = '1') then
+			count <= 0;
+			clk_div := 0;
+		elsif rising_edge(clk100) then
+			buffer_button(3 downto 1) <= buffer_button(2 downto 0);
+			buffer_button(0) <= start_stop;
+			case(buffer_button) is
+				when "1111" =>
+					buffer_signal <= '1';
+				when "0000" =>
+					buffer_signal <= '0';
+				when others =>
+					buffer_signal <= buffer_signal;
+			end case;
+			if (running = true) then
+				if (clk_div = (CZESTLO / MSEK_NA_SEK) - 1) then
+					clk_div := 0;
+					if (count = 86399999) then
+						count <= 0;
+					else
+						count <= count+1;
+					end if;
+				else 
+					clk_div := clk_div + 1;
+				end if;
+			end if;
+		end if;
+		if (buffer_signal'event and buffer_signal = '0') then
+			running <= not running;
+		end if;
+	end process;
+	
+	process(clk100,reset)
+		variable refresh_hz: integer range 0 to 2000000;
+	begin
+	if reset = '1' then
+		refresh_counter <= 0;
+	elsif rising_edge(clk100) then
+		if refresh_hz = 100000 then
+			refresh_hz := 0;	
+			refresh_counter <= (refresh_counter+1)mod 9;
+		else
+			refresh_hz := refresh_hz + 1;
+		end if;
+	end if;
+	end process;
+	
+	process(count)
+		variable msec,sec,min,hr:integer;
+	begin
+		msec := (count mod 1000);
+		sec := ((count / 1000) mod 60);
+		min := ((count / 60000) mod 60);
+		hr := (count/ 3600000);
+		msec0 <= ((msec / 10) mod 10);
+		msec1 <= ((msec / 100) mod 10);
+		sec0 <= (sec mod 10);
+		sec1 <= (sec / 10);
+		min0 <= (min mod 10);
+		min1 <= (min / 10);
+		hr0 <= (hr mod 10);
+		hr1 <= (hr / 10);
+	end process;
+	
+	process(refresh_counter, msec0, msec1, sec0, sec1, min0, min1, hr0, hr1)
+	begin
+		if reset = '1' then
+			which_seg <= "11111111";
+			seg_display <= "1111111";
+		else
+		case refresh_counter is
+			when 0 =>
+					seg_display <= seg_pattern(msec0);
+					which_seg <= "00000001";
+			when 1 =>
+					seg_display <= seg_pattern(msec1);
+					which_seg <= "00000010";
+			when 2 =>
+					seg_display <= seg_pattern(sec0);
+					which_seg <= "00000100";
+			when 3 =>
+					seg_display <= seg_pattern(sec1);
+					which_seg <= "00001000";
+			when 4 =>
+					seg_display <= seg_pattern(min0);
+					which_seg <= "00010000";
+			when 5 =>
+					seg_display <= seg_pattern(min1);
+					which_seg <= "00100000";
+			when 6 =>
+					seg_display <= seg_pattern(hr0);
+					which_seg <= "01000000";
+			when 7 =>
+					seg_display <= seg_pattern(hr1);
+					which_seg <= "10000000";
+			when others =>
+					seg_display <= "1111111";
+					which_seg <= "11111111";
+			end case;
+			end if;
+	end process;
+end Behavioral;
+
