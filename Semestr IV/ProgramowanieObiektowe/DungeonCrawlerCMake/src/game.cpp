@@ -13,5 +13,7 @@ void Game::BuildLabyrints(size_t count){
 }
 
 void Game::Start(){
-  
+  BuildLabyrints(1);
+  Loop();
+  return;
 }

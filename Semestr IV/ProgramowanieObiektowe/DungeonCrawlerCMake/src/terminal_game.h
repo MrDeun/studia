@@ -2,13 +2,17 @@
 #define CLASS_TERMINAL
 
 #include "game.h"
-class TerminalGame:Game{
-  private:
-  public:
-  TerminalGame() = default;
-  ~TerminalGame() = default;
-  void Show();
+class TerminalGame : public Game {
+private:
   direction AwaitInput();
+  void Show();
+  void Loop();
+  void endLevel();
+
+public:
+  void Start();
+  TerminalGame() = default;
+  ~TerminalGame(){};
 };
 
 #endif

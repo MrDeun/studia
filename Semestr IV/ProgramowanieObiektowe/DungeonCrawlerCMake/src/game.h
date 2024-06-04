@@ -6,14 +6,18 @@
 class Game {
 private:
   std::queue<Labyrinth> levels;
-  void State();
-public:
-  Game() = default;
-  virtual ~Game() = default;
+void BuildLabyrints(size_t count);
   virtual void Show();
   virtual direction AwaitInput();
-  Labyrinth& current_level;
-  void BuildLabyrints(size_t count);
+  virtual void Loop();
+  virtual void endLevel();
+public:
+  Game(){}
+  void nextLevel(){levels.pop();}
+  virtual ~Game() = default;
+  Labyrinth current_level;
+  bool remainingLevels(){return !levels.empty();}
+  Labyrinth getLevel(){return levels.front();}
   void Start();
 };
 
