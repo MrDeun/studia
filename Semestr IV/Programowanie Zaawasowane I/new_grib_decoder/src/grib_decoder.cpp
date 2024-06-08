@@ -27,7 +27,6 @@ grib_decoder::grib_decoder(const char* filename) {
         std::cout << vec.size() << '\n';
         vec.insert(vec.begin(), std::istream_iterator<char>(file_stream),
                    std::istream_iterator<char>());
-
         byte_array = vec;
         cursor = byte_array.begin();
         std::cout << "Finished reading header of grib\n";
@@ -105,13 +104,13 @@ void grib_decoder::read_GDS(){
     cursor += 2;
     std::cout << "Count of points along longitude meridean: "<<convert::to_short(cursor) << std::endl;
     cursor += 2;
-    std::cout << "Latitude 1: " << (float)convert::to_size(cursor)*1000 << '\n';
+    std::cout << "Latitude 1: " << convert::to_size(cursor)/1000 << '\n';
     cursor += 3;
-    std::cout << "Longitude 1: " << (float)convert::to_size(cursor)*1000 << '\n';
+    std::cout << "Longitude 1: " << (float)convert::to_size(cursor)/1000  << '\n';
     cursor += 4;
-    std::cout << "Latitude 1: " << (float)convert::to_size(cursor)*1000 << '\n';
+    std::cout << "Latitude 1: " << (float)convert::to_size(cursor)/1000 << '\n';
     cursor += 3;
-    std::cout << "Longitude 1: " << (float)convert::to_size(cursor)*1000 << '\n';
+    std::cout << "Longitude 1: " << (float)convert::to_size(cursor)/1000  << '\n';
 }
 //void grib_decoder::read_BDS(){}
 //void grib_decoder::read_BMS(){}

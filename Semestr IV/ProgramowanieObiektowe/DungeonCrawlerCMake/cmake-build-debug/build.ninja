@@ -61,14 +61,8 @@ build CMakeFiles/Dungeon.dir/src/terminal_game.cpp.obj: CXX_COMPILER__Dungeon_un
   OBJECT_DIR = CMakeFiles\Dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\Dungeon.dir\src
 
-build CMakeFiles/Dungeon.dir/src/engine.cpp.obj: CXX_COMPILER__Dungeon_unscanned_Debug C$:/Users/Patryk/Github/studia/Semestr$ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/engine.cpp || cmake_object_order_depends_target_Dungeon
-  DEP_FILE = CMakeFiles\Dungeon.dir\src\engine.cpp.obj.d
-  FLAGS = -g -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\Dungeon.dir
-  OBJECT_FILE_DIR = CMakeFiles\Dungeon.dir\src
-
-build CMakeFiles/Dungeon.dir/src/tile.cpp.obj: CXX_COMPILER__Dungeon_unscanned_Debug C$:/Users/Patryk/Github/studia/Semestr$ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/tile.cpp || cmake_object_order_depends_target_Dungeon
-  DEP_FILE = CMakeFiles\Dungeon.dir\src\tile.cpp.obj.d
+build CMakeFiles/Dungeon.dir/src/game.cpp.obj: CXX_COMPILER__Dungeon_unscanned_Debug C$:/Users/Patryk/Github/studia/Semestr$ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/game.cpp || cmake_object_order_depends_target_Dungeon
+  DEP_FILE = CMakeFiles\Dungeon.dir\src\game.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\Dungeon.dir\src
@@ -79,8 +73,8 @@ build CMakeFiles/Dungeon.dir/src/labyrinth.cpp.obj: CXX_COMPILER__Dungeon_unscan
   OBJECT_DIR = CMakeFiles\Dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\Dungeon.dir\src
 
-build CMakeFiles/Dungeon.dir/src/read_file.cpp.obj: CXX_COMPILER__Dungeon_unscanned_Debug C$:/Users/Patryk/Github/studia/Semestr$ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/read_file.cpp || cmake_object_order_depends_target_Dungeon
-  DEP_FILE = CMakeFiles\Dungeon.dir\src\read_file.cpp.obj.d
+build CMakeFiles/Dungeon.dir/src/tile.cpp.obj: CXX_COMPILER__Dungeon_unscanned_Debug C$:/Users/Patryk/Github/studia/Semestr$ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/tile.cpp || cmake_object_order_depends_target_Dungeon
+  DEP_FILE = CMakeFiles\Dungeon.dir\src\tile.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Dungeon.dir
   OBJECT_FILE_DIR = CMakeFiles\Dungeon.dir\src
@@ -93,7 +87,7 @@ build CMakeFiles/Dungeon.dir/src/read_file.cpp.obj: CXX_COMPILER__Dungeon_unscan
 #############################################
 # Link the executable Dungeon.exe
 
-build Dungeon.exe: CXX_EXECUTABLE_LINKER__Dungeon_Debug CMakeFiles/Dungeon.dir/src/main.cpp.obj CMakeFiles/Dungeon.dir/src/terminal_game.cpp.obj CMakeFiles/Dungeon.dir/src/engine.cpp.obj CMakeFiles/Dungeon.dir/src/tile.cpp.obj CMakeFiles/Dungeon.dir/src/labyrinth.cpp.obj CMakeFiles/Dungeon.dir/src/read_file.cpp.obj
+build Dungeon.exe: CXX_EXECUTABLE_LINKER__Dungeon_Debug CMakeFiles/Dungeon.dir/src/main.cpp.obj CMakeFiles/Dungeon.dir/src/terminal_game.cpp.obj CMakeFiles/Dungeon.dir/src/game.cpp.obj CMakeFiles/Dungeon.dir/src/labyrinth.cpp.obj CMakeFiles/Dungeon.dir/src/tile.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Dungeon.dir
