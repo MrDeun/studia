@@ -9,7 +9,7 @@
 class Labyrinth {
 private:
   int score = 100;
-  size_t width, height;
+  size_t width{}, height{};
   int player_x = -1, player_y= -1;
   std::vector<std::vector<Tile>> map;
   bool finished = false;
@@ -17,15 +17,16 @@ private:
   void update_location(direction direct);
 
 public:
-  ~Labyrinth() = default;
+  ~Labyrinth(){};
   Labyrinth(size_t width, size_t height);
   Labyrinth() = default;
   void event(direction direct);
-  void construct(std::string filename);
+  void construct(const std::string& filename);
+  void vec_build(size_t x, size_t y, const std::vector<char>& map_data);
   bool is_finished() { return finished; }
   size_t getWidth() { return width; }
   size_t getHeight() { return height; }
-  char getSymbol(size_t x ,size_t y){return map[y][x].get_symbol();}
+  char getSymbol(size_t x ,size_t y){return map[y][x].getSymbol();}
   int getFinalScore(){return score;}
   void finish() { finished = true; }
 };

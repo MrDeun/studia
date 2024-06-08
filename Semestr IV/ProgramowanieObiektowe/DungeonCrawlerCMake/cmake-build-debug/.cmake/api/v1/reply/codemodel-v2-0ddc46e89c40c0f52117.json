@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "DungeonCrawlerCMake",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Dungeon::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Dungeon-Debug-5bdbf38fcff70f14b096.json",
+					"name" : "Dungeon",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug",
+		"source" : "/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

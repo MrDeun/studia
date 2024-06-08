@@ -1,3 +1,3 @@
-C:/Users/Patryk/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/CMakeFiles/Dungeon.dir
-C:/Users/Patryk/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Patryk/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/CMakeFiles/Dungeon.dir
+/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/CMakeFiles/rebuild_cache.dir

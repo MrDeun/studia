@@ -8,108 +8,108 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
+				<Option working_dir="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="DungeonCrawlerCMake">
-				<Option output="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/DungeonCrawlerCMake.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
+			<Target title="Dungeon">
+				<Option output="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Dungeon" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/../../../../include/c++/13.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/../../../../include/c++/13.2.0/x86_64-unknown-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/../../../../include/c++/13.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 DungeonCrawlerCMake"/>
-					<CompileFile command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 Dungeon"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="DungeonCrawlerCMake/fast">
-				<Option output="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/DungeonCrawlerCMake.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
+			<Target title="Dungeon/fast">
+				<Option output="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Dungeon" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/backward"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../include"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/include-fixed"/>
-					<Add directory="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/13.1.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/../../../../include/c++/13.2.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/../../../../include/c++/13.2.0/x86_64-unknown-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/../../../../include/c++/13.2.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-unknown-linux-gnu/13.2.0/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 DungeonCrawlerCMake/fast"/>
-					<CompileFile command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 Dungeon/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
+				<Option working_dir="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
+				<Option working_dir="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/Users/pmich/AppData/Local/Programs/CLion/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/mrdeun/Workspace/Github/studia/Semestr\ IV/ProgramowanieObiektowe/DungeonCrawlerCMake/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/Tile.cpp">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/game.cpp">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/Tile.h">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/game.h">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/engine.cpp">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/labyrinth.cpp">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/engine.h">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/labyrinth.h">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/labyrinth.cpp">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/main.cpp">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/labyrinth.h">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/terminal_game.cpp">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/main.cpp">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/terminal_game.h">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/tile_sets.cpp">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/tile.cpp">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/tile_sets.h">
-			<Option target="DungeonCrawlerCMake"/>
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/src/tile.h">
+			<Option target="Dungeon"/>
 		</Unit>
-		<Unit filename="C:/Users/pmich/Documents/GitHub/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/CMakeLists.txt">
+		<Unit filename="/home/mrdeun/Workspace/Github/studia/Semestr IV/ProgramowanieObiektowe/DungeonCrawlerCMake/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

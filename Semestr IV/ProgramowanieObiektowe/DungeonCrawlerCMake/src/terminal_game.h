@@ -10,9 +10,9 @@ private:
   void endLevel();
 
 public:
-  void Start();
-  TerminalGame() = default;
-  ~TerminalGame(){};
+  TerminalGame(){}
+  TerminalGame(size_t size_x, size_t size_y, const std::vector<char>& map_data);
+  ~TerminalGame(){}
 };
 
 #endif
