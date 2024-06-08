@@ -12,13 +12,8 @@ void Game::BuildLabyrints(size_t count){
   return;
 }
 
-Game::Game(size_t x, size_t y, const std::vector<char>& map_data) {
-    Labyrinth test_lab{};
-    test_lab.vec_build(x,y,map_data);
-}
-
-void Game::Start(){
-  BuildLabyrints(2);
+void Game::Start(size_t level_count){
+  BuildLabyrints(level_count);
   Loop();
   return;
 }

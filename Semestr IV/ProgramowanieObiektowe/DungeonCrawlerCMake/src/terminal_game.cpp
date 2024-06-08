@@ -42,13 +42,9 @@ direction TerminalGame::AwaitInput() {
     return way;
 }
 
-TerminalGame::TerminalGame(size_t size_x, size_t size_y, const std::vector<char> &map_data) : Game(size_x, size_y,
-                                                                                                   map_data) {
-    Loop();
-};
 
 void TerminalGame::endLevel() {
-    bool Win = (current_level.getFinalScore() > 0) ? true : false;
+    bool Win = (current_level.getFinalScore() > 0);
     std::cout << "\033[2J\033[1;1H"; // Special string to sends out a clear multiplatform
     std::cout << "Your score is... " << current_level.getFinalScore() << '\n';
     std::cout << ((Win) ? "YOU SURVIVED!\n" : "YOU DIED!\n");

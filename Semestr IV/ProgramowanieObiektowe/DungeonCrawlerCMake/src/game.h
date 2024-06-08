@@ -13,13 +13,12 @@ void BuildLabyrints(size_t count);
   virtual void endLevel(){}
 public:
   Game(){}
-  Game(size_t x, size_t y,const std::vector<char>& map_data);
   void nextLevel(){levels.pop();}
   virtual ~Game(){}
   Labyrinth current_level;
   bool remainingLevels(){return !levels.empty();}
   Labyrinth getLevel(){return levels.front();}
-  void Start();
+  void Start(size_t count);
 };
 
 #endif
