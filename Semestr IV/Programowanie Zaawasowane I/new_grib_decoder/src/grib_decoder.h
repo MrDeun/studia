@@ -5,12 +5,10 @@
 #ifndef NEW_GRIB_DECODER_GRIB_DECODER_H
 #define NEW_GRIB_DECODER_GRIB_DECODER_H
 
-#include "convert.h"
 
-#include <iostream>
+#include <cstdint>
+#include <vector>
 #include <iterator>
-#include <fstream>
-#include <algorithm>
 
 using byte_vector = std::vector<uint8_t>;
 
@@ -25,8 +23,8 @@ class grib_decoder {
     public:
         void read_GDS();
         void scan_PDS();
-        //void read_BMS();
-        //void read_BDS();
+        void read_BMS();
+        void read_BDS();
         grib_decoder(const char* filename);
         ~grib_decoder() = default;
         bool find_GRIB();

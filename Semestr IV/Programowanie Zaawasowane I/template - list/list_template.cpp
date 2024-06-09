@@ -1,23 +1,33 @@
 #include <iostream>
-template <class data_type> struct node {
-  node *next = nullptr;
-  data_type value;
-  node(data_type new_value) : value(new_value) {}
-  ~node() {
-    if (next != nullptr)
-      delete next;
-  }
+template <class DATATYPE> struct Node {
+  DATATYPE _data;
+  Node(DATATYPE data) : _data(data) {}
+  Node<DATATYPE> *next = nullptr;
 };
 
-template <class data_type> class list {
+template <class DATATYPE> struct List {
 private:
-  node<data_type> *head = nullptr;
+  Node<DATATYPE> *head = nullptr;
   size_t size = 0;
 
 public:
-  list(data_type new_value) : head(new node<data_type>(new_value)), size(1) {}
-  list() {}
-  ~list() { delete head; }
+  List() = default;
+  List(DATATYPE data) : head(new Node<DATATYPE>(data)), size(1) {}
+  void insert(DATATYPE data) {
+    if (head == nullptr) {
+      head = new Node<DATATYPE>(data);
+    } else {
+      Node<DATATYPE> *current_node = head;
+      while (current_node->next != nullptr) {
+        current_node = current_node->next;
+      }
+      current_node->next = new Node<DATATYPE>(data);
+    }
+  }
+  void erase(DATATYPE data_in) {
+    Node<DATATYPE>* current = head;
+    Node<DATATYPE>* prev = nullptr;
+  }
 };
 
 int main() {
