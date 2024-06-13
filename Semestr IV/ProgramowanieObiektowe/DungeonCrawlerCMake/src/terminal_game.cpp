@@ -1,5 +1,6 @@
 #include "terminal_game.h"
 #include "labyrinth.h"
+#include <conio.h>
 #include <iostream>
 
 void TerminalGame::Show() {
@@ -17,7 +18,7 @@ direction TerminalGame::AwaitInput() {
     direction way;
     bool correct = false;
     while (!correct) {
-        std::cin >> buf;
+        buf[0] = getch();
         switch (buf[0]) {
             case 'w':
                 way = north;

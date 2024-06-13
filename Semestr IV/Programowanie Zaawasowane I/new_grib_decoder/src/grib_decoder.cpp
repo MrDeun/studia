@@ -5,6 +5,7 @@
 #include "grib_decoder.h"
 #include "convert.h"
 #include <iostream>
+#include <iterator>
 #include <fstream>
 #include <algorithm>
 #include <cassert>
@@ -49,8 +50,8 @@ bool grib_decoder::find_GRIB() {
     std::cout << "grib NOT FOUND!\n";
     return false;
   } else {
-    grib_size = convert::to_size(cursor + 4);
-    std::cout << "Size of grib message: " << grib_size << '\n';
+    GRIB_size = convert::to_size(cursor + 4);
+    std::cout << "Size of grib message: " << GRIB_size << '\n';
     cursor += 8; // First byte of PDS
     return true;
   }
@@ -127,8 +128,8 @@ void grib_decoder::read_GDS() {
   cursor += msg_size - 20;
 }
 void grib_decoder::read_BDS() {
-  uint32_t msg_size = convert::to_size(cursor);
-  std::cout << "Size of BDS Message: " << msg_size << '\n';
+  BDS_size = convert::to_size(cursor);
+  std::cout << "Size of BDS Message: " << BDS_size << '\n';
 }
 void grib_decoder::read_BMS() {
   std::cout << "BMS IS NOT SUPPORTED YET!\n";
@@ -144,4 +145,5 @@ void grib_decoder::scan_rest() {
     read_BMS();
   }
   read_BDS();
+  assert(GRIB_size == + GDS_size + BMS_size + BDS_size);
 }
