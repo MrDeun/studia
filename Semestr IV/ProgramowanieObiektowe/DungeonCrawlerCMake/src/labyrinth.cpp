@@ -1,8 +1,7 @@
 #include "labyrinth.h"
 #include "tile.h"
 #include <fstream>
-#include <ios>
-#include <utility>
+#include <cassert>
 #include <iostream>
 
 void Labyrinth::update_location(direction direct) {
@@ -33,7 +32,7 @@ void Labyrinth::event(Tile &player, Tile &neighbour, direction direct) {
             finish();
             break;
         case '_':
-            std::swap(player, neighbour);
+            SwapTiles(player, neighbour);
             update_location(direct);
             break;
         case 'T':
@@ -68,10 +67,10 @@ void Labyrinth::construct(const std::string &filename) {
     while (file.good()) {
         std::string temp{};
         file >> temp;
-        std::cout << temp << '\n';
+        // std::cout << temp << '\n';
         map_data += temp;
     }
-    std::cout << map_data << '\n';
+    // std::cout << map_data << '\n';
 
     for (int y{}; y < height; y++) {
         for (int x{}; x < width; x++) {
@@ -84,6 +83,7 @@ void Labyrinth::construct(const std::string &filename) {
             map[y][x] = new_tile;
         }
         }
+        assert(player_x > -1 && player_y > -1);
     }
 
 

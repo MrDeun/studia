@@ -11,6 +11,8 @@ private:
 
 public:
   TerminalGame(){}
+  void operator=(const TerminalGame& other){}
+  TerminalGame(const TerminalGame& other){}
   ~TerminalGame(){}
 };
 

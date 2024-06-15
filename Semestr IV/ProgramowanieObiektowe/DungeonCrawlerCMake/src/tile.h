@@ -25,6 +25,8 @@ public:
     symbol = ' ';
     type = char_map[symbol];
   }
+  void operator=(Tile& other){type = other.type;symbol=other.symbol;};
+  Tile(const Tile& other){type = other.type;symbol=other.symbol;}
   char getSymbol() { return symbol; }
   ~Tile() = default;
 };

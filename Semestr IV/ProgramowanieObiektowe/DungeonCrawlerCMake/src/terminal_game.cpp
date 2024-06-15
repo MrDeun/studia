@@ -1,6 +1,7 @@
 #include "terminal_game.h"
 #include "labyrinth.h"
 #include <conio.h>
+#include <cstdlib>
 #include <iostream>
 
 void TerminalGame::Show() {
@@ -49,6 +50,7 @@ void TerminalGame::endLevel() {
     std::cout << "\033[2J\033[1;1H"; // Special string to sends out a clear multiplatform
     std::cout << "Your score is... " << current_level.getFinalScore() << '\n';
     std::cout << ((Win) ? "YOU SURVIVED!\n" : "YOU DIED!\n");
+    system("pause");
     if (Win) {
         nextLevel();
     }

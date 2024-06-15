@@ -13,8 +13,10 @@ void BuildLabyrints(size_t count);
   virtual void endLevel(){}
 public:
   Game(){}
-  void nextLevel(){levels.pop();}
   virtual ~Game(){}
+  void operator=(const Game& other){}
+  Game(const Game& other){}
+  void nextLevel(){levels.pop();}
   Labyrinth current_level;
   bool remainingLevels(){return !levels.empty();}
   Labyrinth getLevel(){return levels.front();}

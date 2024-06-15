@@ -15,11 +15,14 @@ private:
   bool finished = false;
   void event(Tile &player, Tile &neighbour, direction direct);
   void update_location(direction direct);
+  static void SwapTiles(Tile& first, Tile& second){Tile temp{first};first = second; second = temp;}
 
 public:
   ~Labyrinth(){};
   Labyrinth(size_t width, size_t height);
   Labyrinth() = default;
+  void operator=(const Labyrinth& other){}
+  Labyrinth(const Labyrinth& other){}
   void event(direction direct);
   void construct(const std::string& filename);
   void vec_build(size_t x, size_t y, const std::vector<char>& map_data);
