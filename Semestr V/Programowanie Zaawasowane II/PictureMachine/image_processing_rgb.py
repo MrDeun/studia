@@ -11,6 +11,7 @@ def show(title:str,val):
   pass
 
 img = cv2.imread("./chicken4.jpg")
+img_2 = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
 print(img.shape)
 #cv2.imshow("kurczak",img)
 blue = img[:,:,0]
@@ -21,7 +22,7 @@ new_red = red.copy()
 new_green = green.copy()
 new_blue = blue.copy()
 
-new_red[new_red<150] = 0
+new_red[new_red<140] = 0
 new_green[new_green<170] = 0
 new_blue[new_blue<130] = 0
 
@@ -37,5 +38,14 @@ show("kurczak",img)
 plt.plot(np.histogram(blue,bins=256,range=(0,255))[0],label="blue")
 plt.plot(np.histogram(red,bins=256,range=(0,255))[0],label="red")
 plt.plot(np.histogram(green,bins=256, range=(0,255))[0],label="green")
+
+
+hue = img_2[:,:,0]
+sat = img_2[:,:,1]
+val = img_2[:,:,2]
+
+show("hue",hue)
+show("sat",sat)
+show("val",val)
 plt.legend()
 plt.show()
