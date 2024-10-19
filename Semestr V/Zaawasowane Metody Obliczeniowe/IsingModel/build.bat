@@ -1,0 +1,1 @@
+g++ .\main.cpp .\isingmodel.cpp -o NET -Wall -Wextra
