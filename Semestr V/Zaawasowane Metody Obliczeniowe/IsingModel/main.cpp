@@ -11,6 +11,7 @@
 
 #define POSITIVE 1
 #define NEGATIVE -1
+#define comma ","
 
 constexpr size_t matSize = 10;
 constexpr int bucketNumbers[] = {100, 200, 250};
@@ -19,7 +20,7 @@ size_t getRandomIndex(const size_t &max) { return rand() % max; }
 
 int *createNet(const size_t &size) { return new int[size * size]; }
 
-void deleteNet(int *net) { delete[] net; }
+void deleteNet(int *net) { delete[] net; net = nullptr;}
 
 void setWholeNet(int *mat, size_t size, int value) {
   for (size_t i = 0; i < size; i++) {
@@ -84,8 +85,8 @@ int testEnergy(size_t size) {
 void bucketLoop(int *net, const size_t &size, int bucket, const int &iterations,
                 std::ofstream &streamfile) {
   const int wholeEnergy = calculateEnergy(net, size) + bucket;
-  streamfile << "iteration\tdemonenergy\tmagnetize\n";
-  streamfile << 0 << "\t" << bucket << "\t" << calculateMagnetize(net, size)
+  streamfile << "iteration,demonenergy,magnetize\n";
+  streamfile << 0 << comma << bucket << comma << calculateMagnetize(net, size)
              << "\n";
   for (size_t i = 0; i < iterations; i++) {
     int &net_value = net[getRandomIndex(size) + size * getRandomIndex(size)];
@@ -98,12 +99,12 @@ void bucketLoop(int *net, const size_t &size, int bucket, const int &iterations,
       bucket += (preChange - postChange);
     }
     assert(wholeEnergy == bucket + calculateEnergy(net, size));
-    streamfile << i + 1 << "\t" << bucket << "\t"
+    streamfile << i + 1 << comma << bucket << comma
                << calculateMagnetize(net, size) << "\n";
   }
 }
 
-void handleInput(size_t &size, size_t &testCases, size_t &iterations,
+void handleInput(size_t &size, size_t &iterations,
                  std::vector<int> &bucketNumbers) {
   std::cin >> size;
   std::cin >> size;
@@ -122,16 +123,16 @@ void handleInput(size_t &size, size_t &testCases, size_t &iterations,
 
 int main() {
   srand(time(NULL));
-  size_t size{}, testCases{}, iterations{};
+  size_t size{}, iterations{};
   std::vector<int> bucketNumbers;
-  handleInput(size, testCases, iterations, bucketNumbers);
+  handleInput(size,  iterations, bucketNumbers);
   fprintf(stderr, "POSITIVE: %d \nNEGATIVE: %d\n", POSITIVE, NEGATIVE);
-  int energyDelta = testEnergy(matSize);
+  // int energyDelta = testEnergy(matSize);
   // size_t bucketCount = calculateBucketSteps(matSize,energyDelta);
   int *mat = createNet(size);
   for (int i = 0; i < bucketNumbers.size(); i++) {
     char filename[256];
-    sprintf(filename, "test_outputs/net%d.txt", i + 1);
+    sprintf(filename, "test_outputs/net%d.csv", i + 1);
     std::ofstream test_file(filename);
     int bucket = bucketNumbers[i];
     setWholeNet(mat, matSize, POSITIVE);
