@@ -84,6 +84,7 @@ int testEnergy(size_t size) {
 void bucketLoop(int *net, const size_t &size, int bucket, const int &iterations,
                 std::ofstream &streamfile) {
   const int wholeEnergy = calculateEnergy(net, size) + bucket;
+  streamfile << "iteration\tdemonenergy\tmagnetize\n";
   streamfile << 0 << "\t" << bucket << "\t" << calculateMagnetize(net, size)
              << "\n";
   for (size_t i = 0; i < iterations; i++) {
