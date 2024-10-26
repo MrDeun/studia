@@ -1,9 +1,12 @@
 #include "LCG.h"
+#include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <vector>
 constexpr std::array<double, 5> tests = {1.0 / 2.0, 1.0 / 3.0, 1.0 / 4.0,
                                          1.0 / 5.0, 1.0 / 6.0};
 
@@ -24,7 +27,7 @@ void testAge(LinearCongruentialGenerator &gen) {
 }
 
 void testReal(LinearCongruentialGenerator &gen) {
-  for (int i = 0; i < 10000; i++) {
+  for (int i = 0; i < 1000; i++) {
     printf("%f\n", gen.GenerateDouble());
   }
 }
@@ -41,13 +44,35 @@ void testMoments(LinearCongruentialGenerator &gen) {
       momentValue += std::pow(val, i + 1);
     }
     momentValue /= testSubject.size();
-    printf("Result of the test %f\t Expected result %f\tDiff: %f\n", momentValue,
-           tests[i], tests[1] - momentValue);
+    printf("Result of the test %f\t Expected result %f\tDiff: %f\n",
+           momentValue, tests[i], tests[1] - momentValue);
   }
+}
+
+void testChiSquare(LinearCongruentialGenerator &gen, size_t binCount) {
+  double threshold = (1.0 - 0.0) / binCount;
+  std::vector<int> bins(binCount);
+  for (int i = 0; i < 1000; i++) {
+    int binIndex = (gen.GenerateDouble() - 0.0) / threshold;
+    bins[binIndex]++;
+  }
+  std::vector<int> theoryBins(binCount);  
+  std::fill(theoryBins.begin(),theoryBins.end(),1000/binCount);
+  double chiSquare = 0.0;
+  int notEnoughs = 0;
+  for (int i = 0; i < binCount; i++) {
+    chiSquare +=
+        (double(std::pow(bins[i] - theoryBins[i],2))) / theoryBins[i];
+    if (bins[i] < 5) {
+      notEnoughs++;
+    }
+  }
+  int degreeFree = binCount - 0 - 1 - notEnoughs;
+  printf("ChiSquare: %f, Degree: %d",chiSquare,degreeFree);
 }
 
 int main() {
   LinearCongruentialGenerator generator{12857, 50000, 5421, 2341};
-  testMoments(generator);
+  testChiSquare(generator, 10);
   return 0;
 }
