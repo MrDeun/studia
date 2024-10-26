@@ -1,0 +1,6 @@
+# ninja log v6
+12	720	7516396640177110	CMakeFiles/IsingModel.dir/current_model/Statistics.cpp.obj	2e0ed962669dfd67
+8	839	7516396640137104	CMakeFiles/IsingModel.dir/current_model/main.cpp.obj	c0223f7a9cdc4987
+3	362	7516472876467516	build.ninja	8768f368539366ae
+4	868	7516396640092010	CMakeFiles/IsingModel.dir/current_model/IsingModel.cpp.obj	1d7179fe66e71fb2
+868	1065	7516396648735057	IsingModel.exe	3e82ba171e5e2479

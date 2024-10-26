@@ -3,32 +3,39 @@
 #include <algorithm>
 #include <array>
 #include <cstddef>
+#include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 
 #include "IsingStats.h"
 
-template <size_t width, size_t height> class SimulationModel {
+class SimulationModel {
 private:
   bool defaultState;
-  std::array<int, width * height> Model;
+  size_t width, height;
+  std::vector<int8_t> Model;
   std::vector<int> bucketEnergies;
   double averageMagnetism;
-  const size_t ModelSize;
-  size_t randomIndex() { return rand() % ModelSize; }
+  
+  
+  size_t randomIndex() { return rand() % (width*height); }
   void flip(size_t index) { Model[index] *= -1; }
-
-  int calculateEnergy();
-  double calculateMagnet();
-  void reset() {
-    bucketEnergies.clear();
-    std::fill(Model.begin(), Model.end(), 1);
-  }
+  void reset(); 
 
 public:
-  SimulationModel()
-      : averageMagnetism(0.0), ModelSize(width * height), defaultState(true) {
+  int calculateEnergy();
+  double calculateMagnet();
+  void flipAll(){
+    for (auto& arrow : Model) {
+      arrow *= -1;
+    }
+  }
+  SimulationModel(size_t width, size_t height)
+      : averageMagnetism(0.0), width(width), height(height), defaultState(true) {
     srand(time(nullptr));
+    Model.reserve(width*height);
     std::fill(Model.begin(), Model.end(), 1);
   }
 
