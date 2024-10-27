@@ -1,3 +1,0 @@
-E:/Workspace/studia/Semestr V/Zaawasowane Metody Obliczeniowe/IsingModel/cmake-build-debug/CMakeFiles/IsingModel.dir
-E:/Workspace/studia/Semestr V/Zaawasowane Metody Obliczeniowe/IsingModel/cmake-build-debug/CMakeFiles/edit_cache.dir
-E:/Workspace/studia/Semestr V/Zaawasowane Metody Obliczeniowe/IsingModel/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,8 +1,0 @@
-# ninja log v6
-3	356	7516552693063011	CMakeFiles/clion_project.dir/SimulationModel.cpp.obj	19e563abf97d6f1b
-1	421	7516552693032960	CMakeFiles/clion_project.dir/main.cpp.obj	3f8c03435f9dc4e6
-421	505	7516552697234560	clion_project.exe	761edf9eb145662c
-3	369	7516553280513386	CMakeFiles/clion_project.dir/main.cpp.obj	3f8c03435f9dc4e6
-370	448	7516553284170587	clion_project.exe	761edf9eb145662c
-4	373	7516554272780417	CMakeFiles/clion_project.dir/main.cpp.obj	3f8c03435f9dc4e6
-373	452	7516554276460206	clion_project.exe	761edf9eb145662c
