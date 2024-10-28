@@ -1,4 +1,5 @@
 #include "IsingModel.h"
+#include "IsingStats.h"
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
@@ -37,29 +38,40 @@ int SimulationModel::CalculateEnergy() {
   return res;
 }
 
+SimulationResult SimulationModel::results() {
+  SimulationResult result(bucketValues, magnetismValues);
+
+  bucketValues.clear();
+  magnetismValues.clear();
+
+  return result;
+}
+
 void SimulationModel::Simulate(size_t iterations, int bucket) {
   int preChange = CalculateEnergy();
-  const int totalEnergy = bucket + preChange;
+  const int totalEnergy =
+      bucket + preChange; // for W,H = 36, should be -2592 + bucket
   for (int i = 0; i < iterations; i++) {
     const size_t idx = randomIndex();
     flip(idx);
-    const int postChange = CalculateEnergy();
-    if ( bucket + (postChange - preChange) < 0){
+    int postChange = CalculateEnergy();
+    if (bucket + (preChange - postChange) < 0) {
       flip(idx);
+      postChange = preChange;
     } else {
-      bucket += (postChange-preChange);
+      bucket += (preChange - postChange);
       preChange = postChange;
     }
-    
+
     assert(bucket + postChange == totalEnergy);
     bucketValues.push_back(bucket);
     magnetismValues.push_back(CalculateMagnetism());
   }
-  std::fill(Model.begin(),Model.end(),1);
+  std::fill(Model.begin(), Model.end(), 1);
 }
 
 void SimulationModel::DEBUG_ShowModel() {
-  for (auto element : Model) {
-    std::cout << int(element) << std::endl;
+  for (int i = 0; i < ModelSize; i++) {
+    std::cout << Model[i];
   }
 }

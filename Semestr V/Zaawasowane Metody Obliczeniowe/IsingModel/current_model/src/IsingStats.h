@@ -1,6 +1,7 @@
 #ifndef ISINGSTAT_H
 #define ISINGSTAT_H
 
+#include <cassert>
 #include <cstdint>
 #include <vector>
 struct SimulationResult {
@@ -11,9 +12,11 @@ struct SimulationResult {
   double averageTemp;
 
   SimulationResult(const std::vector<int32_t> &buckets,
-                   const std::vector<double> magnetism)
+                   const std::vector<double> &magnetism)
       : bucketResults(buckets), magnetismResults(magnetism),
-        averageMagnetism(0.0), averageTemp(0.0) {}
+        averageMagnetism(0.0), averageTemp(0.0) {
+    assert(bucketResults.size() == magnetism.size());
+  }
 };
 
 #endif
