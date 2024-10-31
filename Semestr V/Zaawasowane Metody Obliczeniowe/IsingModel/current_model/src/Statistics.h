@@ -16,8 +16,8 @@ class StatisticalModel{
   public:
     StatisticalModel();
     void loadData(const SimulationResult& res){
-      magnets = res.magnetismResults;
-      buckets = res.bucketResults;
+      this->magnets = res.magnetismResults;
+      this->buckets = res.bucketResults;
     }
 
     std::map<int32_t,uint32_t> countBuckets();
