@@ -68,6 +68,11 @@ int main() {
     std::map<int32_t, uint32_t> counts = stats.countBuckets();
     sprintf(buf, "results/bucketcount%d.csv", i + 1);
     save_count_to_files(counts, buf);
+    auto a_b = stats.linearRegression(counts);
+    std::cerr<< "Energy " << a_b.first << '\t' << "Magnetism " << stats.averageMagnetism() << '\n';
+    for (auto record : counts) {
+      std::cerr<< "{ " << 1.0/record.first << ", " << record.second << " }\n";
+    }
   }
 
   return 0;
