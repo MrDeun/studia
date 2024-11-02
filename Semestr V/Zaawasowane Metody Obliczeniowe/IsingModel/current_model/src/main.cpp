@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <ostream>
 #include <vector>
 
 std::vector<int32_t> input(size_t &width, size_t &height, size_t &iterations) {
@@ -53,6 +54,9 @@ int main() {
   SimulationModel model(width, height);
   std::cerr << "Max energy: " << -2 * model.CalculateEnergy() << std::endl;
   for (auto bucket : buckets) {
+    std::cerr << "Completion:  "
+              << (double(bucket) / buckets[buckets.size() - 1]) * 100.0
+              << std::flush << std::endl;
     model.Simulate(iterations, bucket);
     results.push_back(model.results());
   }
