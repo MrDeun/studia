@@ -34,11 +34,7 @@ public:
 
   std::pair<double, double>
   linearRegression(const std::map<int32_t, uint32_t> &countBucket);
-  std::pair<double, double>
-  linearRegression(const std::map<double,double> &countBucket);
 
-  std::map<double, double>
-  powerScaling(const std::map<int32_t, uint32_t> &countBucket);
 };
 
 #endif
