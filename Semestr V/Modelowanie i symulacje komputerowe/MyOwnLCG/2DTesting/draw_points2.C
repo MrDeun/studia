@@ -19,20 +19,18 @@ struct m_pair {
   m_pair() : first(0.0), second(0.0) {}
 };
 
-void przyklad_rysowanie() {
-  const size_t size_pairs1 = 10000 / 2;
+void draw_points2() {
   const size_t size_pairs2 = 10000 - 1;
   size_t i = 0;
-  double pairs1[10000];
-  m_pair pairs2[size_pairs2];
+  double pairs1[size_pairs2];
   ifstream d;
   // tak pod linuxem
   // d.open("dane.txt");
   // pod windows pelna sciezka z podwojnymi slashami
 
   //     d.open("C:\\Users\\dorota.sobczynska\\Desktop\\dla_doktorantow\\dane\\test.txt");
-  d.open("points1.txt");
-  for (i = 0; i < size_pairs1; i = i + 2) {
+  d.open("points2.txt");
+  for (i = 0; i < size_pairs2; i = i + 2) {
     double temp1, temp2;
     d >> temp1;
     d >> temp2;
@@ -54,7 +52,7 @@ void przyklad_rysowanie() {
                        0.0, 1.0);
 
   // wypelnianie histogramu dwuwymiarowego
-  for (i = 0; i < size_pairs1; i = i + 2) {
+  for (i = 0; i < size_pairs2; i = i + 2) {
     hi2->Fill(pairs1[i], pairs1[i+1]);
   }
 

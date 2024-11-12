@@ -1,0 +1,8 @@
+{
+  "filters": [
+      {"name": "blur", "times": 2, "params": {"ksize": 5}},
+      {"name": "grayscale", "times": 1},
+      {"name": "edge_detection", "times": 1, "params": {"threshold1": 100, "threshold2": 200}},
+      {"name": "sharpen", "times": 1}
+  ]
+}
