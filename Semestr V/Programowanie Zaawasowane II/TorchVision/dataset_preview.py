@@ -76,7 +76,7 @@ print(example_targets[0].shape)
 
 pred = clf.predict(example_data.reshape((1000,-1)))
 
-fig =plt.figure()
+fig = plt.figure()
 for i in range(8):
       plt.subplot(2, 4, i + 1)
       #plt.tight_layout()
@@ -86,13 +86,19 @@ for i in range(8):
       plt.xticks([])
       plt.yticks([])
 fig.show()
+fig.waitforbuttonpress()
+
 
 cmatrix= confusion_matrix(example_targets,pred)
+json_data = {"array":cmatrix.tolist()}
+with open("cmatrix.json",'w') as json_file:
+    json.dump(json_data,json_file)
 fig = plt.figure()
 sb.heatmap(cmatrix,annot =True, fmt='g')
 plt.xlabel('Actual')
 plt.ylabel('Predicted')
 plt.title('SVM MNIST Confusion Matrix')
 fig.show()
+fig.waitforbuttonpress()
 
 print("Accuracy:", np.trace(cmatrix)/np.sum(cmatrix))
