@@ -9,6 +9,4 @@ add_executable(IsingModel
     src/main.cpp
     src/IsingModel.h
     src/IsingModel.cpp
-    src/Statistics.h
-    src/Statistics.cpp
 )

@@ -1,6 +1,5 @@
 #include "IsingModel.h"
 #include "IsingStats.h"
-#include "Statistics.h"
 #include <cstdint>
 #include <cstdio>
 #include <fstream>
@@ -60,20 +59,20 @@ int main() {
     model.Simulate(iterations, bucket);
     results.push_back(model.results());
   }
-  save_to_files(results);
-  StatisticalModel stats;
-  for (size_t i = 0; i < results.size(); i++) {
-    char buf[256];
-    stats.loadData(results[i]);
-    std::map<int32_t, uint32_t> counts = stats.countBuckets();
-    sprintf(buf, "results/bucketcount%d.csv", i + 1);
-    save_count_to_files(counts, buf);
-    auto a_b = stats.linearRegression(counts);
-    std::cerr<< "Energy " << a_b.first << '\t' << "Magnetism " << stats.averageMagnetism() << '\n';
-    for (auto record : counts) {
-      std::cerr<< "{ " << 1.0/record.first << ", " << record.second << " }\n";
-    }
+  std::cout << "iterations";
+  std::string csv_entries = "";
+  for(size_t i=0;i<results.size();i++){
+    char buf[1024];
+    sprintf(buf,",bucket%u,magnetism%u",i,i);
+    std::cout << buf;
   }
-
+  std::cout << '\n';
+  for(size_t i=0;i<iterations;i++){
+    std::cout << i+1 ;
+    for (auto res : results) {
+      std::cout <<','<< res.bucketResults[i] << ',' << res.magnetismResults[i];
+    }
+    std::cout << '\n';
+  }
   return 0;
 }
