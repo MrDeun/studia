@@ -2,6 +2,7 @@ FUNCTION_BLOCK FanControl
 
 VAR_INPUT
     temperature : REAL;
+    humidity: REAL;
 END_VAR
 
 VAR_OUTPUT
@@ -12,6 +13,11 @@ FUZZIFY temperature
     TERM cold := (0, 1) (10, 1) (20, 0);
     TERM comfortable := (10, 0) (25, 1) (40, 0);
     TERM hot := (30, 0) (50, 1);
+END_FUZZIFY
+
+FUZZIFY humidity
+  TERM humid: (0,1)(30,1)(60,0)(100,0);
+  TERM dry: (0,0)(40,0)(70,1)(100,1);
 END_FUZZIFY
 
 DEFUZZIFY fan_speed
@@ -27,9 +33,9 @@ RULEBLOCK No1
     ACT : MIN;
     ACCU : MAX;
 
-    RULE 1 : IF temperature IS cold THEN fan_speed IS low;
-    RULE 2 : IF temperature IS comfortable THEN fan_speed IS medium;
-    RULE 3 : IF temperature IS hot THEN fan_speed IS high;
+    RULE 1 : IF temperature IS cold OR humidity IS dry THEN fan_speed IS low;
+    RULE 2 : IF temperature IS comfortable OR humidity IS humid THEN fan_speed IS medium;
+    RULE 3 : IF temperature IS hot OR humidity IS humid THEN fan_speed IS high;
 END_RULEBLOCK
 
 END_FUNCTION_BLOCK

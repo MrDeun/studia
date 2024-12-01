@@ -1,0 +1,38 @@
+FUNCTION_BLOCK car_controller
+
+VAR_INPUT
+  speed: REAL;
+  distance: REAL;
+END_VAR
+VAR_OUTPUT
+ throttle: REAL;
+END_VAR
+
+FUZZIFY speed
+ TERM slow:(0,1)(40,1)(60,0)(120,0);
+ TERM medium:(0,0)(40,0)(60,1)(80,0)(120,0);
+ TERM fast:(0,0)(60,0)(90,1)(120,1);
+END_FUZZIFY
+
+FUZZIFY distance
+  TERM very_close:(0,1)(20,1)(30,0)(200,0);
+  TERM close:(0,1)(40,1)(50,0)(200,0);
+  TERM safe:(0,0)(20,0)(50,1)(200,1);
+  TERM far:(0,0)(100,0)(150,1)(200,1);
+END_FUZZIFY
+
+DEFUZZIFY throttle
+  TERM full_brake:;
+  TERM medium_brake:;
+  TERM decelerate:;
+  TERM maintain:;
+  TERM accelerate:;
+  TERM max_accelerate:;
+  METHOD:LM;
+END_DEFUZZIFY
+
+RULEBOOK no1
+  RULE 1: IF distance IS very_close AND speed IS fast THEN throttle IS full_brake;
+END_RULEBOOK
+
+END_FUNCTION_BLOCK
