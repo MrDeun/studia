@@ -24,4 +24,5 @@ plt.imshow(np_mat,interpolation='none')
 plt.show()
 transformed = abs(np.fft.fft2(np_mat))
 plt.imshow(transformed,interpolation='none')
+
 plt.show()
