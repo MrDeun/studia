@@ -23,24 +23,24 @@ void transform_func(const vector<complex_d>& points){
   puts("0");
 }
 
-std::vector<vector<complex_d>> input() {
-  size_t tests_count;
-  std::cin >> tests_count;
-  std::vector<vector<complex_d>> tests(tests_count);
-  for (auto &vec : tests) {
-    size_t points_size;
-    std::cin >> points_size;
-    vector<complex_d> new_points(points_size);
-    for (int i = 0; i < points_size; i++) {
-      double x;
-      std::cin >> x;
-      complex_d temp{x, 0};
-      new_points[i] = temp;
+  std::vector<vector<complex_d>> input() {
+    size_t tests_count;
+    std::cin >> tests_count;
+    std::vector<vector<complex_d>> tests(tests_count);
+    for (auto &vec : tests) {
+      size_t points_size;
+      std::cin >> points_size;
+      vector<complex_d> new_points(points_size);
+      for (int i = 0; i < points_size; i++) {
+        double x;
+        std::cin >> x;
+        complex_d temp{x, 0};
+        new_points[i] = temp;
+      }
+      vec = new_points;
     }
-    vec = new_points;
+    return tests;
   }
-  return tests;
-}
 
 int main() {
   vector<vector<complex_d>> test_cases = input();
