@@ -4,5 +4,5 @@ project(FourierTransform VERSION 0.1.0 LANGUAGES C CXX)
 set(CXX_STANDARD 11)
 
 add_executable(FourierTransform src/main.cpp src/dft.cpp src/fft.cpp src/dft.h src/fft.h)
-add_executable(NoiseTransform src/noise.cpp src/fft.cpp src/fft.h src/regression.h src/regression.cpp)
+add_executable(NoiseTransform src/noise.cpp src/regression.h src/fft.h src/regression.cpp src/fft.cpp)
 

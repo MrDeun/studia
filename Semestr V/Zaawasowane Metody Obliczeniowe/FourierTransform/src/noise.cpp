@@ -19,7 +19,7 @@ vec<vec<complex_d>> input() {
     for (int i = 0; i < points_size; i++) {
       double x;
       std::cin >> x;
-      complex_d temp{x,0.0};
+      complex_d temp{double(i),x};
       new_points[i] = temp;
     }
     _case = new_points;
@@ -35,7 +35,8 @@ int main(){
     fast_fourier_transform(case_);
     puts("real\timag");
     for (auto& coeff : case_) {
-      if (abs(coeff) > 0.001) coeff = complex_zero;
+      if (abs(coeff) > 0.01) coeff = complex_zero;
+      printf("%f\t%f\n",coeff.real(),coeff.imag());
     }
     inverse_fast_fourier_transform(case_);
     std::vector<double> X_s(case_.size());

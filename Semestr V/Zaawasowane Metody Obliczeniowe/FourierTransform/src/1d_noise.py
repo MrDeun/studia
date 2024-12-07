@@ -26,6 +26,10 @@ for _case in test_case:
     if abs(transformed_y[comp]) > 1.5:
       transformed_y[comp] = 0.0 + 0.0j
       pass
-  plt.scatter(x,abs(transformed_y))
+#   plt.scatter(x,abs(transformed_y))
+  trend_line = np.polyfit(x,np.fft.ifft(transformed_y),1)
+  trend_function = np.poly1d(trend_line)
+  plt.plot(x,trend_function(x))
+  plt.scatter(x,np.fft.ifft(transformed_y))
   plt.show()
   
