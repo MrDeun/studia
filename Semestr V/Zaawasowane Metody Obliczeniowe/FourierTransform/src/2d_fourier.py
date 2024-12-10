@@ -19,10 +19,10 @@ for i in range(y):
 np_mat = np.array(mat)
 print(np_mat)
 
-
 plt.imshow(np_mat,interpolation='none')
+plt.savefig("pre_Transform.jpg")
 plt.show()
 transformed = abs(np.fft.fft2(np_mat))
 plt.imshow(transformed,interpolation='none')
-
+plt.savefig("post_Transform.jpg")
 plt.show()
