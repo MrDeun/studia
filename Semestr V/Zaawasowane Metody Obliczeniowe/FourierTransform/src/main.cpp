@@ -1,6 +1,5 @@
 #include "dft.h"
 #include "fft.h"
-#include "regression.h"
 
 #include <cassert>
 #include <cstdio>

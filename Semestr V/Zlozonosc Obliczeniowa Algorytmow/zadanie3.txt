@@ -1,0 +1,37 @@
+### bool isPalindrom(const char* str, int str_len)
+### Funkcja ta ma zlozosnosc obliczeniowa O(n/2) albo O((n-1)/2) gdyz sprawdzamy kazdy element kolejno od poczatka i konca.
+### Nieparzysta liczba znakow pozwala na pominiencie srodkowego elementu ciagu znakow. 
+
+1 LOAD =0
+2 STORE r2
+
+3 LOAD str_len
+4 DIV =2
+5 STORE r3
+
+6 LOAD r2
+7 SUB r3
+8 JZERO 10
+9 JUMP 25
+
+10 ADD str
+11 LOAD ^r0
+12 STORE r1
+13 LOAD str_len
+14 SUB =1
+15 SUB r2
+16 LOAD ^r0
+17 SUB r1
+18 JNZERO 23
+19 LOAD r2
+20 ADD =1
+21 STORE r2
+22 JUMP 6
+
+
+
+23 WRITE =0
+24 HALT
+
+25 WRITE =1
+26 HALT
