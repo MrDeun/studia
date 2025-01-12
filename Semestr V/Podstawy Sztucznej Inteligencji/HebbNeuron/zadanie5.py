@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 # Binary representations of the digits 1, 4, 7, 0
 
@@ -12,20 +13,16 @@ data = {
     0: [1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1],
 }
 
-# Target outputs for two neurons (arbitrarily assigned classes)
 labels = {1: [1, 1], 4: [1, 0], 7: [0, 0], 0: [0, 1]}
 
-# Prepare training data
 X = np.array(list(data.values()))  # Inputs
 Y = np.array(list(labels.values()))  # Targets
 
 
-# Activation function (unipolar step function)
 def step_function(x, beta=1.0):
     return 1 / (1 + np.exp(-beta * x))
 
 
-# Single-layer neural network training
 def train_single_layer_nn(X, Y, learning_rate=0.1, epochs=100):
     np.random.seed(0)  # For reproducibility
     num_samples, num_features = X.shape
@@ -71,13 +68,13 @@ def test_single_layer_nn(X, W, b):
 
 # Train the network with different hyperparameters
 learning_rates = [0.1, 0.01, 0.5]
-epochs = 1000
+epochs = [1000,100,500]
 
-for lr in learning_rates:
-    W, b, errors = train_single_layer_nn(X, Y, learning_rate=lr, epochs=epochs)
+for i in range(len(learning_rates)):
+    W, b, errors = train_single_layer_nn(X, Y, learning_rate=learning_rates[i], epochs=epochs[i])
 
     # Plot the error convergence
-    plt.plot(errors, label=f"Learning Rate = {lr}")
+    plt.plot(errors, label=f"Learning Rate = {learning_rates[i]}")
 
     plt.title("Error Convergence for Different Learning Rates")
     plt.xlabel("Epochs")

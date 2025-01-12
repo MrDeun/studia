@@ -37,8 +37,8 @@ RULEBLOCK lamp_no1
   RULE 1 : IF ambient_light IS ciemno AND time_of_day IS noc THEN lamp_brightness IS pelna;
   RULE 2 : IF ambient_light IS ciemno AND time_of_day IS ranek THEN lamp_brightness IS mocno;
   RULE 3 : IF ambient_light IS ciemno AND time_of_day IS wieczor THEN lamp_brightness IS mocno;
-  RULE 4 : IF ambient_light IS ciemno AND time_of_day IS dzien THEN lamp_brightness IS srednio; 
-  RULE 5 : IF ambient_light IS jasno AND time_of_day IS dzien THEN lamp_brightness IS wylaczone;
+  RULE 4 : IF ambient_light IS ciemno AND time_of_day IS poludnie THEN lamp_brightness IS srednio;
+  RULE 5 : IF ambient_light IS jasno AND time_of_day IS poludnie THEN lamp_brightness IS wylaczone;
   RULE 6 : IF ambient_light IS jasno AND  time_of_day IS wieczor THEN lamp_brightness IS srednio;
   RULE 7 : IF ambient_light IS jasno AND  time_of_day IS ranek THEN lamp_brightness IS srednio;
   RULE 8 : IF ambient_light IS jasno AND  time_of_day IS noc THEN lamp_brightness IS slabo;

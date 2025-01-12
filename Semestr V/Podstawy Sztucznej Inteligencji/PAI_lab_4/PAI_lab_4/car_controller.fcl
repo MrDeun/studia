@@ -4,35 +4,48 @@ VAR_INPUT
   speed: REAL;
   distance: REAL;
 END_VAR
+
 VAR_OUTPUT
  throttle: REAL;
 END_VAR
 
 FUZZIFY speed
- TERM slow:(0,1)(40,1)(60,0)(120,0);
- TERM medium:(0,0)(40,0)(60,1)(80,0)(120,0);
- TERM fast:(0,0)(60,0)(90,1)(120,1);
+ TERM slow:=(0,1)(40,1)(60,0)(120,0);
+ TERM medium:=(0,0)(40,0)(60,1)(80,0)(120,0);
+ TERM fast:=(0,0)(60,0)(90,1)(120,1);
 END_FUZZIFY
 
 FUZZIFY distance
-  TERM very_close:(0,1)(20,1)(30,0)(200,0);
-  TERM close:(0,1)(40,1)(50,0)(200,0);
-  TERM safe:(0,0)(20,0)(50,1)(200,1);
-  TERM far:(0,0)(100,0)(150,1)(200,1);
+  TERM very_close:=(0,1)(20,1)(30,0)(200,0);
+  TERM close:=(0,1)(40,1)(50,0)(200,0);
+  TERM safe:=(0,0)(20,0)(50,1)(150,1)(200,0);
+  TERM far:=(0,0)(100,0)(150,1)(200,1);
 END_FUZZIFY
 
 DEFUZZIFY throttle
-  TERM full_brake:;
-  TERM medium_brake:;
-  TERM decelerate:;
-  TERM maintain:;
-  TERM accelerate:;
-  TERM max_accelerate:;
+  TERM full_brake:=(-100,1)(-90,0)(100,0);
+  TERM medium_brake:=(-100,0.33)(-66.6,1.0)(0,0)(100,0.0);
+  TERM decelerate:=(-100,0)(-50,0)(-25,1.0)(5,0)(100,0.0);
+  TERM maintain:=(-100,0)(-25,0)(0.0,1.0)(10,0);
+  TERM accelerate:=(-100,0)(0,0)(33,1.0)(50,1.0)(100,0.0);
+  TERM max_accelerate:=(-100,0)(25,0)(75,0.8)(100,1.0);
   METHOD:LM;
+  DEFAULT:=0;
 END_DEFUZZIFY
 
-RULEBOOK no1
-  RULE 1: IF distance IS very_close AND speed IS fast THEN throttle IS full_brake;
-END_RULEBOOK
-
+RULEBLOCK No1
+  AND : MIN;
+  ACT : PROD;
+  ACCU : MAX;
+  RULE 1: IF distance IS very_close THEN throttle IS full_brake;
+  RULE 2: IF distance IS close AND speed IS slow THEN throttle IS maintain;
+  RULE 3: IF distance IS close AND speed IS medium THEN throttle IS medium_brake;
+  RULE 4: IF distance IS close AND speed IS fast THEN throttle IS full_brake;
+  RULE 5: IF distance IS safe AND speed IS slow THEN throttle IS accelerate;
+  RULE 6: IF distance IS safe AND speed IS medium THEN throttle IS maintain;
+  RULE 7: IF distance IS safe AND speed IS fast THEN throttle IS decelerate;
+  RULE 8: IF distance IS far AND speed IS slow THEN throttle IS max_accelerate;
+  RULE 9: IF distance IS far AND speed IS medium THEN throttle IS accelerate;
+  RULE 10: IF distance IS far AND speed IS fast THEN throttle IS maintain;
+END_RULEBLOCK
 END_FUNCTION_BLOCK

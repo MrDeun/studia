@@ -16,8 +16,8 @@ FUZZIFY temperature
 END_FUZZIFY
 
 FUZZIFY humidity
-  TERM humid: (0,1)(30,1)(60,0)(100,0);
-  TERM dry: (0,0)(40,0)(70,1)(100,1);
+  TERM dry:= (0,1)(30,1)(60,0)(100,0);
+  TERM humid:= (0,0)(40,0)(70,1)(100,1);
 END_FUZZIFY
 
 DEFUZZIFY fan_speed
