@@ -22,7 +22,6 @@ Y = np.array(list(labels.values()))  # Targets
 def step_function(x, beta=1.0):
     return 1 / (1 + np.exp(-beta * x))
 
-
 def train_single_layer_nn(X, Y, learning_rate=0.1, epochs=100):
     np.random.seed(0)  # For reproducibility
     num_samples, num_features = X.shape
@@ -30,7 +29,7 @@ def train_single_layer_nn(X, Y, learning_rate=0.1, epochs=100):
 
     # Initialize weights and biases
     W = np.random.uniform(-1, 1, (num_outputs, num_features))
-    b = np.random.uniform(-1, 1, num_outputs)
+   
 
     errors = []
 
@@ -38,7 +37,7 @@ def train_single_layer_nn(X, Y, learning_rate=0.1, epochs=100):
         total_error = 0
         for x, y in zip(X, Y):
             # Forward pass
-            net_input = np.dot(W, x) + b
+            net_input = np.dot(W, x)
             output = step_function(net_input)
 
             # Compute error
