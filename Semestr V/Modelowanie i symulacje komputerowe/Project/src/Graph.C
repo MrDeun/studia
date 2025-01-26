@@ -24,7 +24,7 @@ void Graph(){
   fprintf(stderr,"Min: %d \t Max: %d\n",minValue,maxValue);
 
   
-  TH1F* histograph = new TH1F("Values","Methane (kgs/year)",100,minValue-1,maxValue+1);
+  TH1F* histograph = new TH1F("Values","Methane (kgs/year)",1000,minValue-1,maxValue+1);
   for(size_t i=0;i<5000;i++){
     histograph->Fill(Values[i]);
   }
