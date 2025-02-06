@@ -10,11 +10,13 @@ from torchsummary import summary
 
 from cynn_model import AutoencoderNet
 
+import pycocotools.coco as COCO
+
 
 class AutoEncoderWrapper():
     def __init__(self, network, optimizer, base_path, device, noise_factor=0.2):
-        self.network=network
-        self.noise_factor=noise_factor
+        self.network = network
+        self.noise_factor = noise_factor
         self.network.to(device)
         self.optimizer = optimizer
         self.device = device
@@ -22,7 +24,7 @@ class AutoEncoderWrapper():
         self.train_losses = []
         self.val_losses = []
 
-    def train(self, epoch, data_loader, val_loader = None):
+    def train(self, epoch, data_loader, val_loader=None):
         self.network.train()
         train_loss = 0
         for batch_idx, (data, target) in enumerate(data_loader):
@@ -32,10 +34,10 @@ class AutoEncoderWrapper():
             self.optimizer.zero_grad()
             output = self.network(data_plus_noise)
             loss = torch.nn.MSELoss()(output, data)
-            train_loss+= loss.item()
+            train_loss += loss.item()
             loss.backward()
             self.optimizer.step()
-        train_loss = train_loss/len(data_loader.dataset)
+        train_loss = train_loss / len(data_loader.dataset)
         print('Train Epoch: {} \tLoss: {:.6f}'.format(
             epoch, train_loss))
         self.train_losses.append(train_loss)
@@ -46,23 +48,23 @@ class AutoEncoderWrapper():
         return noisy
 
     def save_model(self, fname):
-        torch.save(self.network.state_dict(), self.base_path + '/out/{}_{}_c{}_model.pth'.format(fname, self.noise_factor, self.network.code_dim))
+        torch.save(self.network.state_dict(),
+                   self.base_path + '/out/{}_{}_c{}_model.pth'.format(fname, self.noise_factor, self.network.code_dim))
 
     @staticmethod
-    def get_model_path(base_path, file_name ):
+    def get_model_path(base_path, file_name):
         return base_path + "/out/" + file_name
 
     @staticmethod
-    def load_model(base_path, file_name, model, optimizer=None, device = None ):
-        file_path = AutoEncoderWrapper.get_model_path(base_path,file_name)
+    def load_model(base_path, file_name, model, optimizer=None, device=None):
+        file_path = AutoEncoderWrapper.get_model_path(base_path, file_name)
         model.load_state_dict(torch.load(file_path))
-        return AutoEncoderWrapper(model, optimizer,base_path,device)
-
+        return AutoEncoderWrapper(model, optimizer, base_path, device)
 
     def training_plot(self):
         fig = plt.figure()
         plt.plot([*range(len(self.train_losses))], self.train_losses, color='blue')
-        if (len(self.val_losses))>0:
+        if (len(self.val_losses)) > 0:
             plt.plot([*range(len(self.val_losses))], self.val_losses, color='red')
         plt.legend(['Train Loss', 'Test Loss'], loc='upper right')
         plt.xlabel('epoch')
@@ -74,7 +76,7 @@ class AutoEncoderWrapper():
         summary(self.network, size)
 
 
-data_loader_kwargs ={'pin_memory': True}
+data_loader_kwargs = {'pin_memory': True}
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 if torch.cuda.is_available():
     print(torch.cuda.device_count(), torch.cuda.current_device(), torch.cuda.get_device_name())
@@ -89,70 +91,56 @@ log_interval = 10
 noise_factor = 0.2
 
 train_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.CocoDetection(base_path+'datasets/',base_path+'datasets/',
-                             transform=torchvision.transforms.Compose([
-                               torchvision.transforms.ToTensor(),
-                               torchvision.transforms.Normalize(
-                                 (0.1307,), (0.3081,))
-                             ])),
-    batch_size=batch_size_train, shuffle=True, **data_loader_kwargs)
-
-test_loader = torch.utils.data.DataLoader(
-    torchvision.datasets.CocoDetection(base_path+'datasets/',base_path+'datasets/',
-                             transform=torchvision.transforms.Compose([
-                               torchvision.transforms.ToTensor(),
-                               torchvision.transforms.Normalize(
-                                 (0.1307,), (0.3081,))
-                             ])),
-    batch_size=batch_size_test, shuffle=True, **data_loader_kwargs)
+    torchvision.datasets.SBDataset(base_path + 'datasets/SB', transforms=torchvision.transforms.Compose([
+        torchvision.transforms.ToTensor(),
+        torchvision.transforms.Normalize(
+            (0.1307,), (0.3081,))
+    ]), download=True),batch_size=batch_size_test, shuffle=True, **data_loader_kwargs
+)
 code_dim = 12
 network = AutoencoderNet(code_dim)
 optimizer = torch.optim.Adam(network.parameters(), lr=learning_rate, weight_decay=1e-05)
 
 model_file_name = "_autoencoder_0.3_c12_model.pth"
 
-
 ml = AutoEncoderWrapper(network, optimizer, base_path, device)
-ml.summary((1,28,28))
+ml.summary((1, 28, 28))
 
-if os.path.exists(AutoEncoderWrapper.get_model_path(base_path,model_file_name)):
+if os.path.exists(AutoEncoderWrapper.get_model_path(base_path, model_file_name)):
     print("Loading model from file:", model_file_name)
     ml = AutoEncoderWrapper.load_model(base_path, model_file_name, network, optimizer=optimizer, device=device)
 else:
     print("Start training")
     for epoch in range(1, n_epochs + 1):
-      ml.train(epoch, train_loader, test_loader)
+        ml.train(epoch, train_loader, train_loader)
     ml.save_model("autoencoder")
 
-
-
 print("Sample results:")
-examples = enumerate(test_loader)
+examples = enumerate(train_loader)
 batch_idx, (example_data, example_targets) = next(examples)
 
-
 with torch.no_grad():
-  example_data =example_data.to(device)
-  network.to(device)
-  output = ml.network(example_data)
-    #ENCODOWANIE
-    #ml.network.encoder(example_data)
+    example_data = example_data.to(device)
+    network.to(device)
+    output = ml.network(example_data)
+    # ENCODOWANIE
+    # ml.network.encoder(example_data)
 
-example_data =example_data.cpu()
+example_data = example_data.cpu()
 output_data = output.data.cpu()
 print(output_data.shape)
 fig = plt.figure()
 for i in range(6):
-      plt.subplot(2, 6, i + 1)
-      plt.tight_layout()
-      plt.imshow(example_data[i][0], cmap='gray', interpolation='none')
-      plt.title("Original: ")
-      plt.xticks([])
-      plt.yticks([])
-      plt.subplot(2, 6, i + 7)
-      plt.imshow(output.data[i][0].cpu(), cmap='gray', interpolation='none')
-      plt.title("Result:) ")
-      plt.xticks([])
-      plt.yticks([])
+    plt.subplot(2, 6, i + 1)
+    plt.tight_layout()
+    plt.imshow(example_data[i][0], cmap='gray', interpolation='none')
+    plt.title("Original: ")
+    plt.xticks([])
+    plt.yticks([])
+    plt.subplot(2, 6, i + 7)
+    plt.imshow(output.data[i][0].cpu(), cmap='gray', interpolation='none')
+    plt.title("Result:) ")
+    plt.xticks([])
+    plt.yticks([])
 plt.tight_layout()
 fig.show()
