@@ -55,9 +55,9 @@ func main() {
 			keys = append(keys, k)
 		}
 	}
-	fmt.Println("KEY \t PATTERN \t ENCRYPTED")
+	fmt.Println("KEY \t ENCRYPTED \t PATTERN")
 	for _, k := range keys {
-		fmt.Printf("%s \t %f \t %f\n", string(k), pattern_percent[k], encrypted_percent[k])
+		fmt.Printf("%s \t %f \t %f\n", string(k), encrypted_percent[k], pattern_percent[k])
 	}
 
 }
