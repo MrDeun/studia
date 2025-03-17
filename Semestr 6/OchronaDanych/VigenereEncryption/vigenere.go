@@ -53,8 +53,8 @@ func encrypt(encryption_matrix [][]byte, to_encrypt []byte, password []byte) ([]
 	return result, nil
 }
 
-func decrypt(encryption_matrix [][]byte, to_encrypt []byte, password []byte) ([]byte, error) {
-	panic("Decryption not implemented yet!")
+func decrypt(encryption_matrix [][]byte, to_decrypt []byte, password []byte) ([]byte, error) {
+	// panic("Decryption not implemented yet!")
 	alphabet := encryption_matrix[0]
 	for _, letter := range password {
 		if !slices.Contains(alphabet, letter) {
@@ -62,13 +62,33 @@ func decrypt(encryption_matrix [][]byte, to_encrypt []byte, password []byte) ([]
 			return nil, err
 		}
 	}
-	return nil, nil
+	result := []byte{}
+	for index_c, c := range to_decrypt {
+		if !slices.Contains(alphabet, c) {
+			result = append(result, c)
+		} else {
+			password_char := password[index_c%len(password)]
+			index_encrypted_row := slices.Index(alphabet, password_char)
+			index_password_char := slices.Index(encryption_matrix[index_encrypted_row], c)
+			result = append(result, alphabet[index_password_char])
+		}
+	}
+	return result, nil
+}
+
+var alphabet = []byte("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")
+var encryption_matrix = create_matrix(alphabet)
+
+func print_encryption_matrix(encrypt [][]byte) {
+	for _, row := range encrypt {
+		for _, c := range row {
+			fmt.Printf("%c ", c)
+		}
+		fmt.Println("")
+	}
 }
 
 func main() {
-	alphabet_s := "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	alphabet := []byte(alphabet_s)
-	encryption_matrix := create_matrix(alphabet)
 
 	var choice = 9
 
@@ -86,20 +106,20 @@ func main() {
 	fmt.Print("\nEnter your password: ")
 	fmt.Scan(&password)
 	password = strings.ToUpper(password)
-	for choice != 0 && choice != 1 {
+	for choice != 1 && choice != 2 {
 		fmt.Print("Select an encryption/decryption [1/2]: ")
 		fmt.Scan(&choice)
 	}
 
 	switch choice {
-	case 0:
+	case 1:
 		result, err := encrypt(encryption_matrix, file_data, []byte(password))
 		if err != nil {
 			log.Fatal(err)
 			os.Exit(1)
 		}
 		os.WriteFile("encrypted.txt", result, 0644)
-	case 1:
+	case 2:
 		result, err := decrypt(encryption_matrix, file_data, []byte(password))
 		if err != nil {
 			log.Fatal(err)
@@ -110,5 +130,6 @@ func main() {
 		fmt.Errorf("Incorrect option has been selected")
 		os.Exit(1)
 	}
+	print_encryption_matrix(encryption_matrix)
 	os.Exit(0)
 }
