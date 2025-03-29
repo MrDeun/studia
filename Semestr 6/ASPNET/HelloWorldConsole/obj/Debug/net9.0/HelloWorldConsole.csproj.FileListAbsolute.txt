@@ -1,0 +1,15 @@
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/bin/Debug/net9.0/HelloWorldConsole
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/bin/Debug/net9.0/HelloWorldConsole.deps.json
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/bin/Debug/net9.0/HelloWorldConsole.runtimeconfig.json
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/bin/Debug/net9.0/HelloWorldConsole.dll
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/bin/Debug/net9.0/HelloWorldConsole.pdb
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.GeneratedMSBuildEditorConfig.editorconfig
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.AssemblyInfoInputs.cache
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.AssemblyInfo.cs
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.csproj.CoreCompileInputs.cache
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.sourcelink.json
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.dll
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/refint/HelloWorldConsole.dll
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.pdb
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/HelloWorldConsole.genruntimeconfig.cache
+/home/mrdeun/Workspace/studia/Semestr 6/ASPNET/HelloWorldConsole/obj/Debug/net9.0/ref/HelloWorldConsole.dll
