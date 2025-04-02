@@ -22,12 +22,12 @@ func uint_pow(x, y uint) uint {
 func lucas_lehmer_test(mersen, p uint) bool {
 	var s uint = 4
 	var i uint
-	for i = 0; i < p; i++ {
+	for i = 0; i <= p-2; i++ {
 		// l.Printf("%d\n", s)
-		s = (s<<1 - 2) % mersen
+		s = (uint_pow(2, 1) - 2) % mersen
 	}
 
-	return s%mersen == 0
+	return s == 0
 }
 
 func main() {
@@ -35,7 +35,8 @@ func main() {
 	l = *log.New(os.Stderr, "", 0)
 	for i = 0; i < 32; i++ {
 		mersen := uint_pow(uint(2), i) - 1
-		if slices.Contains(_is_prime, mersen) {
+		if slices.Contains(_is_prime, i) {
+			// lucas_lehmer_test(mersen, i)
 			fmt.Printf("2^%d - 1 is prime number - %t\n", i, lucas_lehmer_test(mersen, i))
 		}
 	}
