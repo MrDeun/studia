@@ -21,25 +21,27 @@ public:
 
 private slots:
     void digitClicked();
-    // void pointClicked();
-    // void unaryOperationClicked();
-    // void addOperatorClicked();
-    // void multiplyOperatorClicked();
-    // void equalClicked();
-    // void changeSignClicked();
-    // void backspaceClicked();
-    // void clear();
-    // void clearAll();
-    // void clearMemory();
-    // void readMemory();
-    // void setMemory();
-    // void addToMemory();
+    void pointClicked();
+    void unaryOperationClicked();
+    void addOperatorClicked();
+    void multiplyOperatorClicked();
+    void equalClicked();
+    void changeSignClicked();
+    void backspaceClicked();
+    void clear();
+    void clearAll();
+    void clearMemory();
+    void readMemory();
+    void setMemory();
+    void addToMemory();
 
 
 private:
 
     template<typename PointerToMemberFunction>
     Button *createButton(const QString &text, const PointerToMemberFunction &member);
+    void abortOperation();
+    bool calculate(double rightOperand, const QString &pendingOperator);
 
     double memory;
     double sumSoFar;
