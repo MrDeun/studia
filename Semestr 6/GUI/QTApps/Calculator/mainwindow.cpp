@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "calculator.h"
+#include "button.h"
 #include <QGridLayout>
 #include <cassert>
 #include <qgridlayout.h>
@@ -98,27 +98,124 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::pointClicked() { assert(NOT_IMPLEMENTED); }
 void MainWindow::unaryOperationClicked() { assert(NOT_IMPLEMENTED); }
 void MainWindow::addOperatorClicked() {
-    if(!waitingForOperand)
-        return;
-    Button *clickedButton = qobject_cast<Button*>(sender());
-    auto operation = clickedButton->text();
-    auto operand = display->text().toDouble();
-    if(!pendingMultiplicativeOperation.isEmpty()){
-        if(!calculate(operand, operation))
+  if (!waitingForOperand)
+    return;
+  Button *clickedButton = qobject_cast<Button *>(sender());
+  auto operation = clickedButton->text();
+  auto operand = display->text().toDouble();
+  if (!pendingMultiplicativeOperation.isEmpty()) {
+    if (!calculate(operand, operation)) {
+      abortOperation();
+      return;
     }
-
-
+    display->setText(QString::number(factorSoFar));
+    operand = factorSoFar;
+    pendingMultiplicativeOperation.clear();
+  }
+  if (!pendingAdditiveOperation.isEmpty()) {
+    if (!calculate(operand, pendingAdditiveOperation)) {
+      abortOperation();
+      return;
+    }
+    display->setText(QString::number(sumSoFar));
+  } else {
+    sumSoFar = operand;
+  }
+  pendingAdditiveOperation = operation;
+  waitingForOperand = true;
 }
-void MainWindow::multiplyOperatorClicked() { assert(NOT_IMPLEMENTED); }
-void MainWindow::equalClicked() { assert(NOT_IMPLEMENTED); }
-void MainWindow::changeSignClicked() { assert(NOT_IMPLEMENTED); }
-void MainWindow::backspaceClicked() { assert(NOT_IMPLEMENTED); }
-void MainWindow::clear() { assert(NOT_IMPLEMENTED); }
-void MainWindow::clearAll() { assert(NOT_IMPLEMENTED); }
-void MainWindow::clearMemory() { assert(NOT_IMPLEMENTED); }
-void MainWindow::readMemory() { assert(NOT_IMPLEMENTED); }
-void MainWindow::setMemory() { assert(NOT_IMPLEMENTED); }
-void MainWindow::addToMemory() { assert(NOT_IMPLEMENTED); }
+void MainWindow::multiplyOperatorClicked() {
+  Button *clickedButton = qobject_cast<Button *>(sender());
+  if (!clickedButton) {
+    return;
+  }
+  QString clickedOperator = clickedButton->text();
+  double operand = display->text().toDouble();
+
+  if (!pendingMultiplicativeOperation.isEmpty()) {
+    if (!calculate(operand, pendingMultiplicativeOperation)) {
+      abortOperation();
+      return;
+    }
+    display->setText(QString::number(operand));
+  } else {
+    factorSoFar = operand;
+  }
+  pendingMultiplicativeOperation = clickedOperator;
+  waitingForOperand = true;
+}
+void MainWindow::equalClicked() {
+  double operand = display->text().toDouble();
+  if (!pendingMultiplicativeOperation.isEmpty()) {
+    if (!calculate(operand, pendingMultiplicativeOperation)) {
+      abortOperation();
+      return;
+    }
+    operand = factorSoFar;
+    factorSoFar = 0.0;
+    pendingMultiplicativeOperation.clear();
+  }
+  if (!pendingAdditiveOperation.isEmpty()) {
+    if (!calculate(operand, pendingAdditiveOperation)) {
+      abortOperation();
+      return;
+    }
+    pendingAdditiveOperation.clear();
+  } else {
+    sumSoFar = operand;
+  }
+  display->setText(QString::number(sumSoFar));
+  sumSoFar = 0.0;
+  waitingForOperand = true;
+}
+void MainWindow::changeSignClicked() {
+  QString text = display->text();
+  double value = text.toDouble();
+  if (value > 0.0) {
+    text.prepend(tr("-"));
+  } else if (value < 0.0) {
+    text.remove(0, 1);
+  }
+  display->setText(text);
+}
+void MainWindow::backspaceClicked() {
+  if (waitingForOperand)
+    return;
+  QString text = display->text();
+  text.chop(1);
+  if (text.isEmpty()) {
+    text = "0";
+    waitingForOperand = true;
+  }
+  display->setText(text);
+}
+void MainWindow::clear() {
+  if (waitingForOperand)
+    return;
+  display->setText("0");
+  waitingForOperand = true;
+}
+void MainWindow::clearAll() {
+  sumSoFar = 0.0;
+  factorSoFar = 0.0;
+  pendingAdditiveOperation.clear();
+  pendingMultiplicativeOperation.clear();
+  display->setText("0");
+  waitingForOperand = true;
+}
+void MainWindow::clearMemory() { memory = 0.0; }
+void MainWindow::readMemory() {
+  display->setText(QString::number(memory));
+  waitingForOperand = true;
+}
+void MainWindow::setMemory() {
+  equalClicked();
+  memory = display->text().toDouble();
+}
+void MainWindow::addToMemory() {
+  equalClicked();
+  memory += display->text().toDouble();
+}
 
 void MainWindow::digitClicked() {
   Button *clickedButton = qobject_cast<Button *>(sender());
@@ -130,6 +227,22 @@ void MainWindow::digitClicked() {
     waitingForOperand = false;
   }
   display->setText(display->text() + QString::number(digitValue));
+}
+
+bool MainWindow::calculate(double rightOperand,
+                           const QString &pendingOperator) {
+  if (pendingOperator == tr("+")) {
+    sumSoFar += rightOperand;
+  } else if (pendingOperator == tr("-")) {
+    sumSoFar -= rightOperand;
+  } else if (pendingOperator == tr("\303\227")) {
+    factorSoFar *= rightOperand;
+  } else if (pendingOperator == tr("\303\267")) {
+    if (rightOperand == 0.0)
+      return false;
+    factorSoFar /= rightOperand;
+  }
+  return true;
 }
 
 template <typename PointerToMemberFunction>
