@@ -3,6 +3,7 @@
 #include <QGridLayout>
 #include <cassert>
 #include <cmath>
+#include <iostream>
 #include <qgridlayout.h>
 #include <qlayout.h>
 #include <qnamespace.h>
@@ -15,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
       waitingForOperand(true) {
   display = new QLineEdit(this);
   display->setReadOnly(true);
-  display->setAlignment(Qt::AlignRight);
+  display->setAlignment(Qt::AlignCenter);
   display->setMaxLength(15);
 
   QFont font = display->font();
@@ -39,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
   Button *clearMemoryButton = createButton(tr("MC"), &MainWindow::clearMemory);
   Button *setMemoryButton = createButton(tr("MS"), &MainWindow::setMemory);
   Button *readMemoryButton = createButton(tr("MR"), &MainWindow::readMemory);
-  Button *addToMemoryButton = createButton(tr(""), &MainWindow::addToMemory);
+  Button *addToMemoryButton = createButton(tr("M+"), &MainWindow::addToMemory);
 
   Button *divisionButton =
       createButton(tr("\303\267"), &MainWindow::multiplyOperatorClicked);
@@ -261,11 +262,13 @@ void MainWindow::digitClicked() {
 
 bool MainWindow::calculate(double rightOperand,
                            const QString &pendingOperator) {
-  if (pendingOperator == tr("+")) {
+    std::cout << "Current operation: " << pendingOperator.data();
+    if (pendingOperator == tr("+")) {
     sumSoFar += rightOperand;
   } else if (pendingOperator == tr("-")) {
     sumSoFar -= rightOperand;
-  } else if (pendingOperator == tr("\303\227")) {
+  } else if (pendingOperator == tr("\303\277")) {
+      std::cout << factorSoFar << " * " << rightOperand;
     factorSoFar *= rightOperand;
   } else if (pendingOperator == tr("\303\267")) {
     if (rightOperand == 0.0)
