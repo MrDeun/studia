@@ -10,7 +10,6 @@ qt_add_executable(Calculator
     main.cpp
     mainwindow.cpp
     mainwindow.h
-    mainwindow.ui
     button.h button.cpp
 
 )

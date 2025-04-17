@@ -2,6 +2,7 @@
 #include "button.h"
 #include <QGridLayout>
 #include <cassert>
+#include <cmath>
 #include <qgridlayout.h>
 #include <qlayout.h>
 #include <qnamespace.h>
@@ -10,7 +11,7 @@
 #define NOT_IMPLEMENTED false
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), sumSoFar(0.0), memory(0.0), factorSoFar(0.0),
+    : QMainWindow(parent), sumSoFar(0.0), memory(0.0), factorSoFar(1.0),
       waitingForOperand(true) {
   display = new QLineEdit(this);
   display->setReadOnly(true);
@@ -95,12 +96,41 @@ MainWindow::MainWindow(QWidget *parent)
   setWindowTitle(tr("Calculator"));
 }
 
-void MainWindow::pointClicked() { assert(NOT_IMPLEMENTED); }
-void MainWindow::unaryOperationClicked() { assert(NOT_IMPLEMENTED); }
-void MainWindow::addOperatorClicked() {
-  if (!waitingForOperand)
-    return;
+void MainWindow::pointClicked() {
+  if (waitingForOperand) {
+    display->setText(tr("0"));
+  }
+  if (!display->text().contains('.'))
+    display->setText(display->text() + tr("."));
+  waitingForOperand = false;
+}
+void MainWindow::unaryOperationClicked() {
   Button *clickedButton = qobject_cast<Button *>(sender());
+  QString clickedOperator = clickedButton->text();
+  double operand = display->text().toDouble();
+  double result = 0.0;
+  if (clickedOperator == tr("Sqrt")) {
+    if (operand < 0.0) {
+      abortOperation();
+      return;
+    }
+    result = std::sqrt(operand);
+  } else if (clickedOperator == tr("x\302\262")) {
+    result = std::pow(operand, 2.0);
+  } else if (clickedOperator == tr("1/x")) {
+    if (operand == 0.0) {
+      abortOperation();
+      return;
+    }
+    result = 1.0 / operand;
+  }
+  display->setText(QString::number(result));
+  waitingForOperand = true;
+}
+void MainWindow::addOperatorClicked() {
+  Button *clickedButton = qobject_cast<Button *>(sender());
+  if(!clickedButton)
+    return;
   auto operation = clickedButton->text();
   auto operand = display->text().toDouble();
   if (!pendingMultiplicativeOperation.isEmpty()) {
@@ -243,6 +273,11 @@ bool MainWindow::calculate(double rightOperand,
     factorSoFar /= rightOperand;
   }
   return true;
+}
+
+void MainWindow::abortOperation(){
+  clearAll();
+  display->setText(tr("Error"));
 }
 
 template <typename PointerToMemberFunction>
