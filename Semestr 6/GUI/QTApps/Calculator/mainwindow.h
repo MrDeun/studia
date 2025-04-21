@@ -34,6 +34,7 @@ private slots:
     void readMemory();
     void setMemory();
     void addToMemory();
+    void removeFromMemory();
 
 
 private:

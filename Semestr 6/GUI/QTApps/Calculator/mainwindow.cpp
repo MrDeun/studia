@@ -36,16 +36,18 @@ MainWindow::MainWindow(QWidget *parent)
       createButton(tr("backspace"), &MainWindow::backspaceClicked);
   Button *clearButton = createButton(tr("Clear"), &MainWindow::clear);
   Button *clearAllButton = createButton(tr("Clear All"), &MainWindow::clearAll);
-
+  Button *blankButton = createButton(tr(""), &MainWindow::clearAll);
   Button *clearMemoryButton = createButton(tr("MC"), &MainWindow::clearMemory);
   Button *setMemoryButton = createButton(tr("MS"), &MainWindow::setMemory);
   Button *readMemoryButton = createButton(tr("MR"), &MainWindow::readMemory);
   Button *addToMemoryButton = createButton(tr("M+"), &MainWindow::addToMemory);
+  Button *substractFromMemoryButton =
+      createButton(tr("M-"), &MainWindow::removeFromMemory);
 
   Button *divisionButton =
       createButton(tr("\303\267"), &MainWindow::multiplyOperatorClicked);
   Button *multiplicationButton =
-      createButton(tr("\303\277"), &MainWindow::multiplyOperatorClicked);
+      createButton(tr("\u00d7"), &MainWindow::multiplyOperatorClicked);
   Button *sumButton = createButton(tr("+"), &MainWindow::addOperatorClicked);
   Button *substractButton =
       createButton(tr("-"), &MainWindow::addOperatorClicked);
@@ -56,7 +58,15 @@ MainWindow::MainWindow(QWidget *parent)
       createButton(tr("x\302\262"), &MainWindow::unaryOperationClicked);
   Button *reciprocalButton =
       createButton(tr("1/x"), &MainWindow::unaryOperationClicked);
-  Button *equalButton = createButton(tr("="), &MainWindow::equalClicked);
+  Button *sinButton =
+      createButton(tr("sin"), &MainWindow::unaryOperationClicked);
+  Button *cosButton =
+      createButton(tr("cos"), &MainWindow::unaryOperationClicked);
+  Button *tanButton =
+      createButton(tr("tan"), &MainWindow::unaryOperationClicked);
+  Button *eulerPowerButton=createButton(tr("e\u02e3"),&MainWindow::unaryOperationClicked);
+  Button *logButton=createButton(tr("log"),&MainWindow::unaryOperationClicked);
+      Button *equalButton = createButton(tr("="), &MainWindow::equalClicked);
 
   QGridLayout *layout = new QGridLayout;
 
@@ -66,35 +76,45 @@ MainWindow::MainWindow(QWidget *parent)
   layout->addWidget(clearButton, 1, 2, 1, 2);
   layout->addWidget(clearAllButton, 1, 4, 1, 2);
 
+  layout->addWidget(substractFromMemoryButton, 6, 0);
   layout->addWidget(clearMemoryButton, 2, 0);
   layout->addWidget(readMemoryButton, 3, 0);
   layout->addWidget(setMemoryButton, 4, 0);
   layout->addWidget(addToMemoryButton, 5, 0);
 
   for (int i = 1; i < NumDigitButtons; ++i) {
-    int row = ((9 - i) / 3) + 2;
+    int row = ((9 - i) / 3) + 3;
     int column = ((i - 1) % 3) + 1;
     layout->addWidget(digitButtons[i], row, column);
   }
+  layout->addWidget(sinButton, 2, 1);
+  layout->addWidget(cosButton, 2, 2);
+  layout->addWidget(tanButton, 2, 3);
+  layout->addWidget(eulerPowerButton, 2, 4);
+  layout->addWidget(logButton, 2, 5);
+  layout->addWidget(digitButtons[0], 6, 1);
+  layout->addWidget(pointButton, 6, 2);
+  layout->addWidget(changeSignButton, 6, 3);
 
-  layout->addWidget(digitButtons[0], 5, 1);
-  layout->addWidget(pointButton, 5, 2);
-  layout->addWidget(changeSignButton, 5, 3);
+  layout->addWidget(divisionButton, 3, 4);
+  layout->addWidget(multiplicationButton, 4, 4);
+  layout->addWidget(substractButton, 5, 4);
+  layout->addWidget(sumButton, 6, 4);
 
-  layout->addWidget(divisionButton, 2, 4);
-  layout->addWidget(multiplicationButton, 3, 4);
-  layout->addWidget(substractButton, 4, 4);
-  layout->addWidget(sumButton, 5, 4);
-
-  layout->addWidget(squareButton, 2, 5);
-  layout->addWidget(powerButton, 3, 5);
-  layout->addWidget(reciprocalButton, 4, 5);
-  layout->addWidget(equalButton, 5, 5);
+  layout->addWidget(squareButton, 3, 5);
+  layout->addWidget(powerButton, 4, 5);
+  layout->addWidget(reciprocalButton, 5, 5);
+  layout->addWidget(equalButton, 6, 5);
 
   QWidget *window = new QWidget();
   window->setLayout(layout);
   setCentralWidget(window);
   setWindowTitle(tr("Calculator"));
+}
+
+void MainWindow::removeFromMemory() {
+  equalClicked();
+  memory -= display->text().toDouble();
 }
 
 void MainWindow::pointClicked() {
@@ -124,13 +144,23 @@ void MainWindow::unaryOperationClicked() {
       return;
     }
     result = 1.0 / operand;
+  } else if (clickedOperator == tr("sin")) {
+    result = std::sin(operand);
+  } else if (clickedOperator == tr("cos")) {
+    result = std::cos(operand);
+  } else if (clickedOperator == tr("tan")) {
+    result = std::tan(operand);
+  } else if (clickedOperator == tr("log")){
+    result = std::log(operand);
+  } else if (clickedOperator == tr("e\u02e3")){
+    result = std::exp(operand);
   }
   display->setText(QString::number(result));
   waitingForOperand = true;
 }
 void MainWindow::addOperatorClicked() {
   Button *clickedButton = qobject_cast<Button *>(sender());
-  if(!clickedButton)
+  if (!clickedButton)
     return;
   auto operation = clickedButton->text();
   auto operand = display->text().toDouble();
@@ -262,13 +292,13 @@ void MainWindow::digitClicked() {
 
 bool MainWindow::calculate(double rightOperand,
                            const QString &pendingOperator) {
-    std::cout << "Current operation: " << pendingOperator.data();
-    if (pendingOperator == tr("+")) {
+  std::cout << "Current operation: " << pendingOperator.data();
+  if (pendingOperator == tr("+")) {
     sumSoFar += rightOperand;
   } else if (pendingOperator == tr("-")) {
     sumSoFar -= rightOperand;
   } else if (pendingOperator == tr("\303\277")) {
-      std::cout << factorSoFar << " * " << rightOperand;
+    std::cout << factorSoFar << " * " << rightOperand;
     factorSoFar *= rightOperand;
   } else if (pendingOperator == tr("\303\267")) {
     if (rightOperand == 0.0)
@@ -278,7 +308,7 @@ bool MainWindow::calculate(double rightOperand,
   return true;
 }
 
-void MainWindow::abortOperation(){
+void MainWindow::abortOperation() {
   clearAll();
   display->setText(tr("Error"));
 }
