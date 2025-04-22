@@ -297,7 +297,7 @@ bool MainWindow::calculate(double rightOperand,
     sumSoFar += rightOperand;
   } else if (pendingOperator == tr("-")) {
     sumSoFar -= rightOperand;
-  } else if (pendingOperator == tr("\303\277")) {
+  } else if (pendingOperator == tr("\u00d7")) {
     std::cout << factorSoFar << " * " << rightOperand;
     factorSoFar *= rightOperand;
   } else if (pendingOperator == tr("\303\267")) {
