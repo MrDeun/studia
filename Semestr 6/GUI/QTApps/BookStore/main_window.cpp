@@ -1,4 +1,4 @@
-#include "bookstore.h"
+#include "main_window.h"
 #include "./ui_bookstore.h"
 #include <QtSql/qsqldatabase.h>
 #include <QtSql/qsqlquery.h>
@@ -34,5 +34,4 @@ void BookStore::updateList(){
 
 BookStore::~BookStore() {
     delete ui;
-    delete model;
 }

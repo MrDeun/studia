@@ -31,7 +31,7 @@ private:
     int currentBookID;
     void updateList();
     Ui::BookStore *ui;
-    QSqlTableModel* model = nullptr;
+    
 
 };
 #endif // BOOKSTORE_H

@@ -15,8 +15,8 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Sql)
 set(PROJECT_SOURCES
         main.cpp
         init_database.h
-        bookstore.cpp
-        bookstore.h
+        main_window.cpp
+        main_window.h
         bookstore.ui
 )
 
@@ -26,6 +26,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         book.h book.cpp
         init_database.h
+        bookrepository.h bookrepository.cpp
+        person.h person.cpp
+
 
     )
 # Define target properties for Android with Qt 6 as:
