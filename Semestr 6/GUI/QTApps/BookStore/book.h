@@ -1,18 +1,20 @@
 #ifndef BOOK_H
 #define BOOK_H
 
-#include <string>
+#include <QString>
 
 class Book
 {
 private:
-    const int id;
-    const std::string title;
-    const std::string author;
+    int id;
+    const QString author;
+    const QString title;
 public:
-    Book();
-    const std::string& getTitle() {return this->title;}
-
+    Book(const int id, const QString& author, const QString& title);
+    ~Book() = default;
+    const QString& getAuthor(){return this->author;}
+    const QString& getTitle(){return this->title;}
+    const int getID(){return this->id;}
 };
 
 #endif // BOOK_H
