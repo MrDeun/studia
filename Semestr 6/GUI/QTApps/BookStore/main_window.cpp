@@ -12,7 +12,12 @@ BookStore::BookStore(QWidget *parent)
 
     updateList();
 }
-
+void BookStore::addPersonClicked(){
+    qDebug() << "Delete book not implemented yet";
+}
+void BookStore::deletePersonClicked(){
+    qDebug() << "Delete book not implemented yet";
+}
 void BookStore::deleteBookClicked(){
     qDebug() << "Delete book not implemented yet";
 }
@@ -26,10 +31,17 @@ void BookStore::returnBookClicked(){
     qDebug() << "Delete book not implemented yet";
 }
 
+void BookStore::switchedTab(){
+    qDebug() << "Delete book not implemented yet";
+}
+
+void BookStore::clickedElementOfList(){
+    qDebug() << "Delete book not implemented yet";
+}
+
 
 void BookStore::updateList(){
-    {
-    }
+
 }
 
 BookStore::~BookStore() {

@@ -5,16 +5,12 @@
 
 class Book
 {
-private:
+public:
     int id;
     const QString author;
     const QString title;
-public:
     Book(const int id, const QString& author, const QString& title);
     ~Book() = default;
-    const QString& getAuthor(){return this->author;}
-    const QString& getTitle(){return this->title;}
-    const int getID(){return this->id;}
 };
 
 #endif // BOOK_H

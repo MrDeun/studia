@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         init_database.h
         bookrepository.h bookrepository.cpp
         person.h person.cpp
+        add_person_dialog.ui
 
 
     )

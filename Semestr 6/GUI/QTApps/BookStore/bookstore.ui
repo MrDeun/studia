@@ -20,7 +20,7 @@
       <x>10</x>
       <y>10</y>
       <width>171</width>
-      <height>171</height>
+      <height>191</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -32,9 +32,16 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_6">
+       <property name="text">
+        <string>Add a new person</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_5">
        <property name="text">
-        <string>Lend out a book</string>
+        <string>Borrow book</string>
        </property>
       </widget>
      </item>
@@ -53,9 +60,9 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButton_7">
        <property name="text">
-        <string>PushButton</string>
+        <string>Delete person</string>
        </property>
       </widget>
      </item>
@@ -65,9 +72,9 @@
     <property name="geometry">
      <rect>
       <x>190</x>
-      <y>10</y>
+      <y>40</y>
       <width>201</width>
-      <height>541</height>
+      <height>521</height>
      </rect>
     </property>
    </widget>
@@ -77,7 +84,7 @@
       <x>400</x>
       <y>10</y>
       <width>371</width>
-      <height>541</height>
+      <height>551</height>
      </rect>
     </property>
     <property name="readOnly">
@@ -94,6 +101,35 @@ li.checked::marker { content: &quot;\2612&quot;; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Title: Harry Potter&lt;br /&gt;Author: J.K. Rowling&lt;br /&gt;Year: 1998&lt;br /&gt;Status: BORROWED&lt;br /&gt;Borrowed by: Stefan&lt;br /&gt;Lend out date: 19-02-2049&lt;br /&gt;Due date: 19-06-2049&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>10</y>
+      <width>201</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="text">
+        <string>Books</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="text">
+        <string>Persons</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -108,5 +144,111 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>BookStore</receiver>
+   <slot>addBookClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>44</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>BookStore</receiver>
+   <slot>deleteBookClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>BookStore</receiver>
+   <slot>returnBookClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>BookStore</receiver>
+   <slot>borrowBookClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_7</sender>
+   <signal>clicked()</signal>
+   <receiver>BookStore</receiver>
+   <slot>deletePersonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>206</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>BookStore</receiver>
+   <slot>addPersonClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>95</x>
+     <y>78</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>addBookClicked()</slot>
+  <slot>addPersonClicked()</slot>
+  <slot>deletePersonClicked()</slot>
+  <slot>deleteBookClicked()</slot>
+  <slot>borrowBookClicked()</slot>
+  <slot>returnBookClicked()</slot>
+  <slot>clickedElementOfList()</slot>
+ </slots>
 </ui>

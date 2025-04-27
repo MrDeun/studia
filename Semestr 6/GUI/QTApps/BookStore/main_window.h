@@ -4,13 +4,20 @@
 #include <QMainWindow>
 #include <QSqlTableModel>
 
-#include "book.h"
+#include "bookrepository.h"
+#include "personrepository.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class BookStore;
 }
 QT_END_NAMESPACE
+
+enum VIEW_SELECTION {
+    BOOKS,
+    PERSONS,
+};
+
 
 class BookStore : public QMainWindow
 {
@@ -22,15 +29,25 @@ public:
 
 private slots:
     void addBookClicked();
+    void addPersonClicked();
     void deleteBookClicked();
+    void deletePersonClicked();
     void borrowBookClicked();
     void returnBookClicked();
+    void switchedTab();
+    void clickedElementOfList();
 
 private:
-    std::vector<Book> bookList;
+    VIEW_SELECTION currentView;
+
+    QList<Person> persons;
+    QList<Book> books;
+
     int currentBookID;
     void updateList();
     Ui::BookStore *ui;
+
+    
     
 
 };

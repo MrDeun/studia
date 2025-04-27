@@ -10,17 +10,11 @@
 
 #include "book.h"
 
-class BookRepository {
-private:
-  QSqlDatabase m_db;
-
-public:
-  BookRepository();
-  void add(Book book);
-  void remove(int id);
+namespace BookRepository {
+  void addBook(const QString& author, const QString& title);
+  void removeBook(int id);
   Book getBookByID(int id);
-  QList<Book> getAll();
-  QList<Book> getBookByTitle(const QString& title);
+  QList<Book> getAllBooks();
   
 };
 

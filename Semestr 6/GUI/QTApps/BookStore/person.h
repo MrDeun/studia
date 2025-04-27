@@ -2,14 +2,17 @@
 #define PERSON_H
 
 #include <QString>
-class Person
-{
-private:
-    int id;
-    QString name;
-    QString surname;
+#include <qobject.h>
+class Person {
 public:
-    Person();
+  const int id;
+  const QString name;
+  const QString surname;
+  const QString phone_number;
+  const QString email;
+  Person(int id, const QString &name, const QString &surname,
+         const QString &phone_number, const QString &email);
+  ~Person() = default;
 };
 
 #endif // PERSON_H
