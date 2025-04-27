@@ -27,8 +27,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         book.h book.cpp
         init_database.h
         bookrepository.h bookrepository.cpp
+        personrepository.h personrepository.cpp
         person.h person.cpp
-        add_person_dialog.ui
+        addbookdialog.h addbookdialog.cpp addbookdialog.ui
+
 
 
     )

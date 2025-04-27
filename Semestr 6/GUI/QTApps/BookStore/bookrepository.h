@@ -11,6 +11,7 @@
 #include "book.h"
 
 namespace BookRepository {
+  static int id_book = 0;
   void addBook(const QString& author, const QString& title);
   void removeBook(int id);
   Book getBookByID(int id);

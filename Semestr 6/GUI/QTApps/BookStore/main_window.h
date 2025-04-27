@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSqlTableModel>
+#include <qsqldatabase.h>
 
 #include "bookrepository.h"
 #include "personrepository.h"
@@ -45,9 +46,10 @@ private:
 
     int currentBookID;
     void updateList();
+    void initDB();
     Ui::BookStore *ui;
 
-    
+    QSqlDatabase db;
     
 
 };
