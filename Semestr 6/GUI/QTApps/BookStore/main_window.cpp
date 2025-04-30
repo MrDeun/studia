@@ -1,108 +1,170 @@
 #include "main_window.h"
 #include "./ui_bookstore.h"
 #include "addbookdialog.h"
-#include "init_database.h"
+#include "bookrepository.h"
+#include "person.h"
 #include "personrepository.h"
+#include <QMessageBox>
+#include <QtSql/QSqlError>
 #include <QtSql/qsqldatabase.h>
 #include <QtSql/qsqlquery.h>
-#include <QtSql/QSqlError>
-#include <QMessageBox>
 #include <cassert>
 #include <qdialog.h>
+#include <qmessagebox.h>
+
+#include "bookrepository.h"
+#include "personrepository.h"
 
 BookStore::BookStore(QWidget *parent)
-    : QMainWindow(parent),ui(new Ui::BookStore) {
-    initDB();
-    ui->setupUi(this);
-    updateList();
-}
-void BookStore::addPersonClicked(){
-    AddBookDialog dialog(this);
-    if(dialog.exec() == QDialog::Accepted){
-        QString name = dialog.getName();
-        QString surname = dialog.getSurname();
-        QString phone_number = dialog.getPhoneNumber();
-        QString email = dialog.getEmail();
-
-        QSqlQuery q(db);
-        PersonRepository::addPerson(q,name, surname, phone_number, email);
-    }
-}
-void BookStore::deletePersonClicked(){
-    qDebug() << "Delete book not implemented yet";
-}
-void BookStore::deleteBookClicked(){
-    qDebug() << "Delete book not implemented yet";
-}
-void BookStore::addBookClicked(){
-    qDebug() << "Delete book not implemented yet";
-}
-void BookStore::borrowBookClicked(){
-    qDebug() << "Delete book not implemented yet";
-}
-void BookStore::returnBookClicked(){
-    qDebug() << "Delete book not implemented yet";
+    : QMainWindow(parent), ui(new Ui::BookStore), currentView(BOOKS) {
+      ui->setupUi(this);
+  initDB();
+  updateList();
 }
 
-void BookStore::switchedTab(){
-    if(ui->radioButton->isChecked()){
-        currentView = PERSONS;
-    } else {
-        currentView = BOOKS;
-    }
-    updateList();
+void BookStore::invokeSqlTester(){
+
 }
 
-void BookStore::clickedElementOfList(){
-    qDebug() << "Delete book not implemented yet";
+void BookStore::addPersonClicked() {
+  AddBookDialog dialog(this);
+  if (dialog.exec() == QDialog::Accepted) {
+    QString name = dialog.getName();
+    QString surname = dialog.getSurname();
+    QString phone_number = dialog.getPhoneNumber();
+    QString email = dialog.getEmail();
+
+    QSqlQuery q(db);
+    PersonRepository::addPerson(q, name, surname, phone_number, email);
+  }
+}
+void BookStore::deletePersonClicked() {
+  QSqlQuery q(db);
+  if(!currentPerson){
+    QMessageBox::warning(nullptr,"BookStore error","No person is selected");
+    return;
+  }
+  PersonRepository::deletePerson(q, currentPerson->getID());
+  updateList();
+}
+void BookStore::deleteBookClicked() {
+  QSqlQuery q(db);
+  if(!currentBook){
+    QMessageBox::warning(nullptr,"BookStore error","No book selected!");
+    return;
+  }
+  BookRepository::removeBook(q, currentBook->id);
+  updateList();
+  return;
+}
+void BookStore::addBookClicked() {
+  qDebug() << "Delete book not implemented yet";
+}
+void BookStore::borrowBookClicked() {
+  qDebug() << "Delete book not implemented yet";
+}
+void BookStore::returnBookClicked() {
+  qDebug() << "Delete book not implemented yet";
 }
 
-
-void BookStore::updateList(){
-    // if (currentView == PERSONS) {
-        QSqlQuery q(db);
-        auto persons = PersonRepository::getAllPersons(q);
-        ui->listWidget->clear();
-        for (const auto& p : persons) {
-            QString fullName = "";
-            fullName.append(p.getName());
-            fullName.append(p.getSurname());
-            ui->listWidget->addItem(fullName);
-        }
-    // }
+void BookStore::switchedTab() {
+  if (ui->radioButton->isChecked()) {
+    currentView = PERSONS;
+  } else {
+    currentView = BOOKS;
+  }
+  updateList();
 }
 
-BookStore::~BookStore() {
-    delete ui;
-}
-
-void BookStore::initDB() {
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName(":memory:");
-    if (!db.open()) {
-      {
-        QMessageBox::warning(nullptr, "Sql Error",
-                             "Database failed to initialize");
-        assert(false);
+void BookStore::clickedElementOfList() {
+  currentPerson = nullptr;
+  currentBook = nullptr;
+  if (currentView == PERSONS) {
+    auto nameSurname = ui->listWidget->currentItem()->text();
+    for(auto& p : persons){
+      if(p.getName() + " " + p.getSurname() == nameSurname){
+        currentPerson = &p;
+        break;
       }
     }
-  
-    QSqlQuery q(db);
-  
-    //TODO: Add query for creating BOOKS table
-    if (!q.exec("")) {
-      QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
-      assert(false);
+  } else {
+    auto title = ui->listWidget->currentItem()->text();
+    for (auto& b : books) {
+      if(b.title == title){
+        currentBook = &b;
+      }
     }
-    if (!q.exec("CREATE TABLE IF NOT EXISTS PERSONS (id integer primary key, name text, surname text, phone_number text, email text);")) {
-      QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
-      assert(false);
-    }
-    //TODO: Add query for creating BORROWING tables
-    if (!q.exec((""))) {
-      QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
-      assert(false);
-    }
-  
-    return ;
   }
+}
+
+void BookStore::updateList() {
+  QSqlQuery q(db);
+  if (currentView == PERSONS) {
+    persons = PersonRepository::getAllPersons(q);
+    ui->listWidget->clear();
+    for (const auto &p : persons) {
+      QString fullName = "";
+      fullName.append(p.getName());
+      fullName.append(" ");
+      fullName.append(p.getSurname());
+      ui->listWidget->addItem(fullName);
+    }
+    ui->listWidget->show();
+  } else {
+    books = BookRepository::getAllBooks(q);
+    ui->listWidget->clear();
+    for (const auto &b : books) {
+      QString fullName = "";
+      fullName.append(b.title);
+      ui->listWidget->addItem(fullName);
+    }
+    ui->listWidget->show();
+  }
+  currentPerson = nullptr;
+  currentBook = nullptr;
+}
+
+BookStore::~BookStore() { delete ui; }
+
+void BookStore::initDB() {
+  db = QSqlDatabase::addDatabase("QSQLITE");
+  db.setDatabaseName(":memory:");
+  if (!db.open()) {
+    {
+      QMessageBox::warning(nullptr, "Sql Error","Database failed to initialize");
+      assert(false);
+    }
+  }
+
+  QSqlQuery q(db);
+
+  // TODO: Add query for creating BOOKS table
+  if (!q.exec("CREATE TABLE IF NOT EXISTS BOOKS (id integer primary key, title "
+              "text, author text);")) {
+    QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
+    assert(false);
+  }
+  if (!q.exec("CREATE TABLE IF NOT EXISTS PERSONS (id integer primary key, "
+              "name text, surname text, phone_number text, email text);")) {
+    QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
+    assert(false);
+  }
+  // TODO: Add query for creating BORROWING tables
+  if (!q.exec(("CREATE TABLE IF NOT EXISTS BORROWING (id integer primary key, "
+               "id_person integer not null, id_book integer, borrow_data date "
+               "NOT null, due_date date not NULL, return_date date);"))) {
+    QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
+    assert(false);
+  }
+
+                              
+  PersonRepository::addPerson(q, "Jan", "Kowalski", "123456789","no@thank.you");
+  PersonRepository::addPerson(q, "Stefan", "Nowak", "123456789","no@thank.you");
+  PersonRepository::addPerson(q, "Jane", "Doe", "272785461","no@thank.you");
+  PersonRepository::addPerson(q, "Maciej", "Stanowski", "489216872", "no@thank.you");
+
+  BookRepository::addBook(q,"Sapkowski","Witcher");
+  BookRepository::addBook(q,"J.K. Rowling","Harry Potter");
+
+  return;
+}

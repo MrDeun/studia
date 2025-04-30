@@ -17,6 +17,7 @@ public:
   QString getSurname()const{return surname;}
   QString getPhoneNumber()const{return name;}
   QString getEmail()const{return name;}
+  int getID()const{return id;}
   ~Person() = default;
 };
 

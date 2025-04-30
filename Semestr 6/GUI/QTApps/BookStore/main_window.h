@@ -4,9 +4,10 @@
 #include <QMainWindow>
 #include <QSqlTableModel>
 #include <qsqldatabase.h>
+#include <vector>
 
-#include "bookrepository.h"
-#include "personrepository.h"
+#include "book.h"
+#include "person.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -37,14 +38,18 @@ private slots:
     void returnBookClicked();
     void switchedTab();
     void clickedElementOfList();
+    void invokeSqlTester();
 
 private:
     VIEW_SELECTION currentView;
 
-    QList<Person> persons;
-    QList<Book> books;
+    std::vector<Person> persons;
+    std::vector<Book> books;
 
-    int currentBookID;
+    Person* currentPerson = nullptr;
+    Book* currentBook = nullptr;
+
+
     void updateList();
     void initDB();
     Ui::BookStore *ui;

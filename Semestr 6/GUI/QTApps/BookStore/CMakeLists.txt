@@ -14,7 +14,6 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Sql)
 
 set(PROJECT_SOURCES
         main.cpp
-        init_database.h
         main_window.cpp
         main_window.h
         bookstore.ui
@@ -25,11 +24,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         book.h book.cpp
-        init_database.h
+
         bookrepository.h bookrepository.cpp
         personrepository.h personrepository.cpp
         person.h person.cpp
         addbookdialog.h addbookdialog.cpp addbookdialog.ui
+
 
 
 

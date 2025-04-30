@@ -2,7 +2,7 @@
 #define PERSON_REPO
 
 #include "person.h"
-#include <qlist.h>
+#include <vector>
 #include <qsqlquery.h>
 
 namespace PersonRepository{
@@ -10,7 +10,7 @@ namespace PersonRepository{
     void addPerson(QSqlQuery& q, const QString& name, const QString& surname, const QString& phone_number, const QString& email);
     void deletePerson(QSqlQuery& q,int id);
     Person getPerson(QSqlQuery& q,int id);
-    QList<Person> getAllPersons(QSqlQuery& q);
+    std::vector<Person> getAllPersons(QSqlQuery& q);
 };
 
 #endif
