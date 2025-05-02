@@ -139,20 +139,20 @@ void BookStore::initDB() {
   QSqlQuery q(db);
 
   // TODO: Add query for creating BOOKS table
-  if (!q.exec("CREATE TABLE IF NOT EXISTS BOOKS (id integer primary key, title "
+  if (!q.exec("CREATE TABLE IF NOT EXISTS books (id integer primary key, title "
               "text, author text);")) {
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
     assert(false);
   }
-  if (!q.exec("CREATE TABLE IF NOT EXISTS PERSONS (id integer primary key, "
+  if (!q.exec("CREATE TABLE IF NOT EXISTS persons (id integer primary key, "
               "name text, surname text, phone_number text, email text);")) {
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
     assert(false);
   }
   // TODO: Add query for creating BORROWING tables
-  if (!q.exec(("CREATE TABLE IF NOT EXISTS BORROWING (id integer primary key, "
-               "id_person integer not null, id_book integer, borrow_data date "
-               "NOT null, due_date date not NULL, return_date date);"))) {
+  if (!q.exec(("CREATE TABLE IF NOT EXISTS borrowings (id integer primary key, "
+               "id_person integer not null, id_book integer not null, borrow_data text "
+               "NOT null, due_date text not NULL, return_date text);"))) {
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
     assert(false);
   }
