@@ -8,7 +8,7 @@
 
 #include "book.h"
 #include "person.h"
-#include "borrowing_repository.cpp"
+#include "borrowing_repository.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

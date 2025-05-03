@@ -7,9 +7,9 @@
 void BookRepository::addBook(QSqlQuery &q, const QString &author,
                              const QString &title) {
   const auto query =
-      QString("INSERT INTO books(id,title,author) VALUES (%1,%2,%3);")
+      QString("INSERT INTO books(id,title,author) VALUES (%1,'%2','%3');")
           .arg(QString::number(++id_book), title, author);
-  if (q.exec(query)) {
+  if (!q.exec(query)) {
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
   }
 }

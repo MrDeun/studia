@@ -17,7 +17,7 @@ void BorrowingRepository::addNewBorrowing(QSqlQuery &q, int id_book, int id_pers
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
   }
 }
-void returnBorrowing(QSqlQuery& q,int id_borrowing) {
+void BorrowingRepository::returnBook(QSqlQuery& q,int id_borrowing) {
   QString query =
       QString("UPDATE borrowing SET return_date = '%1' where id = %2")
           .arg(QDate::currentDate().toString("yyyy-MM-dd HH:mm:ss"),
@@ -27,7 +27,7 @@ void returnBorrowing(QSqlQuery& q,int id_borrowing) {
     }
 }
 
-std::vector<Borrowing> Borrowing::getBorrowsByPersonID(QSqlQuery& q, int _id_person){
+std::vector<Borrowing> BorrowingRepository::getBorrowsByPersonID(QSqlQuery& q, int _id_person){
   QString query = QString("SELECT * from BORROWING where id_person = %1 and return_date = NULL").arg(QString::number(_id_person));
   if(!q.exec(query)){
     QMessageBox::warning(nullptr,"Sql Error",q.lastError().text());

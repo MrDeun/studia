@@ -3,20 +3,20 @@
 #include "addbookdialog.h"
 #include "bookrepository.h"
 #include "person.h"
+#include <QDialog>
 #include <QMessageBox>
-#include <QSqlError>
 #include <QSqlDatabase>
+#include <QSqlError>
 #include <QSqlQuery>
 #include <cassert>
-#include <QDialog>
 
 #include "bookrepository.h"
+#include "borrowing_repository.h"
 #include "personrepository.h"
-#include "borrowing_repository.cpp"
 
 BookStore::BookStore(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::BookStore), currentView(BOOKS) {
-      ui->setupUi(this);
+  ui->setupUi(this);
   initDB();
   updateList();
 }
@@ -35,8 +35,8 @@ void BookStore::addPersonClicked() {
 }
 void BookStore::deletePersonClicked() {
   QSqlQuery q(db);
-  if(!currentPerson){
-    QMessageBox::warning(nullptr,"BookStore error","No person is selected");
+  if (!currentPerson) {
+    QMessageBox::warning(nullptr, "BookStore error", "No person is selected");
     return;
   }
   PersonRepository::deletePerson(q, currentPerson->getID());
@@ -44,8 +44,8 @@ void BookStore::deletePersonClicked() {
 }
 void BookStore::deleteBookClicked() {
   QSqlQuery q(db);
-  if(!currentBook){
-    QMessageBox::warning(nullptr,"BookStore error","No book selected!");
+  if (!currentBook) {
+    QMessageBox::warning(nullptr, "BookStore error", "No book selected!");
     return;
   }
   BookRepository::removeBook(q, currentBook->id);
@@ -76,16 +76,16 @@ void BookStore::clickedElementOfList() {
   currentBook = nullptr;
   if (currentView == PERSONS) {
     auto nameSurname = ui->listWidget->currentItem()->text();
-    for(auto& p : persons){
-      if(p.getName() + " " + p.getSurname() == nameSurname){
+    for (auto &p : persons) {
+      if (p.getName() + " " + p.getSurname() == nameSurname) {
         currentPerson = &p;
         break;
       }
     }
   } else {
     auto title = ui->listWidget->currentItem()->text();
-    for (auto& b : books) {
-      if(b.title == title){
+    for (auto &b : books) {
+      if (b.title == title) {
         currentBook = &b;
       }
     }
@@ -126,7 +126,8 @@ void BookStore::initDB() {
   db.setDatabaseName(":memory:");
   if (!db.open()) {
     {
-      QMessageBox::warning(nullptr, "Sql Error","Database failed to initialize");
+      QMessageBox::warning(nullptr, "Sql Error",
+                           "Database failed to initialize");
       assert(false);
     }
   }
@@ -146,22 +147,25 @@ void BookStore::initDB() {
   }
   // TODO: Add query for creating BORROWING tables
   if (!q.exec(("CREATE TABLE IF NOT EXISTS borrowings (id integer primary key, "
-               "id_person integer not null, id_book integer not null, borrow_data text "
+               "id_person integer not null, id_book integer not null, "
+               "borrow_date text "
                "NOT null, due_date text not NULL, return_date text);"))) {
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
     assert(false);
   }
 
-                              
-  PersonRepository::addPerson(q, "Jan", "Kowalski", "123456789","no@thank.you");
-  PersonRepository::addPerson(q, "Stefan", "Nowak", "123456789","no@thank.you");
-  PersonRepository::addPerson(q, "Jane", "Doe", "272785461","no@thank.you");
-  PersonRepository::addPerson(q, "Maciej", "Stanowski", "489216872", "no@thank.you");
+  PersonRepository::addPerson(q, "Jan", "Kowalski", "123456789",
+                              "no@thank.you");
+  PersonRepository::addPerson(q, "Stefan", "Nowak", "123456789",
+                              "no@thank.you");
+  PersonRepository::addPerson(q, "Jane", "Doe", "272785461", "no@thank.you");
+  PersonRepository::addPerson(q, "Maciej", "Stanowski", "489216872",
+                              "no@thank.you");
 
-  BookRepository::addBook(q,"Sapkowski","Witcher");
-  BookRepository::addBook(q,"J.K. Rowling","Harry Potter");
+  BookRepository::addBook(q, "Sapkowski", "Witcher");
+  BookRepository::addBook(q, "J.K. Rowling", "Harry Potter");
 
-  BorrowingRepository::addNewBorrowing(q,1,3);
+  BorrowingRepository::addNewBorrowing(q, 1, 3);
   BorrowingRepository::addNewBorrowing(q, 2, 3);
 
   return;

@@ -5,8 +5,6 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QString>
-#include <memory>
-#include <new>
 #include <qcontainerfwd.h>
 #include <qdatetime.h>
 #include <qmainwindow.h>
@@ -46,7 +44,8 @@ class Borrowing {
         static int borrowing_id = 0;
         void addNewBorrowing(QSqlQuery& q, int id_book, int id_person);
         std::vector<Borrowing> getBorrowsByPersonID(QSqlQuery& q, int _id_person);
-        Borrowing* BorrowingRepository::getLatestBorrowByBookID(QSqlQuery& q, int _id_book);
+        Borrowing* getLatestBorrowByBookID(QSqlQuery& q, int _id_book);
+        void returnBook(QSqlQuery& q, int id_borrowing);
     };
 
-    #endif
+#endif
