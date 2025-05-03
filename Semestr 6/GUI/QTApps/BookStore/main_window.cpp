@@ -3,27 +3,22 @@
 #include "addbookdialog.h"
 #include "bookrepository.h"
 #include "person.h"
-#include "personrepository.h"
 #include <QMessageBox>
-#include <QtSql/QSqlError>
-#include <QtSql/qsqldatabase.h>
-#include <QtSql/qsqlquery.h>
+#include <QSqlError>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 #include <cassert>
-#include <qdialog.h>
-#include <qmessagebox.h>
+#include <QDialog>
 
 #include "bookrepository.h"
 #include "personrepository.h"
+#include "borrowing_repository.cpp"
 
 BookStore::BookStore(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::BookStore), currentView(BOOKS) {
       ui->setupUi(this);
   initDB();
   updateList();
-}
-
-void BookStore::invokeSqlTester(){
-
 }
 
 void BookStore::addPersonClicked() {
@@ -165,6 +160,9 @@ void BookStore::initDB() {
 
   BookRepository::addBook(q,"Sapkowski","Witcher");
   BookRepository::addBook(q,"J.K. Rowling","Harry Potter");
+
+  BorrowingRepository::addNewBorrowing(q,1,3);
+  BorrowingRepository::addNewBorrowing(q, 2, 3);
 
   return;
 }

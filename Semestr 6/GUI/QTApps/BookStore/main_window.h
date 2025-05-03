@@ -8,6 +8,7 @@
 
 #include "book.h"
 #include "person.h"
+#include "borrowing_repository.cpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -27,7 +28,7 @@ class BookStore : public QMainWindow
 
 public:
     BookStore(QWidget *parent = nullptr);
-    ~BookStore();
+~BookStore();
 
 private slots:
     void addBookClicked();
@@ -38,7 +39,6 @@ private slots:
     void returnBookClicked();
     void switchedTab();
     void clickedElementOfList();
-    void invokeSqlTester();
 
 private:
     VIEW_SELECTION currentView;

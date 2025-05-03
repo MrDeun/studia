@@ -1,47 +1,7 @@
-#ifndef BORROWING_REPO
-#define BORROWING_REPO
+#include "borrowing_repository.h"
 
-#include <QDate>
-#include <QMessageBox>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QString>
-#include <qcontainerfwd.h>
-#include <qdatetime.h>
-#include <qmainwindow.h>
-#include <qsqlquery.h>
-#include <qvariant.h>
 
-class Borrowing {
-private:
-  int id;
-  int id_book;
-  int id_person;
-  QDate return_date;
-
-public:
-  const QDate borrow_date;
-  const QDate due_date;
-  Borrowing(int id, int id_book, int id_person, QString _return_date = "")
-      : id(id), id_book(id_book), id_person(id_person),
-        borrow_date(QDate::currentDate()),
-        due_date(QDate::currentDate().addMonths(1)) {
-    if (!_return_date.isEmpty()) {
-      return_date = QDate::fromString(_return_date, "yyyy-MM-dd HH:mm:ss");
-    } else {
-        ;
-    }
-  }
-
-  void bookReturned() { return_date = QDate::currentDate(); }
-  int getID() const { return id; }
-  int getBookID() const { return id_book; }
-  int getPersonID() const { return id_person; }
-};
-
-namespace BorrowingRepository {
-static int borrowing_id = 0;
-void addNewBorrowing(QSqlQuery &q, int id_book, int id_person) {
+void BorrowingRepository::addNewBorrowing(QSqlQuery &q, int id_book, int id_person) {
   Borrowing new_borrow(++borrowing_id, id_book, id_person);
   QString query =
       QString(
@@ -67,9 +27,41 @@ void returnBorrowing(QSqlQuery& q,int id_borrowing) {
     }
 }
 
-Borrowing getLatestBorrowByPersonID(QSqlQuery& q, int _id_person);
-Borrowing getLatestBorrowByBookID(QSqlQuery& q, int _id_person);
+std::vector<Borrowing> Borrowing::getBorrowsByPersonID(QSqlQuery& q, int _id_person){
+  QString query = QString("SELECT * from BORROWING where id_person = %1 and return_date = NULL").arg(QString::number(_id_person));
+  if(!q.exec(query)){
+    QMessageBox::warning(nullptr,"Sql Error",q.lastError().text());
+  }
+  std::vector<Borrowing> borrows{};
+  while(q.next()){
+    int id = q.value(0).toInt();
+    int id_person = q.value(1).toInt();
+    int id_book = q.value(2).toInt();
+    QDate borrow_date = q.value(3).toDate();
+    QDate due_date = q.value(4).toDate();
 
-}; // namespace BorrowingRepository
+    Borrowing temp_borrow(id,id_book,id_person);
+    borrows.push_back(temp_borrow);
+  }
+  return borrows;
+}
+Borrowing* BorrowingRepository::getLatestBorrowByBookID(QSqlQuery& q, int _id_book){
+  QString query = QString("SELECT * from BORROWING where id_book = %1 and return_date = NULL").arg(QString::number(_id_book));
+  if(!q.exec(query)){
+    QMessageBox::warning(nullptr,"Sql Error",q.lastError().text());
+  }
+  while(q.next()){
+    int id = q.value(0).toInt();
+    int id_person = q.value(1).toInt();
+    int id_book = q.value(2).toInt();
+    QDate borrow_date = q.value(3).toDate();
+    QDate due_date = q.value(4).toDate();
 
-#endif
+    return new Borrowing(id,id_book,id_person,borrow_date,due_date);
+  }
+  return nullptr;
+}
+
+ // namespace BorrowingRepository
+
+
