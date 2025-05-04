@@ -30,6 +30,8 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         person.h person.cpp
         addbookdialog.h addbookdialog.cpp addbookdialog.ui
         borrowing_repository.h borrowing_repository.cpp
+        addbookdialog.h addbookdialog.cpp addbookdialog.ui
+        addpersondialog.h addpersondialog.cpp addpersondialog.ui
 
 
 

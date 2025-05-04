@@ -1,7 +1,5 @@
 #include "addbookdialog.h"
 #include "ui_addbookdialog.h"
-#include <QMessageBox>
-#include <qmessagebox.h>
 
 AddBookDialog::AddBookDialog(QWidget *parent)
     : QDialog(parent)
@@ -9,37 +7,24 @@ AddBookDialog::AddBookDialog(QWidget *parent)
 {
     ui->setupUi(this);
 }
-void AddBookDialog::validateAndAccept(){
-    if(getName().isEmpty()){
-        QMessageBox::warning(this,"Validation Error","Name cannot be empty!");
-        ui->lineEdit->setFocus();
-        return;
-    }
-    if(getSurname().isEmpty()){
-        QMessageBox::warning(this,"Validation Error","Surname cannot be empty");
-        ui->lineEdit_2->setFocus();
-        return;
-    }
 
+void AddBookDialog::validateAndAccept(){
+    QString title = ui->lineEdit->text();
+    if(title.isEmpty()){
+        QMessageBox::warning(this,"Book Creation Error","Title can't be empty!");
+        return;
+    }
+    QString author = ui->lineEdit_2->text();
+    if(author.isEmpty()){
+        QMessageBox::warning(this,"Book Creation Error","Author can't be empty!");
+        return;
+    }
     accept();
 }
+QString AddBookDialog::getTitle(){return ui->lineEdit->text();}
+QString AddBookDialog::getAuthor(){return ui->lineEdit_2->text();}
 
-QString AddBookDialog::getName(){
-    return ui->lineEdit->text();
-}
-
-QString AddBookDialog::getSurname(){
-    return ui->lineEdit_2->text();
-}
-
-QString AddBookDialog::getEmail(){
-    return ui->lineEdit_3->text();
-}
-
-QString AddBookDialog::getPhoneNumber(){
-    return ui->lineEdit_4->text();
-}
-
-AddBookDialog::~AddBookDialog(){
+AddBookDialog::~AddBookDialog()
+{
     delete ui;
 }

@@ -1,6 +1,7 @@
 #include "main_window.h"
 #include "./ui_bookstore.h"
 #include "addbookdialog.h"
+#include "addpersondialog.h"
 #include "bookrepository.h"
 #include "person.h"
 #include <QDialog>
@@ -9,6 +10,8 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <cassert>
+#include <qdialog.h>
+#include <qsqlquery.h>
 
 #include "bookrepository.h"
 #include "borrowing_repository.h"
@@ -22,7 +25,7 @@ BookStore::BookStore(QWidget *parent)
 }
 
 void BookStore::addPersonClicked() {
-  AddBookDialog dialog(this);
+  AddPersonDialog dialog(this);
   if (dialog.exec() == QDialog::Accepted) {
     QString name = dialog.getName();
     QString surname = dialog.getSurname();
@@ -48,12 +51,19 @@ void BookStore::deleteBookClicked() {
     QMessageBox::warning(nullptr, "BookStore error", "No book selected!");
     return;
   }
-  BookRepository::removeBook(q, currentBook->id);
+  BookRepository::removeBook(q, currentBook->getID());
   updateList();
   return;
 }
 void BookStore::addBookClicked() {
-  qDebug() << "Delete book not implemented yet";
+    AddBookDialog dialog(this);
+    if(dialog.exec() == QDialog::Accepted){
+        QString title = dialog.getTitle();
+        QString author = dialog.getAuthor();
+
+        QSqlQuery q(db);
+        BookRepository::addBook(q, author, title);
+    }
 }
 void BookStore::borrowBookClicked() {
   qDebug() << "Delete book not implemented yet";
@@ -85,7 +95,7 @@ void BookStore::clickedElementOfList() {
   } else {
     auto title = ui->listWidget->currentItem()->text();
     for (auto &b : books) {
-      if (b.title == title) {
+      if (b.getTitle() == title) {
         currentBook = &b;
       }
     }
@@ -100,8 +110,7 @@ void BookStore::updateList() {
     for (const auto &p : persons) {
       QString fullName = "";
       fullName.append(p.getName());
-      fullName.append(" ");
-      fullName.append(p.getSurname());
+      fullName.append(QString(" (%1)").arg(QString::number(p.getID())));
       ui->listWidget->addItem(fullName);
     }
     ui->listWidget->show();
@@ -110,7 +119,8 @@ void BookStore::updateList() {
     ui->listWidget->clear();
     for (const auto &b : books) {
       QString fullName = "";
-      fullName.append(b.title);
+      fullName.append(b.getTitle());
+      fullName.append(QString(" (%1)").arg(QString::number(b.getID())));
       ui->listWidget->addItem(fullName);
     }
     ui->listWidget->show();

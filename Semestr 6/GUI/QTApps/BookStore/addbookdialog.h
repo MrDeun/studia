@@ -2,6 +2,7 @@
 #define ADDBOOKDIALOG_H
 
 #include <QDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class AddBookDialog;
@@ -13,16 +14,13 @@ class AddBookDialog : public QDialog
 
 public:
     explicit AddBookDialog(QWidget *parent = nullptr);
-    QString getName();
-    QString getSurname();
-    QString getPhoneNumber();
-    QString getEmail();
     ~AddBookDialog();
+    QString getTitle();
+    QString getAuthor();
 private slots:
     void validateAndAccept();
 private:
     Ui::AddBookDialog *ui;
-
 };
 
 #endif // ADDBOOKDIALOG_H
