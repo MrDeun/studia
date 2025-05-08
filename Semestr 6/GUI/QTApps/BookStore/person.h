@@ -4,7 +4,7 @@
 #include <QString>
 #include <qobject.h>
 class Person {
-  private: 
+  private:
    int id;
    QString name;
    QString surname;
@@ -15,8 +15,8 @@ public:
          const QString &phone_number, const QString &email);
   QString getName()const{return name;}
   QString getSurname()const{return surname;}
-  QString getPhoneNumber()const{return name;}
-  QString getEmail()const{return name;}
+  QString getPhoneNumber()const{return phone_number;}
+  QString getEmail()const{return email;}
   int getID()const{return id;}
   ~Person() = default;
 };

@@ -1,9 +1,5 @@
 #include "main_window.h"
 #include "./ui_bookstore.h"
-#include "addbookdialog.h"
-#include "addpersondialog.h"
-#include "bookrepository.h"
-#include "person.h"
 #include <QDialog>
 #include <QMessageBox>
 #include <QSqlDatabase>
@@ -13,15 +9,22 @@
 #include <qdialog.h>
 #include <qsqlquery.h>
 
+#include "addbookdialog.h"
+#include "addpersondialog.h"
+#include "borrowbookdialog.h"
+#include "returnbookdialog.h"
+
 #include "bookrepository.h"
 #include "borrowing_repository.h"
 #include "personrepository.h"
+
+#define INVALID_VIEW false
 
 BookStore::BookStore(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::BookStore), currentView(BOOKS) {
   ui->setupUi(this);
   initDB();
-  updateList();
+  switchedTab();
 }
 
 void BookStore::addPersonClicked() {
@@ -34,6 +37,8 @@ void BookStore::addPersonClicked() {
 
     QSqlQuery q(db);
     PersonRepository::addPerson(q, name, surname, phone_number, email);
+    currentView = PERSONS;
+    updateList();
   }
 }
 void BookStore::deletePersonClicked() {
@@ -43,6 +48,7 @@ void BookStore::deletePersonClicked() {
     return;
   }
   PersonRepository::deletePerson(q, currentPerson->getID());
+  currentView = PERSONS;
   updateList();
 }
 void BookStore::deleteBookClicked() {
@@ -52,61 +58,165 @@ void BookStore::deleteBookClicked() {
     return;
   }
   BookRepository::removeBook(q, currentBook->getID());
+  currentView = BOOKS;
   updateList();
   return;
 }
 void BookStore::addBookClicked() {
-    AddBookDialog dialog(this);
-    if(dialog.exec() == QDialog::Accepted){
-        QString title = dialog.getTitle();
-        QString author = dialog.getAuthor();
+  AddBookDialog dialog(this);
+  if (dialog.exec() == QDialog::Accepted) {
+    QString title = dialog.getTitle();
+    QString author = dialog.getAuthor();
 
-        QSqlQuery q(db);
-        BookRepository::addBook(q, author, title);
-    }
+    QSqlQuery q(db);
+    BookRepository::addBook(q, author, title);
+    currentView = BOOKS;
+    updateList();
+  }
 }
 void BookStore::borrowBookClicked() {
-  qDebug() << "Delete book not implemented yet";
+  QSqlQuery q(db);
+  auto availableBooks = BookRepository::getAvailableBooks(q);
+  auto persons = PersonRepository::getAllPersons(q);
+  BorrowBookDialog dialog(this);
+  dialog.setContainers(&availableBooks, &persons);
+  if (dialog.exec() == QDialog::Accepted) {
+    int id_book = dialog.getBookID();
+    int id_person = dialog.getPersonID();
+    BorrowingRepository::addNewBorrowing(q, id_book, id_person);
+  }
 }
 void BookStore::returnBookClicked() {
-  qDebug() << "Delete book not implemented yet";
+  QSqlQuery q(db);
+  auto currentBorrows = BorrowingRepository::getAllActiveBorrows(q);
+  ReturnBookDialog dialog(this);
+  dialog.setBorrows(&currentBorrows, q);
+  if (dialog.exec() == QDialog::Accepted) {
+    int id_borrow = dialog.getIndex();
+    BorrowingRepository::returnBook(q, id_borrow);
+  }
 }
 
 void BookStore::switchedTab() {
   if (ui->radioButton->isChecked()) {
     currentView = PERSONS;
+    ui->pushButton_2->setDisabled(true);
+    ui->pushButton_3->setDisabled(true);
+    ui->pushButton_6->setDisabled(false);
+    ui->pushButton_7->setDisabled(false);
   } else {
     currentView = BOOKS;
+    ui->pushButton_2->setDisabled(false);
+    ui->pushButton_3->setDisabled(false);
+    ui->pushButton_6->setDisabled(true);
+    ui->pushButton_7->setDisabled(true);
   }
   updateList();
 }
 
+void BookStore::updateInfoField() {
+  QString info = "";
+  QSqlQuery q(db);
+  switch (currentView) {
+  case PERSONS: {
+      if(currentPerson == nullptr){
+          ui->textEdit->clear();
+          return;
+      }
+    auto borrowed_books =
+        BorrowingRepository::getBorrowsByPersonID(q, currentPerson->getID());
+
+    info.append(QString("Name: %1\n").arg(currentPerson->getName()));
+    info.append(QString("Surname: %1\n").arg(currentPerson->getSurname()));
+    info.append(
+        QString("Phone Number: %1\n").arg(currentPerson->getPhoneNumber()));
+    info.append(QString("Email: %1\n").arg(currentPerson->getEmail()));
+    info.append(QString("Current borrowed books: \n"));
+    if (borrowed_books.empty()) {
+      info.append(" - NONE\n");
+    } else {
+      for (const auto &borrow : borrowed_books) {
+        Book b = BookRepository::getBookByID(q, borrow.getBookID());
+        QString missing_books_str = QString(" - \"%1\"  by %2 due to %3\n")
+                                        .arg(b.getTitle(), b.getAuthor(),
+                                             borrow.getDueDate().toString());
+        info.append(missing_books_str);
+      }
+    }
+
+    break;
+  }
+  case BOOKS: {
+      if(currentBook == nullptr){
+          ui->textEdit->clear();
+          return;
+      }
+    info.append(QString("Title: %1\n").arg(currentBook->getTitle()));
+    info.append(QString("Author: %2\n").arg(currentBook->getAuthor()));
+    auto latestEntry =
+        BorrowingRepository::getLatestBorrowByBookID(q, currentBook->getID());
+    if (latestEntry) {
+      QString borrowed_by_str = "Borrowed by: %1";
+      Person p = PersonRepository::getPerson(q, latestEntry->getPersonID());
+      borrowed_by_str =
+          borrowed_by_str.arg(p.getName() + " " + p.getSurname() + "\n");
+      info.append(borrowed_by_str);
+      delete latestEntry;
+    } else {
+      info.append(QString("Avainble for borrowing!\n"));
+    }
+    break;
+  }
+  default:
+    assert(INVALID_VIEW);
+  }
+  ui->textEdit->setText(info);
+}
+
 void BookStore::clickedElementOfList() {
+  int startPos, stopPos, length, index_num;
   currentPerson = nullptr;
   currentBook = nullptr;
+  if (ui->listWidget->currentItem()->text() == "-- NONE --") {
+    ui->textEdit->clear();
+    return;
+  }
   if (currentView == PERSONS) {
     auto nameSurname = ui->listWidget->currentItem()->text();
+    startPos = nameSurname.lastIndexOf('(') + 1;
+    stopPos = nameSurname.lastIndexOf(')');
+    length = stopPos - startPos;
+    index_num = nameSurname.mid(startPos, length).toInt();
     for (auto &p : persons) {
-      if (p.getName() + " " + p.getSurname() == nameSurname) {
+      if (p.getID() == index_num) {
         currentPerson = &p;
+        ui->textEdit->setText(currentPerson->getName());
         break;
       }
     }
   } else {
     auto title = ui->listWidget->currentItem()->text();
+    startPos = title.lastIndexOf('(') + 1;
+    stopPos = title.lastIndexOf(')');
+    length = stopPos - startPos;
+    index_num = title.mid(startPos, length).toInt();
     for (auto &b : books) {
-      if (b.getTitle() == title) {
+      if (b.getID() == index_num) {
         currentBook = &b;
+        ui->textEdit->setText(currentBook->getTitle());
+        break;
       }
     }
   }
+  updateInfoField();
 }
 
 void BookStore::updateList() {
   QSqlQuery q(db);
+  ui->listWidget->clear();
+  ui->listWidget->addItem("-- NONE --");
   if (currentView == PERSONS) {
     persons = PersonRepository::getAllPersons(q);
-    ui->listWidget->clear();
     for (const auto &p : persons) {
       QString fullName = "";
       fullName.append(p.getName());
@@ -116,7 +226,6 @@ void BookStore::updateList() {
     ui->listWidget->show();
   } else {
     books = BookRepository::getAllBooks(q);
-    ui->listWidget->clear();
     for (const auto &b : books) {
       QString fullName = "";
       fullName.append(b.getTitle());
@@ -144,7 +253,6 @@ void BookStore::initDB() {
 
   QSqlQuery q(db);
 
-  // TODO: Add query for creating BOOKS table
   if (!q.exec("CREATE TABLE IF NOT EXISTS books (id integer primary key, title "
               "text, author text);")) {
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
@@ -155,7 +263,6 @@ void BookStore::initDB() {
     QMessageBox::warning(nullptr, "Sql Error", q.lastError().text());
     assert(false);
   }
-  // TODO: Add query for creating BORROWING tables
   if (!q.exec(("CREATE TABLE IF NOT EXISTS borrowings (id integer primary key, "
                "id_person integer not null, id_book integer not null, "
                "borrow_date text "

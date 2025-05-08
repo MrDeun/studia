@@ -5,6 +5,8 @@
 #include <qsqlerror.h>
 #include <qsqlquery.h>
 
+#define UNREACHABLE false
+
 void PersonRepository::addPerson(QSqlQuery &q, const QString &name,
                                  const QString &surname,
                                  const QString &phone_number,
@@ -41,6 +43,7 @@ Person PersonRepository::getPerson(QSqlQuery &q, int id){
       return Person(id,name,surname,phone_number,email);
     }
   }
+  assert(UNREACHABLE);
   return Person(404,"Not found","","","");
 }
 std::vector<Person> PersonRepository::getAllPersons(QSqlQuery &q){

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>959</width>
+    <height>395</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,9 +32,23 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="pushButton_3">
+       <property name="text">
+        <string>Delete book</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="pushButton_6">
        <property name="text">
         <string>Add a new person</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_7">
+       <property name="text">
+        <string>Delete person</string>
        </property>
       </widget>
      </item>
@@ -52,20 +66,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>Delete book</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_7">
-       <property name="text">
-        <string>Delete person</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
    <widget class="QListWidget" name="listWidget">
@@ -74,7 +74,7 @@
       <x>190</x>
       <y>40</y>
       <width>201</width>
-      <height>521</height>
+      <height>311</height>
      </rect>
     </property>
    </widget>
@@ -83,8 +83,8 @@
      <rect>
       <x>400</x>
       <y>10</y>
-      <width>371</width>
-      <height>551</height>
+      <width>541</width>
+      <height>341</height>
      </rect>
     </property>
     <property name="readOnly">
@@ -136,7 +136,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>959</width>
      <height>39</height>
     </rect>
    </property>
@@ -266,6 +266,22 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <hint type="sourcelabel">
      <x>239</x>
      <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>BookStore</receiver>
+   <slot>clickedElementOfList()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>323</y>
     </hint>
     <hint type="destinationlabel">
      <x>399</x>

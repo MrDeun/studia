@@ -9,12 +9,12 @@ AddBookDialog::AddBookDialog(QWidget *parent)
 }
 
 void AddBookDialog::validateAndAccept(){
-    QString title = ui->lineEdit->text();
+    const QString& title = ui->lineEdit->text();
     if(title.isEmpty()){
         QMessageBox::warning(this,"Book Creation Error","Title can't be empty!");
         return;
     }
-    QString author = ui->lineEdit_2->text();
+    const QString& author = ui->lineEdit_2->text();
     if(author.isEmpty()){
         QMessageBox::warning(this,"Book Creation Error","Author can't be empty!");
         return;

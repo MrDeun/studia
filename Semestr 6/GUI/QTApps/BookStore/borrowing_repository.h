@@ -19,7 +19,7 @@ class Borrowing {
       int id_book;
       int id_person;
       QDate return_date;
-    
+
     public:
       const QDate borrow_date;
       const QDate due_date;
@@ -33,16 +33,19 @@ class Borrowing {
       }
       Borrowing(int id, int id_book,int id_person, QDate borrow_date, QDate due_date):
       id(id),id_book(id_book),id_person(id_person),borrow_date(borrow_date),due_date(due_date){}
-    
+
       void bookReturned() { return_date = QDate::currentDate(); }
       int getID() const { return id; }
       int getBookID() const { return id_book; }
       int getPersonID() const { return id_person; }
+      QDate getDueDate() const {return due_date;}
+      QDate getBorrowDate() const {return borrow_date;}
     };
 
     namespace BorrowingRepository {
         static int borrowing_id = 0;
         void addNewBorrowing(QSqlQuery& q, int id_book, int id_person);
+        std::vector<Borrowing> getAllActiveBorrows(QSqlQuery& q);
         std::vector<Borrowing> getBorrowsByPersonID(QSqlQuery& q, int _id_person);
         Borrowing* getLatestBorrowByBookID(QSqlQuery& q, int _id_book);
         void returnBook(QSqlQuery& q, int id_borrowing);

@@ -40,6 +40,8 @@ private slots:
     void switchedTab();
     void clickedElementOfList();
 
+
+
 private:
     VIEW_SELECTION currentView;
 
@@ -51,11 +53,12 @@ private:
 
 
     void updateList();
+    void updateInfoField();
     void initDB();
     Ui::BookStore *ui;
 
     QSqlDatabase db;
-    
+
 
 };
 #endif // BOOKSTORE_H
