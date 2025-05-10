@@ -1,17 +1,16 @@
-#ifndef BUFFER 
-#define BUFFER
+#ifndef BUFFER_H
+#define BUFFER_H
 
 #include <QObject>
-#include <qtmetamacros.h>
 
-class SharedBuffer : public QObject{
+class SharedBuffer: public QObject
+{
+private:
     Q_OBJECT
-    private:
-        const int size;
-        const int buffer_timeout;
-    public:
+public:
+    explicit SharedBuffer(QObject *parent = nullptr);
 
-
+signals:
 };
 
-#endif
+#endif // BUFFER_H

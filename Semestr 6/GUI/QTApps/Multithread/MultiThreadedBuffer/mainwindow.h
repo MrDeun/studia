@@ -1,9 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
-#include "deletion_worker.h"
 #include <QMainWindow>
 #include <QMutex>
+
+#include "buffer.h"
+#include "worker.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,9 +21,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void updateBuffer();
+    void updateBuffer(const QString& buf);
+    void addNewWorker();
+    void deleteWorker();
 
 private:
     Ui::MainWindow *ui;
+    std::vector<Worker*> workers;
+    SharedBuffer m_sharedbuffer;
 };
 #endif // MAINWINDOW_H
