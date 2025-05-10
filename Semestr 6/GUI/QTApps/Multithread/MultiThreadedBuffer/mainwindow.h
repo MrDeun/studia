@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "deletion_worker.h"
 #include <QMainWindow>
+#include <QMutex>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -16,6 +18,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void updateBuffer();
 
 private:
     Ui::MainWindow *ui;
