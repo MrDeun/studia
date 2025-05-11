@@ -1,5 +1,5 @@
-#ifndef WORKER
-#define WORKER
+#ifndef POP_WORKER
+#define POP_WORKER
 
 #include <QThread>
 #include <QTimer>
@@ -7,16 +7,14 @@
 
 #include "buffer.h"
 
-class Worker : public QThread {
+class PopWorker : public QThread {
     Q_OBJECT
 public:
-    Worker(QString msg, int interval_ms, SharedBuffer* _buf):
-    msg(msg),interval_ms(interval_ms),buf(_buf){}
-    ~Worker() = default;
+    PopWorker(int interval_ms, SharedBuffer* _buf):interval_ms(interval_ms),buf(_buf){}
+    ~PopWorker() = default;
 public slots:
     void run() override;
 private:
-    QString msg;
     int interval_ms;
     SharedBuffer* buf;
     // add your variables here

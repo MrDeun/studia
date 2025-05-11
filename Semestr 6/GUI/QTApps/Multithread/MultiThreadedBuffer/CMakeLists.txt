@@ -26,6 +26,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
 
         worker.h worker.cpp
         buffer.h buffer.cpp
+        pop_thread.h pop_thread.cpp
 
     )
 # Define target properties for Android with Qt 6 as:

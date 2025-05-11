@@ -25,7 +25,11 @@
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QTextEdit" name="textEdit"/>
+      <widget class="QTextEdit" name="textEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QProgressBar" name="progressBar">
@@ -41,8 +45,8 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>173</width>
-      <height>91</height>
+      <width>180</width>
+      <height>98</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
@@ -96,7 +100,7 @@
       <x>9</x>
       <y>110</y>
       <width>171</width>
-      <height>111</height>
+      <height>122</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
