@@ -15,6 +15,6 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 
-add_executable(MultiThreadBuffer main.cpp)
+add_executable(MultiThreadBuffer main.cpp mainwindow.h mainwindow.cpp shared_buffer.h shared_buffer.cpp worker.h worker.cpp)
 
 target_link_libraries(MultiThreadBuffer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
