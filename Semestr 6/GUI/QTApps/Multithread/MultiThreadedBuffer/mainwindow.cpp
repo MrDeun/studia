@@ -1,60 +1,82 @@
 #include "mainwindow.h"
-#include "./ui_mainwindow.h"
-
-#include <QMessageBox>
+#include "sharedbuffer.h"
+#include "ui_mainwindow.h"
+#include "worker.h"
+#include <QThread>
+#include <QObject>
+#include <qobject.h>
+#include <qthread.h>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindow),popThread(new PopWorker(3000000,&m_sharedbuffer)),m_sharedbuffer(parent)
-
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow),
+    m_buffer(this)
+    
 {
-  ui->setupUi(this);
-auto worker1 = addNewWorker("x", 1500);
-auto worker2 = addNewWorker("y", 2000);
-auto worker3 = addNewWorker("z", 4500);
+    ui->setupUi(this);
+    m_bufferDisplay = ui->lineEdit;
+    m_speedEdit = ui->lineEdit_2;
+    m_messageEdit = ui->lineEdit_3;
 
-connect(&m_sharedbuffer,&SharedBuffer::bufferUpdated,this,&MainWindow::updateBuffer);
+    m_progressBar = ui->progressBar;
+    m_popIntervalSpinBox = ui->doubleSpinBox;
 
-
-workers.push_back(worker1);
-workers.push_back(worker2);
-workers.push_back(worker3);
-
-worker1->start();
-worker2->start();
-worker3->start();
-
-  popThread->start();
+    connect(&m_buffer,&SharedBuffer::bufferUpdated,this,&MainWindow::updateBufferDisplay);
 }
 
-void MainWindow::updateBuffer(const QString &buf) {
-    QMessageBox::warning(this,"",buf);
-  ui->textEdit->setText(buf);
+void MainWindow::AddThread(){
+    QString msg = m_messageEdit->text();
+    int interval = m_speedEdit->text().toInt();
+
+    auto thread = new QThread(this);
+    auto worker = new Worker(nullptr,m_workers.size(),msg[0],interval,&m_buffer);
+
+    worker->moveToThread(thread);
+
+    connect(thread,&QThread::started,worker,&Worker::start);
+    connect(thread,&QThread::finished,worker,&Worker::deleteLater);
+
+    
+
+    m_threads.append(thread);
+    m_workers.append(worker);
+
+    thread->start();
+
+
 }
+void MainWindow::RemoveThread(){
+    if(!m_threads.isEmpty()){
+        int id = m_threads.size() - 1;
 
-void MainWindow::addNewWorkerPressed() { 
-    QString new_msg = ui->msgEdit->text();
-    int _interval_ms = ui->speedEdit->text().toInt();
-    Worker* new_worker = new Worker(new_msg,_interval_ms,&m_sharedbuffer);
-    workers.push_back(new_worker);
-    new_worker->start();
+        m_workers[id]->stop();
+
+        m_threads[id]->quit();
+        m_threads[id]->wait();
+
+        delete m_threads.takeLast();
+        delete m_workers.takeLast();
+
+
+    }
 }
-
-Worker* MainWindow::addNewWorker(QString c, int _interval_ms){
-    Worker* new_worker = new Worker(c,_interval_ms, &m_sharedbuffer);
-    return new_worker;
+void MainWindow::updateGenerateInterval(int ms){
+    // does nothing
 }
-
-void MainWindow::setNewPopTimerPressed(){}
-
-void MainWindow::deleteWorkerPressed(){
-    delete *workers.end();
-    workers.pop_back();
+void MainWindow::updatePopInterval(double ms){
+    m_buffer.setPopInterval(int(ms));
 }
+void MainWindow::updateBufferDisplay(const QString &buffer){
+    m_bufferDisplay->setText(buffer);
+    m_progressBar->setValue((double)buffer.size()/double(m_buffer.getMaxSize()));
+}
+void MainWindow::logCharacterAdded(int threadId, QChar c){}
+void MainWindow::logCharacterPopped(QChar c){}
+void MainWindow::logMessage(const QString& msg){}
 
-MainWindow::~MainWindow() {
-  delete ui;
-  delete popThread;
-  for (auto w : workers) {
-    delete w;
-  }
+MainWindow::~MainWindow()
+{
+    delete ui;
+    qDeleteAll(m_workers);
+    qDeleteAll(m_threads);
 }

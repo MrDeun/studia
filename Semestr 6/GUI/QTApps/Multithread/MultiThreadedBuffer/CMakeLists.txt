@@ -23,10 +23,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(MultiThreadedBuffer
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-
+        mainwindow.h mainwindow.cpp mainwindow.ui
         worker.h worker.cpp
-        buffer.h buffer.cpp
-        pop_thread.h pop_thread.cpp
+        sharedbuffer.h sharedbuffer.cpp
+
 
     )
 # Define target properties for Android with Qt 6 as:

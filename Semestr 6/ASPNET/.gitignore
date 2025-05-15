@@ -1,0 +1,4 @@
+.vs/**/*
+ASPNET/.vs/**/*
+ASPNET/bin/**/*
+ASPNET/obj/**/*

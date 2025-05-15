@@ -1,38 +1,53 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
+
 #include <QMainWindow>
-#include <QMutex>
+#include <QTextEdit>
+#include <QLineEdit>
+#include <QProgressBar>
+#include <QDoubleSpinBox>
 
-#include "buffer.h"
-#include "pop_thread.h"
-#include "worker.h"
-
-QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
-QT_END_NAMESPACE
+
+#include "sharedbuffer.h"
+#include "worker.h"
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    
-    private slots:
-    void updateBuffer(const QString& buf);
-    void addNewWorkerPressed();
-    void deleteWorkerPressed();
-    void setNewPopTimerPressed();
+private slots:
+    void AddThread();
+    void RemoveThread();
+    void updateGenerateInterval(int ms);
+    void updatePopInterval(double);
+    void updateBufferDisplay(const QString &buffer);
+    void logCharacterAdded(int threadId, QChar c);
+    void logCharacterPopped(QChar c);
+    void logMessage(const QString& msg);
+
 
 private:
-    Worker* addNewWorker(QString c, int _interval_ms);
-    void setNewPopTimer(int _interval_ms);
     Ui::MainWindow *ui;
-    std::vector<Worker*> workers;
-    PopWorker* popThread;
-    SharedBuffer m_sharedbuffer;
+
+    SharedBuffer m_buffer;
+    QList<QThread*> m_threads;
+    QList<Worker*> m_workers;
+
+    QLineEdit* m_bufferDisplay; 
+    QLineEdit* m_speedEdit ;
+    QLineEdit* m_messageEdit;
+
+
+    QProgressBar* m_progressBar;
+    QDoubleSpinBox* m_popIntervalSpinBox;
+
+
 };
+
 #endif // MAINWINDOW_H

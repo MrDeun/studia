@@ -1,24 +1,30 @@
-#ifndef WORKER
-#define WORKER
+#ifndef WORKER_H
+#define WORKER_H
 
-#include <QThread>
+#include <QObject>
 #include <QTimer>
-#include <qobject.h>
 
-#include "buffer.h"
+#include "sharedbuffer.h"
 
-class Worker : public QThread {
-    Q_OBJECT
-public:
-    Worker(QString msg, int interval_ms, SharedBuffer* _buf):
-    msg(msg),interval_ms(interval_ms),buf(_buf){}
-    ~Worker() = default;
-public slots:
-    void run() override;
+class Worker : public QObject {
+  Q_OBJECT
 private:
-    QString msg;
-    int interval_ms;
-    SharedBuffer* buf;
-    // add your variables here
+  int m_id;
+  QChar m_character;
+  int m_interval;
+  SharedBuffer *m_buffer;
+  QTimer m_timer;
+  bool m_active;
+
+public:
+  explicit Worker(QObject *parent = nullptr, int i=-1,QChar c = '?', int ms = 1000,
+                  SharedBuffer *buf = nullptr);
+public slots:
+  void start();
+  void stop();
+  void setInterval(int ms);
+private slots:
+  void generateCharacter();
 };
-#endif
+
+#endif // WORKER_H
