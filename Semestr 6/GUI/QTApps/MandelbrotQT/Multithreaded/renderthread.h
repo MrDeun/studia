@@ -27,7 +27,7 @@ protected:
 private:
     int computeIterations(const std::complex<double> &c);
 
-    static QMutex mutex;
+    QMutex mutex;
     QWaitCondition condition;
     QImage *image;
     double centerX;
@@ -38,7 +38,8 @@ private:
     bool restart;
     bool _abort;
     // Maximum iterations for the Mandelbrot calculation
-    static const int MAX_ITERATIONS = 1000;
+    static constexpr int MAX_ITERATIONS = 1000;
+    static constexpr double MAX_LIMIT = 2.0;
 };
 
 #endif
