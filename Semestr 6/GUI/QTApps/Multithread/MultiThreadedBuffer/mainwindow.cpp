@@ -2,10 +2,10 @@
 #include "sharedbuffer.h"
 #include "ui_mainwindow.h"
 #include "worker.h"
+
 #include <QThread>
 #include <QObject>
-#include <qobject.h>
-#include <qthread.h>
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -36,14 +36,10 @@ void MainWindow::AddThread(){
     connect(thread,&QThread::started,worker,&Worker::start);
     connect(thread,&QThread::finished,worker,&Worker::deleteLater);
 
-    
-
     m_threads.append(thread);
     m_workers.append(worker);
 
     thread->start();
-
-
 }
 void MainWindow::RemoveThread(){
     if(!m_threads.isEmpty()){
@@ -56,7 +52,6 @@ void MainWindow::RemoveThread(){
 
         delete m_threads.takeLast();
         delete m_workers.takeLast();
-
 
     }
 }

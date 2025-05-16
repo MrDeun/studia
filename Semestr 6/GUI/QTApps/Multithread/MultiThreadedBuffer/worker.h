@@ -1,12 +1,12 @@
 #ifndef WORKER_H
 #define WORKER_H
 
-#include <QObject>
+#include <QThread>
 #include <QTimer>
 
 #include "sharedbuffer.h"
 
-class Worker : public QObject {
+class Worker : public QThread {
   Q_OBJECT
 private:
   int m_id;
@@ -20,8 +20,7 @@ public:
   explicit Worker(QObject *parent = nullptr, int i=-1,QChar c = '?', int ms = 1000,
                   SharedBuffer *buf = nullptr);
 public slots:
-  void start();
-  void stop();
+  void run() override;
   void setInterval(int ms);
 private slots:
   void generateCharacter();

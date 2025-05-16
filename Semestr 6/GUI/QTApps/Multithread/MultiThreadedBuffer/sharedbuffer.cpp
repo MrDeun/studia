@@ -5,8 +5,8 @@ SharedBuffer::SharedBuffer(QObject *parent,int maxSize,int interval_ms) :
 QObject{parent}, m_maxSize(maxSize), m_popInterval(interval_ms) 
 {
   m_popTimer = new QTimer(this);
-  m_popTimer->setInterval(m_popInterval);
   connect(m_popTimer,&QTimer::timeout,this,&SharedBuffer::popChar);
+  m_popTimer->setInterval(m_popInterval);
   m_popTimer->start();
 }
 
