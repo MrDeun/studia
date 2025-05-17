@@ -6,7 +6,6 @@
 MandelbrotWidget::MandelbrotWidget(QWidget *parent)
     : QWidget(parent), centerX(0.0), centerY(0.0), scaleFactor(4.0),
       pendingRegions(0) {
-  resize(1000, 1000);
 
   setMouseTracking(true);
   setFocusPolicy(Qt::StrongFocus);

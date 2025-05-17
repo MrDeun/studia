@@ -27,7 +27,7 @@ protected:
 private:
     int computeIterations(const std::complex<double> &c);
 
-    QMutex mutex;
+    static QMutex mutex;
     QWaitCondition condition;
     QImage *image;
     double centerX;

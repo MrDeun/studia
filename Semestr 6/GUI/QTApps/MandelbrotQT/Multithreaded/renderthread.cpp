@@ -13,7 +13,7 @@ RenderThread::RenderThread(QObject *parent) : QThread(parent), _abort(false) {}
 
 void RenderThread::render(QImage *image, double centerX, double centerY,
                           double scaleFactor, int rowStart, int rowEnd) {
-  QMutexLocker locker(&mutex);
+  QMutexLocker locker(&RenderThread::mutex);
 
   this->image = image;
   this->centerX = centerX;
@@ -30,20 +30,20 @@ void RenderThread::render(QImage *image, double centerX, double centerY,
   }
 }
 void RenderThread::abort() {
-    QMutexLocker locker(&mutex);
+    QMutexLocker locker(&RenderThread::mutex);
     _abort = true;
     condition.wakeOne();
 }
 void RenderThread::run() {
   forever {
-    mutex.lock();
+    RenderThread::mutex.lock();
     QImage *localImage = image;
     double localCenterX = centerX;
     double localCenterY = centerY;
     double localScaleFactor = scaleFactor;
     int localRowStart = rowStart;
     int localRowEnd = rowEnd;
-    mutex.unlock();
+    RenderThread::mutex.unlock();
 
     int width = localImage->width();
     int height = localImage->height();
@@ -77,13 +77,13 @@ void RenderThread::run() {
     if (!_abort)
       emit renderedImage(localRowStart, localRowEnd);
 
-    mutex.lock();
+      RenderThread::mutex.lock();
     if (!restart && !_abort)
       condition.wait(&mutex);
     restart = false;
 
     if (_abort) {
-      mutex.unlock();
+      RenderThread::mutex.unlock();
       return;
     }
     return;
@@ -100,9 +100,9 @@ int RenderThread::computeIterations(const std::complex<double> &c) {
 }
 
 RenderThread::~RenderThread() {
-  mutex.lock();
+  RenderThread::mutex.lock();
   _abort = true;
   condition.wakeOne();
-  mutex.unlock();
+  RenderThread::RenderThread::mutex.unlock();
   wait();
 }
