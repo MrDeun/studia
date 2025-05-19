@@ -99,10 +99,10 @@ MainWindow::~MainWindow()
         m_workers[i]->stop();
         m_threads[i]->quit();
         m_threads[i]->wait();
+
+        delete m_threads[i];
+        delete m_workers[i];
     }
-    
-    qDeleteAll(m_workers);
-    qDeleteAll(m_threads);
     
     // SharedBuffer is deleted automatically as a child of this QObject
 }
@@ -154,8 +154,12 @@ void MainWindow::removeThread()
         m_threads[id]->wait();
         
         // Delete thread and worker
-        delete m_threads.takeLast();
-        delete m_workers.takeLast();
+        delete m_workers[id];
+        delete m_threads[id];
+
+
+        m_threads.pop_back();
+        m_workers.pop_back();
         
         logMessage(QString("Removed thread #%1").arg(id));
     }
@@ -164,10 +168,10 @@ void MainWindow::removeThread()
 void MainWindow::updateGenerateInterval(int ms)
 {
     // Update interval for all workers
-    for (auto worker : m_workers) {
-        worker->setInterval(ms);
-    }
-    logMessage(QString("Changed generation interval to %1 ms").arg(ms));
+    // for (auto worker : m_workers) {
+    //     worker->setInterval(ms);
+    // }
+    // logMessage(QString("Changed generation interval to %1 ms").arg(ms));
 }
 
 void MainWindow::updatePopInterval(int ms)
