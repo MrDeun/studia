@@ -22,7 +22,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
-    void updateImage(int rowStart, int rowEnd);
+    void updateImage(QImage,int rowStart, int rowEnd);
 
 private:
     void initThreads();

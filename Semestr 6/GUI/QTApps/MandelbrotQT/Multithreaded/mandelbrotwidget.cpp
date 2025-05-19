@@ -2,6 +2,7 @@
 #include "renderthread.h"
 #include <QPainter>
 #include <QMouseEvent>
+#include <qpainter.h>
 
 MandelbrotWidget::MandelbrotWidget(QWidget *parent)
     : QWidget(parent), centerX(0.0), centerY(0.0), scaleFactor(4.0),
@@ -119,8 +120,11 @@ void MandelbrotWidget::keyPressEvent(QKeyEvent *event) {
         
         update();
 }
-void MandelbrotWidget::updateImage(int rowStart, int rowEnd) {
-        update(0, rowStart, width(), rowEnd - rowStart + 1);
+void MandelbrotWidget::updateImage(QImage img,int rowStart, int rowEnd) {
+    QPainter painter(&image);
+    painter.drawImage(rowStart,rowEnd,img);    
+    
+    update(rowStart, rowEnd, img.width(), img.height());
         {
             QMutexLocker locker(&mutex);
             pendingRegions--;
@@ -159,7 +163,7 @@ void MandelbrotWidget::startRendering() {
     int rowStart = i * rowsPerThread;
     int rowEnd =
         (i == threads.size() - 1) ? height - 1 : (i + 1) * rowsPerThread - 1;
-    threads[i]->render(&image, centerX, centerY, scaleFactor, rowStart, rowEnd);
+    threads[i]->render(centerX, centerY, scaleFactor, QSize(image.width(),image.height()),rowStart, rowEnd);
   }
 }
 void MandelbrotWidget::zoom(double factor) {

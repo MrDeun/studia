@@ -14,12 +14,12 @@ public:
     RenderThread(QObject *parent = nullptr);
     ~RenderThread();
 
-    void render(QImage *image, double centerX, double centerY, double scaleFactor, 
+    void render( double centerX, double centerY, double scaleFactor, QSize imgSize,
                 int rowStart, int rowEnd);
     void abort();
 
 signals:
-    void renderedImage(int rowStart, int rowEnd);
+    void renderedImage(QImage image,int rowStart, int rowEnd);
 
 protected:
     void run() override;
@@ -27,7 +27,7 @@ protected:
 private:
     int computeIterations(const std::complex<double> &c);
 
-    static QMutex mutex;
+    QMutex mutex;
     QWaitCondition condition;
     QImage *image;
     double centerX;
