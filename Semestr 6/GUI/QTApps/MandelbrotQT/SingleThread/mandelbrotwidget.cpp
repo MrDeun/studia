@@ -25,7 +25,7 @@ MandelbrotWidget::MandelbrotWidget(QWidget *parent)
 #if QT_CONFIG(cursor)
   setCursor(Qt::CrossCursor);
 #endif
-  resize(800,800);
+  resize(1600,900);
 }
 
 void MandelbrotWidget::paintEvent(QPaintEvent *event) {

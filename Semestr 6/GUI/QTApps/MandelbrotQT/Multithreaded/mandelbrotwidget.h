@@ -22,7 +22,7 @@ protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 private slots:
-    void updateImage(QImage,int rowStart, int rowEnd);
+    void updateImageFragment(QImage fragment, int x, int y);
 
 private:
     void initThreads();
@@ -37,7 +37,7 @@ private:
     double scaleFactor;
     
     // Thread management
-    QVector<RenderThread*> threads;
+    QVector<MandelbrotThread*> threads;
     QMutex mutex;
     int pendingRegions;
     

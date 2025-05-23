@@ -46,8 +46,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_generateIntervalSpinBox->setRange(100, 3000);
     m_generateIntervalSpinBox->setValue(1000);
     m_generateIntervalSpinBox->setSingleStep(100);
-    connect(m_generateIntervalSpinBox, QOverload<int>::of(&QSpinBox::valueChanged),
-            this, &MainWindow::updateGenerateInterval);
     controlLayout->addWidget(m_generateIntervalSpinBox);
     
     // Pop interval control
@@ -130,8 +128,8 @@ void MainWindow::addThread()
     connect(thread, &QThread::finished, worker, &CharacterWorker::deleteLater);
     
     // Store thread and worker
-    m_threads.append(thread);
-    m_workers.append(worker);
+    m_threads.push_back(thread);
+    m_workers.push_back(worker);
     
     // Start the thread
     thread->start();
@@ -143,7 +141,7 @@ void MainWindow::addThread()
 
 void MainWindow::removeThread()
 {
-    if (!m_threads.isEmpty()) {
+    if (!m_threads.empty()) {
         int id = m_threads.size() - 1;
         
         // Stop the worker
@@ -165,14 +163,14 @@ void MainWindow::removeThread()
     }
 }
 
-void MainWindow::updateGenerateInterval(int ms)
-{
-    // Update interval for all workers
-    // for (auto worker : m_workers) {
-    //     worker->setInterval(ms);
-    // }
-    // logMessage(QString("Changed generation interval to %1 ms").arg(ms));
-}
+// void MainWindow::updateGenerateInterval(int ms)
+// {
+//     // Update interval for all workers
+//     // for (auto worker : m_workers) {
+//     //     worker->setInterval(ms);
+//     // }
+//     // logMessage(QString("Changed generation interval to %1 ms").arg(ms));
+// }
 
 void MainWindow::updatePopInterval(int ms)
 {

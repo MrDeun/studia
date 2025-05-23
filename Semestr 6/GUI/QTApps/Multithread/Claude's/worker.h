@@ -13,7 +13,7 @@ private:
     QChar m_character;
     int m_interval;
     SharedBuffer *m_buffer;
-    QTimer *m_timer;
+    QTimer m_timer;
     bool m_active;
 
 public:

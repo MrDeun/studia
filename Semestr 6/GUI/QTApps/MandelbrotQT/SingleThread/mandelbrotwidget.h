@@ -3,7 +3,7 @@
 
 #include "render_thread.h"
 #include <QWidget>
-#include <QPainter>
+#include <QPainter>z
 
 class MandelbrotWidget : public QWidget
 {

@@ -5,104 +5,131 @@
 #include <qmutex.h>
 #include <qobject.h>
 #include <qrgb.h>
+#include <qthread.h>
 #include <qtmetamacros.h>
 
 
 
-RenderThread::RenderThread(QObject *parent) : QThread(parent), _abort(false) {}
-
-void RenderThread::render(QImage *image, double centerX, double centerY,
-                          double scaleFactor, int rowStart, int rowEnd) {
-  QMutexLocker locker(&RenderThread::mutex);
-
-  this->image = image;
-  this->centerX = centerX;
-  this->centerY = centerY;
-  this->scaleFactor = scaleFactor;
-  this->rowStart = rowStart;
-  this->rowEnd = rowEnd;
-
-  if (!isRunning()) {
-    start();
-  } else {
-    restart = true;
-    condition.wakeOne();
-  }
+MandelbrotThread::MandelbrotThread(QObject *parent)
+    : QThread(parent), _abort(false)
+{
 }
-void RenderThread::abort() {
-    QMutexLocker locker(&RenderThread::mutex);
+
+MandelbrotThread::~MandelbrotThread()
+{
+    mutex.lock();
+    _abort = true;
+    condition.wakeOne();
+    mutex.unlock();
+    wait();
+}
+
+void MandelbrotThread::render(double cX, double cY, double scale, 
+                             int imgWidth, int imgHeight, int start, int end)
+{
+    QMutexLocker locker(&mutex);
+    
+    this->imageWidth = imgWidth;
+    this->imageHeight = imgHeight;
+    this->centerX = cX;
+    this->centerY = cY;
+    this->scaleFactor = scale;
+    this->rowStart = start;
+    this->rowEnd = end;
+    
+    if (!isRunning()) {
+        run();
+    } else {
+        restart = true;
+        condition.wakeOne();
+    }
+}
+
+void MandelbrotThread::abort()
+{
+    QMutexLocker locker(&mutex);
     _abort = true;
     condition.wakeOne();
 }
-void RenderThread::run() {
-  forever {
-    RenderThread::mutex.lock();
-    QImage *localImage = image;
-    double localCenterX = centerX;
-    double localCenterY = centerY;
-    double localScaleFactor = scaleFactor;
-    int localRowStart = rowStart;
-    int localRowEnd = rowEnd;
-    RenderThread::mutex.unlock();
 
-    int width = localImage->width();
-    int height = localImage->height();
-    double aspectRadio = static_cast<double>(width) / height;
-
-    for (int y = localRowStart; y <= localRowEnd; y++) {
-      if (_abort)
-        break;
-
-      uchar *scanLine = localImage->scanLine(y);
-      QRgb *row = reinterpret_cast<QRgb *>(scanLine);
-
-      for (int x = 0; x < width; ++x) {
-        double real = localCenterX + (x - width / 2.0) * localScaleFactor;
-        double imag = localCenterY + (y - width / 2.0) * localScaleFactor;
-
-        std::complex<double> c(real, imag);
-
-        int iterations = computeIterations(c);
-
-        if (iterations == MAX_ITERATIONS) {
-          row[x] = qRgb(0, 0, 0);
-        } else {
-          int r = static_cast<int>(255.0 * iterations / MAX_ITERATIONS);
-          int g = static_cast<int>(140.0 * iterations / MAX_ITERATIONS);
-          int b = static_cast<int>(255.0 * iterations / MAX_ITERATIONS);
-          row[x] = qRgb(r, g, b);
+void MandelbrotThread::run()
+{
+    forever {
+        // Get the rendering parameters
+        mutex.lock();
+        int localWidth = imageWidth;
+        int localHeight = imageHeight;
+        double localCenterX = centerX;
+        double localCenterY = centerY;
+        double localScaleFactor = scaleFactor;
+        int localRowStart = rowStart;
+        int localRowEnd = rowEnd;
+        mutex.unlock();
+        
+        // Create a fragment image for this thread's portion
+        QImage fragmentImage(localWidth, localRowEnd - localRowStart + 1, QImage::Format_RGB32);
+        double aspectRatio = static_cast<double>(localWidth) / localHeight;
+        
+        for (int y = 0; y < fragmentImage.height(); ++y) {
+            if (_abort)
+                break;
+                
+            // Calculate the actual y-coordinate in the complete image
+            int actualY = y + localRowStart;
+                
+            // Calculate the row of pixels
+            QRgb *row = reinterpret_cast<QRgb*>(fragmentImage.scanLine(y));
+            
+            for (int x = 0; x < localWidth; ++x) {
+                // Map pixel coordinates to the complex plane
+                double real = localCenterX + (x - localWidth/2.0) * localScaleFactor / localWidth * aspectRatio;
+                double imag = localCenterY + (actualY - localHeight/2.0) * localScaleFactor / localHeight;
+                std::complex<double> c(real, imag);
+                
+                // Compute the number of iterations
+                int iterations = computeIterations(c);
+                
+                // Convert iterations to color
+                if (iterations == MAX_ITERATIONS) {
+                    row[x] = qRgb(0, 0, 0); // Black for points in the set
+                } else {
+                    // Map iterations to a color - using a simple gradient for this example
+                    int r = static_cast<int>(255.0 * iterations / MAX_ITERATIONS);
+                    int g = static_cast<int>(140.0 * iterations / MAX_ITERATIONS);
+                    int b = static_cast<int>(255.0 * iterations / MAX_ITERATIONS);
+                    row[x] = qRgb(r, g, b);
+                }
+            }
         }
-      }
+        
+        // Notify that this fragment is complete with the image data and position
+        if (!_abort)
+            emit renderedImageFragment(fragmentImage.copy(), 0, localRowStart);
+        
+        // Wait for the next job or exit if aborted
+        mutex.lock();
+        if (!restart && !_abort)
+            condition.wait(&mutex);
+        restart = false;
+        
+        // Check if we need to exit the thread
+        if (_abort) {
+            mutex.unlock();
+            return;
+        }
+        mutex.unlock();
     }
-    if (!_abort)
-      emit renderedImage(localRowStart, localRowEnd);
-
-      RenderThread::mutex.lock();
-    if (!restart && !_abort)
-      condition.wait(&mutex);
-    restart = false;
-
-    if (_abort) {
-      RenderThread::mutex.unlock();
-      return;
-    }
-    return;
-  }
-}
-int RenderThread::computeIterations(const std::complex<double> &c) {
-  std::complex<double> z = 0.0;
-  int iterations = 0;
-  while (std::abs(z) < MAX_LIMIT && iterations < MAX_ITERATIONS) {
-    z = z * z + c;
-    iterations++;
-  }
-  return iterations;
 }
 
-RenderThread::~RenderThread() {
-  RenderThread::mutex.lock();
-  _abort = true;
-  condition.wakeOne();
-  RenderThread::RenderThread::mutex.unlock();
-  wait();
+int MandelbrotThread::computeIterations(const std::complex<double> &c)
+{
+    std::complex<double> z = 0;
+    int iterations = 0;
+    
+    while (std::abs(z) < 2.0 && iterations < MAX_ITERATIONS) {
+        z = z * z + c;
+        iterations++;
+    }
+    
+    return iterations;
 }

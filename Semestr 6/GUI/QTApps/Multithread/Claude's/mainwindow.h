@@ -14,8 +14,8 @@ class MainWindow : public QMainWindow {
 
 private:
     SharedBuffer *m_buffer;
-    QList<QThread*> m_threads;
-    QList<CharacterWorker*> m_workers;
+    std::vector<QThread*> m_threads;
+    std::vector<CharacterWorker*> m_workers;
     QTextEdit *m_bufferDisplay;
     QTextEdit *m_logDisplay;
     QSpinBox *m_generateIntervalSpinBox;
@@ -30,7 +30,6 @@ public:
 private slots:
     void addThread();
     void removeThread();
-    void updateGenerateInterval(int ms);
     void updatePopInterval(int ms);
     void updateBufferDisplay(const QString &buffer);
     void logCharacterAdded(int threadId, QChar c);
