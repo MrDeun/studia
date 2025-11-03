@@ -17,6 +17,17 @@ set(PROJECT_SOURCES
         main_window.cpp
         main_window.h
         bookstore.ui
+        book.h book.cpp
+
+        bookrepository.h bookrepository.cpp
+        personrepository.h personrepository.cpp
+        person.h person.cpp
+        addbookdialog.h addbookdialog.cpp addbookdialog.ui
+        borrowing_repository.h borrowing_repository.cpp
+        addbookdialog.h addbookdialog.cpp addbookdialog.ui
+        addpersondialog.h addpersondialog.cpp addpersondialog.ui
+        returnbookdialog.h returnbookdialog.cpp returnbookdialog.ui
+        borrowbookdialog.h borrowbookdialog.cpp borrowbookdialog.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

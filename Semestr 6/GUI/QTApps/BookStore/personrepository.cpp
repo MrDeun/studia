@@ -3,6 +3,7 @@
 #include <vector>
 #include <qmessagebox.h>
 #include <qsqlerror.h>
+#include <qvariant.h>
 #include <qsqlquery.h>
 
 #define UNREACHABLE false
