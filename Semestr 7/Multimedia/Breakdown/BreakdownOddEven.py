@@ -6,7 +6,7 @@ init_signal = np.random.randint(-5,5,size=size)
 even_signal = np.zeros(size)
 odd_signal = np.zeros(size)
 
-for i in range(size):init_signal
+for i in range(size):
     even_signal[i] = (init_signal[i] + init_signal[size-i-1])/2
     odd_signal[i] = (init_signal[i] - init_signal[size-i-1])/2
 plt.plot(init_signal,color=(0.0,0.0,0.0))
