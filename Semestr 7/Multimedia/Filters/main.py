@@ -3,7 +3,7 @@ import signal_wrapper
 import numpy as np
 import matplotlib.pyplot as plt
 
-point_count = 1024
+point_count = 0x800
 signals = []
 
 
@@ -122,7 +122,7 @@ if __name__ == "__main__":
         plt.grid(True)
 
     plt.subplot(plot_counts, 1, len(signals) + 1)
-    plt.scatter(pure_signal)
+    plt.scatter(range(point_count), pure_signal)
     plt.title("Combined signals")
     plt.grid(True)
 
